@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TemplateAd</string>
+    <string name="facebook_app_id">375801829211818</string>
+    <string name="facebook_client_token">ad2714c8fe2a07596bbf548c811615dd</string>
+</resources>
