@@ -7,7 +7,9 @@ import SplashScreen from 'react-native-splash-screen';
 import {AuthStackComponent} from '../stack/AuthStack';
 import {getTokenUserFromStore} from '@redux';
 import {useSelector} from 'react-redux';
-
+import {createStackNavigator} from '@react-navigation/stack';
+import {SCREEN_ROUTE} from '../route';
+const Stack = createStackNavigator();
 //main stack app
 const NavigationApp = React.forwardRef((props, ref: any) => {
   const dataTheme: {theme: Theme;} = useTheme();
@@ -22,13 +24,23 @@ const NavigationApp = React.forwardRef((props, ref: any) => {
   }, []);
 
   const renderStackApp = () => {
-    if (token) {
-      return <AuthStackComponent />;
-    } else {
-      return (
-        <MainStackComponent />
-      );
-    }
+    return (
+      <Stack.Navigator>
+        {token ? (
+          <Stack.Screen
+            name={SCREEN_ROUTE.AUTH_STACK}
+            component={AuthStackComponent}
+            options={{headerShown: false}}
+          />
+        ) : (
+          <Stack.Screen
+            name={SCREEN_ROUTE.MAIN_STACK}
+            component={MainStackComponent}
+            options={{headerShown: false}}
+          />
+        )}
+      </Stack.Navigator>
+    );
   };
   return (
     <NavigationContainer theme={dataTheme.theme} ref={ref}>

@@ -1,6 +1,7 @@
 export const REDUX_ACTION = {};
 export const APP_SLICE = {
   ACCOUNT_SLICE: 'ACCOUNT_SLICE',
+  BOTTOM_SLICE: 'BOTTOM_SLICE',
 };
 
 export const StorageConstant = {

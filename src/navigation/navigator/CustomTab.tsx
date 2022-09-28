@@ -1,10 +1,13 @@
-import React, {memo} from 'react';
-import {InteractionManager, TouchableWithoutFeedback, View} from 'react-native';
+import React, {memo, useEffect, useRef} from 'react';
+import {Animated, InteractionManager, TouchableWithoutFeedback, View} from 'react-native';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs/lib/typescript/src/types';
 import {styles} from './styles';
 import {DiscoverIcon, MainIcon, MarketIcon, TradeIcon, UserIcon} from '@assets';
 import {SCREEN_ROUTE} from '@navigation';
 import {Spacing, Text, useTheme} from '@theme';
+import {getStatusOfBottomTab} from '@redux';
+import {useSelector} from "react-redux";
+import reactotron from 'reactotron-react-native';
 
 const SourceImage = (props: {label?: string; isFocused: boolean;}) => {
   const {label, isFocused} = props;
@@ -83,12 +86,45 @@ export const CustomTabBar = memo(function CustomTabBar({
 }: BottomTabBarProps) {
   const arrayLable = ['Market', 'Trade', '', 'Discover', 'Me'];
   const {themeColor} = useTheme();
+  const statusOfBottomTab = useSelector(getStatusOfBottomTab)
+  const refHeight = useRef(50);
+  const refAnimated = useRef(new Animated.Value(0));
+
+  useEffect(() => {
+    Animated.timing(refAnimated.current, {
+      toValue: statusOfBottomTab ? 0 : refHeight.current,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  }, [statusOfBottomTab])
+
+  const translateY = refAnimated.current.interpolate({
+    inputRange: [0, refHeight.current],
+    outputRange: [0, refHeight.current],
+    extrapolate: 'clamp',
+  })
+
+  const opacity = translateY.interpolate({
+    inputRange: [0, refHeight.current/2 ,refHeight.current],
+    outputRange: [1, 0.8, 0.5],
+    extrapolate: 'clamp',
+  })
+
   return (
-    <View
+    <Animated.View
       style={[
         styles.containerAbsolute,
         {backgroundColor: themeColor.backgroundColorTab},
+        {
+          transform: [{
+            translateY,
+          }],
+          opacity
+        }
       ]}
+      onLayout={(e) => {
+        refHeight.current = e.nativeEvent.layout.height;
+      }}
     >
       <View style={styles.contentContainer} pointerEvents="box-none">
         {state.routes.map((route, index) => {
@@ -147,6 +183,6 @@ export const CustomTabBar = memo(function CustomTabBar({
           );
         })}
       </View>
-    </View>
+    </Animated.View>
   );
 });

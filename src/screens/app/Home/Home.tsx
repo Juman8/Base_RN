@@ -6,6 +6,7 @@ import {AppchangeLanguage} from '@instances';
 import {ENUM_LANGUAGE} from '@translations';
 import {useTranslation} from 'react-i18next';
 import i18next from 'i18next';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 const data = [{
   name: 1,
   id: 1,
@@ -37,6 +38,7 @@ const Home = () => {
     GlobalService.hideLoading();
   }, []);
   const onSwitchLang = AppchangeLanguage();
+  const insets = useSafeAreaInsets();
 
   return (
     <AppScrollWrapBottomTab isHeightStatus>
