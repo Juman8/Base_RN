@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import React, {memo} from 'react';
 
-import { CustomTabBar } from './CustomTab';
+import {CustomTabBar} from './CustomTab';
 
-import { Home } from '@screens';
-import { SCREEN_ROUTE } from '@navigation';
-export { SCREEN_ROUTE } from '../route';
+import {ROUTER_BOTTOM_TAB} from '@navigation';
+export {SCREEN_ROUTE} from '../route';
+export {TabNavigator};
 
 const Tab = createBottomTabNavigator();
 
@@ -17,13 +17,13 @@ const TabNavigator = memo(function () {
         headerShown: false,
       }}
     >
-      <Tab.Screen name={SCREEN_ROUTE.HOME_PAGE} component={Home} />
-      <Tab.Screen name={SCREEN_ROUTE.TRADE_PAGE} component={Home} />
-      <Tab.Screen name={SCREEN_ROUTE.MAIN_PAGE} component={Home} />
-      <Tab.Screen name={SCREEN_ROUTE.DISCOVER_PAGE} component={Home} />
-      <Tab.Screen name={SCREEN_ROUTE.ACCOUNT_PAGE} component={Home} />
+      {ROUTER_BOTTOM_TAB.map((it, index) => {
+        return (
+          <Tab.Screen name={it.key} component={it.route} key={it.key} />
+        )
+      })}
     </Tab.Navigator>
   );
 });
 
-export { TabNavigator };
+

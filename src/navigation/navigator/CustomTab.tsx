@@ -1,20 +1,19 @@
+import {DiscoverIcon, MainIcon, MarketIcon, TradeIcon, UserIcon} from '@assets';
+import {ROUTER_BOTTOM_TAB} from '@navigation';
+import {BottomTabBarProps} from '@react-navigation/bottom-tabs/lib/typescript/src/types';
+import {getStatusOfBottomTab} from '@redux';
+import {Spacing, Text, useTheme} from '@theme';
 import React, {memo, useEffect, useRef} from 'react';
 import {Animated, InteractionManager, TouchableWithoutFeedback, View} from 'react-native';
-import {BottomTabBarProps} from '@react-navigation/bottom-tabs/lib/typescript/src/types';
-import {styles} from './styles';
-import {DiscoverIcon, MainIcon, MarketIcon, TradeIcon, UserIcon} from '@assets';
-import {SCREEN_ROUTE} from '@navigation';
-import {Spacing, Text, useTheme} from '@theme';
-import {getStatusOfBottomTab} from '@redux';
 import {useSelector} from "react-redux";
-import reactotron from 'reactotron-react-native';
+import {styles} from './styles';
 
 const SourceImage = (props: {label?: string; isFocused: boolean;}) => {
   const {label, isFocused} = props;
   const {themeColor} = useTheme();
 
   switch (label) {
-    case SCREEN_ROUTE.HOME_PAGE:
+    case ROUTER_BOTTOM_TAB[0].key:
       return (
         <MarketIcon
           fill={
@@ -26,7 +25,7 @@ const SourceImage = (props: {label?: string; isFocused: boolean;}) => {
           height={Spacing.width25}
         />
       );
-    case SCREEN_ROUTE.TRADE_PAGE:
+    case ROUTER_BOTTOM_TAB[1].key:
       return (
         <TradeIcon
           fill={
@@ -38,7 +37,7 @@ const SourceImage = (props: {label?: string; isFocused: boolean;}) => {
           height={Spacing.width25}
         />
       );
-    case SCREEN_ROUTE.MAIN_PAGE:
+    case ROUTER_BOTTOM_TAB[2].key:
       return (
         <MainIcon
           fill={
@@ -50,7 +49,7 @@ const SourceImage = (props: {label?: string; isFocused: boolean;}) => {
           height={Spacing.width50}
         />
       );
-    case SCREEN_ROUTE.DISCOVER_PAGE:
+    case ROUTER_BOTTOM_TAB[3].key:
       return (
         <DiscoverIcon
           fill={
@@ -62,7 +61,7 @@ const SourceImage = (props: {label?: string; isFocused: boolean;}) => {
           height={Spacing.width23}
         />
       );
-    case SCREEN_ROUTE.ACCOUNT_PAGE:
+    case ROUTER_BOTTOM_TAB[4].key:
       return (
         <UserIcon
           fill={

@@ -1,9 +1,8 @@
 import {getStatusOfBottomTab, setStatus} from "@redux";
 import React, {useRef} from "react";
-import {Animated, FlatList, NativeScrollEvent, NativeSyntheticEvent, StyleProp, ViewStyle} from "react-native";
+import {Animated, FlatList, StyleProp, ViewStyle} from "react-native";
 import {getStatusBarHeight} from "react-native-status-bar-height";
 import {useDispatch, useSelector} from "react-redux";
-import reactotron from "reactotron-react-native";
 interface AppScrollWrapBottomTabProps {
   children: any;
   style?: StyleProp<ViewStyle>;
@@ -41,7 +40,7 @@ export const AppScrollWrapBottomTab = (props: AppScrollWrapBottomTabProps) => {
         }
         refDebounce.current = setTimeout(() => {
           onScroll(y)
-        }, 300)
+        }, 80)
       }}
       renderItem={() => {
         return props.children;
