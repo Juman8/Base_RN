@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {persistor, store} from '@redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {NavigationApp, NavigationUtils} from '@navigation';
 import {initI18n} from './src/translations';
 import {ThemeProvider} from '@theme';
 import {Platform, StyleSheet} from 'react-native';
-import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import FlashMessage from 'react-native-flash-message';
 import {GlobalService, GlobalUI} from '@components';
 import {Provider} from 'react-redux';
@@ -14,10 +13,22 @@ import {
   SafeAreaProvider,
   SafeAreaView,
 } from 'react-native-safe-area-context';
+import codePush from "react-native-code-push";
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 initI18n();
 
+const options = {
+  // updateDialog: true,
+  installMode: codePush.InstallMode.IMMEDIATE,
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME
+}; 
+
 function App() {
+  useEffect(() => {
+    codePush.sync(options);
+    alert("THao XẤUC Trai"); 
+  }, [])
   return (
     <Provider store={store}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
@@ -54,4 +65,4 @@ const styleApp = StyleSheet.create({
   },
 });
 
-export default App;
+export default codePush(options)(App);

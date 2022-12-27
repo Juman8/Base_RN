@@ -1,7 +1,6 @@
 import {RFPercentage} from 'react-native-responsive-fontsize';
 import {Device} from './device';
 import {Dimensions, StyleSheet} from 'react-native';
-import {isIphoneX} from 'react-native-iphone-x-helper';
 import {isIPhoneXMax} from 'react-native-status-bar-height';
 
 const BASE_FONT_SIZE = 2;
@@ -190,7 +189,6 @@ export const FontWithBold = StyleSheet.create({
 });
 
 export const Spacing = {
-  BottomBar: 50 + (Device.isIos ? (isIphoneX() || isIPhoneXMax() ? 34 : 0) : 0),
   width1: sizeWidth(1),
   width2: sizeWidth(2),
   width3: sizeWidth(3),

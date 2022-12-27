@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {MainStackComponent} from '../stack/MainStack';
 import {Theme, useTheme} from '@theme';
-import SplashScreen from 'react-native-splash-screen';
+import RNBootSplash from "react-native-bootsplash";
 import {AuthStackComponent} from '../stack/AuthStack';
 import {getTokenUserFromStore} from '@redux';
 import {useSelector} from 'react-redux';
@@ -12,16 +12,13 @@ import {SCREEN_ROUTE} from '../route';
 const Stack = createStackNavigator();
 //main stack app
 const NavigationApp = React.forwardRef((props, ref: any) => {
-  const dataTheme: {theme: Theme;} = useTheme();
+  const dataTheme: {theme: Theme;} = useTheme() as any;
   const token = useSelector(getTokenUserFromStore);
 
   useEffect(() => {
-    SplashScreen.hide();
+    RNBootSplash.hide({fade: true, duration: 300});
   }, []);
 
-  useEffect(() => {
-    SplashScreen.hide();
-  }, []);
 
   const renderStackApp = () => {
     return (

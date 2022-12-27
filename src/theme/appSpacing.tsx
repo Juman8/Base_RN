@@ -1,7 +1,4 @@
-import {DEVICE} from "@utils";
 import {Dimensions} from "react-native";
-import {isIphoneX} from 'react-native-iphone-x-helper';
-import {isIPhoneXMax} from 'react-native-status-bar-height';
 const {width, height} = Dimensions.get('window');
 const DW = 375;
 const DH = 812;
@@ -11,7 +8,6 @@ const sizeWidth = (number: number) => number * (width < height ? vw : vh);
 const sizeHeight = (number: number) => number * (width > height ? vw : vh);
 
 export const Spacing = {
-  BottomBar: 50 + (DEVICE.isIos ? (isIphoneX() || isIPhoneXMax() ? 34 : 0) : 0),
   width1: sizeWidth(1),
   width2: sizeWidth(2),
   width3: sizeWidth(3),

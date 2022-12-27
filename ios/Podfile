@@ -44,4 +44,5 @@ target 'TemplateAd' do
   pod 'FirebaseCoreInternal', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
+  pod 'CodePush', :path => '../node_modules/react-native-code-push'
 end

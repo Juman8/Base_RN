@@ -12,6 +12,7 @@ import com.facebook.soloader.SoLoader;
 import com.myapp.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import com.microsoft.codepush.react.CodePush;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -28,12 +29,17 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+          new CodePush("qhkiv9WbY9MFYOd3Lu4zvFn5m4tSmSTk743ws", getApplicationContext(), false);
           return packages;
         }
 
         @Override
         protected String getJSMainModuleName() {
           return "index";
+        }
+        @Override
+        protected String getJSBundleFile() {
+            return CodePush.getJSBundleFile();
         }
       };
 
@@ -52,6 +58,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    // CodePush.setReactInstanceHolder(mReactNativeHost);
     // If you opted-in for the New Architecture, we enable the TurboModule system
     ReactFeatureFlags.useTurboModules = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
     SoLoader.init(this, /* native exopackage */ false);

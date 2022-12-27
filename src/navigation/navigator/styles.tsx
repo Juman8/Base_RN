@@ -1,6 +1,5 @@
-import { StyleSheet } from 'react-native';
-import { getBottomSpace, isIphoneX } from 'react-native-iphone-x-helper';
-import { isTablet } from 'react-native-device-info';
+import {StyleSheet} from 'react-native';
+import {isTablet} from 'react-native-device-info';
 
 export const styles = StyleSheet.create({
   containerAbsolute: {
@@ -9,7 +8,7 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     alignItems: 'center',
-    paddingBottom: 15 + getBottomSpace(),
+    paddingBottom: 20,
   },
   contentContainer: {
     flex: 1,
@@ -28,7 +27,7 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     width: '100%',
-    height: 80 + (isIphoneX() || isTablet() ? 20 : 0),
+    height: 80 + ( isTablet() ? 20 : 0),
   },
   viewImageContainer: {
     width: '100%',

@@ -1,9 +1,9 @@
-import React, { memo } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { SCREEN_ROUTE } from '../route';
-import { TabNavigator } from '../navigator/TabNavigator';
+import React, {memo} from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
+import {SCREEN_ROUTE} from '../route';
+import {TabNavigator} from '../navigator/TabNavigator';
 
-const MainStack = createStackNavigator();
+const MainStack = createStackNavigator<SCREEN_ROUTE>();
 
 const MainStackComponent = memo(() => {
   return (
@@ -21,4 +21,4 @@ const MainStackComponent = memo(() => {
   );
 });
 
-export { MainStackComponent };
+export {MainStackComponent};

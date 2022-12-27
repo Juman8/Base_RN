@@ -37,6 +37,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8E9593BB245440369A7CB825 /* PingFang-SC-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB865F1713794942923A8FC5 /* PingFang-SC-Medium.ttf */; };
 		A20B97C720944C4B92E7CCCB /* Barlow-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F30EF50720B48CBB320DA9A /* Barlow-ExtraLightItalic.ttf */; };
+		A49979BE28E6CD8D00FF9C88 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A49979BD28E6CD8D00FF9C88 /* Config.xcconfig */; };
 		A8241B61A18B468391318E5B /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14931F5B46BF43D1B6CC428D /* Poppins-Bold.ttf */; };
 		B6C70E5E6CB147AFAEB5B86E /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE326FA4AE4845EA91A9C864 /* Poppins-Medium.ttf */; };
 		C713C83A78B44026AA36FE99 /* Barlow-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3B23D048EAF45CEBDC26EA3 /* Barlow-SemiBold.ttf */; };
@@ -86,6 +87,7 @@
 		8DB103E450A74EE3A1A78B61 /* Barlow-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-BlackItalic.ttf"; path = "../src/assets/fonts/Barlow-BlackItalic.ttf"; sourceTree = "<group>"; };
 		9F30EF50720B48CBB320DA9A /* Barlow-ExtraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-ExtraLightItalic.ttf"; path = "../src/assets/fonts/Barlow-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		9F91AE06637349C48CA8693E /* Barlow-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-Bold.ttf"; path = "../src/assets/fonts/Barlow-Bold.ttf"; sourceTree = "<group>"; };
+		A49979BD28E6CD8D00FF9C88 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		AA0DDB920BA44CC59C242398 /* Barlow-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-ThinItalic.ttf"; path = "../src/assets/fonts/Barlow-ThinItalic.ttf"; sourceTree = "<group>"; };
 		CC1871EA3A6C4E0FAAE73E96 /* Barlow-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-ExtraBoldItalic.ttf"; path = "../src/assets/fonts/Barlow-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		CDA30CE1FE0D476083A295D9 /* Barlow-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-MediumItalic.ttf"; path = "../src/assets/fonts/Barlow-MediumItalic.ttf"; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				A49979BD28E6CD8D00FF9C88 /* Config.xcconfig */,
 				13B07FAE1A68108700A75B9A /* TemplateAd */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* TemplateAdTests */,
@@ -338,6 +341,7 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				F3573AE2A42444F3A9C02428 /* Barlow-Black.ttf in Resources */,
+				A49979BE28E6CD8D00FF9C88 /* Config.xcconfig in Resources */,
 				4F98EF114F7E4BD7872D5F23 /* Barlow-BlackItalic.ttf in Resources */,
 				31A3BDF8B8774772AD3BFF08 /* Barlow-Bold.ttf in Resources */,
 				6803CD3D5B0840729DA71382 /* Barlow-BoldItalic.ttf in Resources */,
@@ -619,9 +623,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = T5C8JTGRDX;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = TemplateAd/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -648,9 +653,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = T5C8JTGRDX;
 				INFOPLIST_FILE = TemplateAd/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

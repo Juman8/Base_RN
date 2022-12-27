@@ -1,16 +1,28 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {Box, useTheme} from '@theme';
-import {AppButton, AppInput, AppScrollWrapBottomTab, GlobalService, LargeList, VirtualList} from '@components';
+import {
+  AppButton,
+  AppInput,
+  AppScrollWrapBottomTab,
+  GlobalService,
+  LargeList,
+  VirtualList,
+} from '@components';
 import {AppchangeLanguage} from '@instances';
 import {ENUM_LANGUAGE} from '@translations';
 import {useTranslation} from 'react-i18next';
 import i18next from 'i18next';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-const data = [{
-  name: 1,
-  id: 1,
-},
+import {StackScreenProps} from '@react-navigation/stack';
+import {RootStackParamList} from '@navigation';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+
+const data = [
+  {
+    name: 1,
+    id: 1,
+  },
   {
     name: 1,
     id: 2,
@@ -26,9 +38,19 @@ const data = [{
   {
     name: 1,
     id: 5,
-  }]
+  },
+];
 
-const Home = () => {
+type Props = StackScreenProps<RootStackParamList, 'NewsDetailScreen'>;
+
+const Home = (props: Props) => {
+  /* use navigation: props.navigation
+    hoặc khai báo const route = useRoute<RouteProp<RootStackParamList, SCREEN_ROUTE.HOME>>();
+    use route: props.route
+    hoặc khai báo const navigation = useNavigation<NavigationProp<RootStackParamList, SCREEN_ROUTE.HOME>>();
+    không sử dụng các function được khai báo trong file NavigationUtils.tsx khi đang ở trong các component có thể truy cập navigation prop. 
+    Các function đấy được dùng trong trường hợp 'navigate without prop navigation'
+  */
   const {updateTheme} = useTheme();
   const {t} = useTranslation();
   const [isDark, setDark] = useState(true);
@@ -71,14 +93,16 @@ const Home = () => {
                   }, 1000);
                 }}
               />
-              <AppInput value={value} onChangeText={setValue} placeholder="OKOKOKO"
-                label={"OKOKOK"}
+              <AppInput
+                value={value}
+                onChangeText={setValue}
+                placeholder="OKOKOKO"
+                label={'OKOKOK'}
               />
             </>
-          )
+          );
         }}
       />
-
     </AppScrollWrapBottomTab>
   );
 };

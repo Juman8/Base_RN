@@ -5,7 +5,6 @@ import {FontSize, Spacing, useTheme} from '@theme';
 import {DEVICE} from '@utils';
 import React from 'react';
 import {Keyboard, StyleProp, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle} from 'react-native';
-import {ifIphoneX} from 'react-native-iphone-x-helper';
 
 export interface IAppHeader {
   title?: string;
@@ -106,14 +105,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: Spacing.width16,
     paddingVertical: Spacing.height20,
-    ...ifIphoneX(
-      {
-        paddingTop: Spacing.width50,
-      },
-      {
-        paddingTop: DEVICE.isIos ? Spacing.width35 : undefined,
-      },
-    ),
   },
   title: {
     fontSize: FontSize.Font18,
