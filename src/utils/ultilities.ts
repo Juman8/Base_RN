@@ -1,5 +1,8 @@
 import {t} from 'i18next';
 import {showMessage} from 'react-native-flash-message';
+import {MMKV} from 'react-native-mmkv';
+
+export const AsyncStorage = new MMKV();
 
 export const showAlertMessage = (
   message: string,

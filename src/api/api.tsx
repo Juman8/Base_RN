@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import i18next from 'i18next';
 import {Platform} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, {AxiosResponse, CancelTokenSource} from 'axios';
-import {LogApp} from '@utils';
+import {AsyncStorage, LogApp} from '@utils';
 import _ from 'lodash';
 
 import {ApiConfigs} from './api.config';
@@ -31,8 +30,8 @@ class AxiosClass {
     this.api.interceptors.request.use(this.interceptorRequests);
   }
 
-  interceptorRequests = async (config: any): Promise<any> => {
-    const token = await AsyncStorage.getItem('APP_TOKEN');
+  interceptorRequests = (config: any): Promise<any> => {
+    const token = AsyncStorage.getString('APP_TOKEN');
     if (token) {
       config.headers.Authorization = token;
     }

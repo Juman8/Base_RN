@@ -1,6 +1,5 @@
 import React, {useCallback, useMemo} from 'react';
 import {lightTheme, darkTheme} from './themeMode';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   ThemeProvider as ReStyleThemeProvider,
   createText,
@@ -13,7 +12,7 @@ import {StorageConstant} from '@types';
 import {StatusBar} from 'react-native';
 import {Spacing} from './appSpacing';
 import {FontSize} from './fontSize';
-import {LogApp} from '@utils';
+import {AsyncStorage, LogApp} from '@utils';
 const theme = createTheme({
   dark: false,
   colors: {
@@ -101,19 +100,18 @@ export const ThemeProvider = ({children}: any) => {
     (isLightTheme?: boolean) => {
       setTheme(isLightTheme ? Light : Dark);
       if (isLightTheme) {
-        AsyncStorage.setItem(StorageConstant.THEME, 'THEME_SET_SUCCESS');
+        AsyncStorage.set(StorageConstant.THEME, 'THEME_SET_SUCCESS');
         StatusBar.setBarStyle('dark-content');
       } else {
         StatusBar.setBarStyle('light-content');
-        AsyncStorage.removeItem(StorageConstant.THEME);
+        AsyncStorage.delete(StorageConstant.THEME);
       }
     },
     [Dark, Light],
   );
 
   const onChangeTheme = React.useCallback(async () => {
-    const oldSaveValue =
-      (await AsyncStorage.getItem(StorageConstant.THEME)) || '';
+    const oldSaveValue = AsyncStorage.getString(StorageConstant.THEME);
     onUpDateTheme(oldSaveValue !== '');
   }, [onUpDateTheme]);
 
