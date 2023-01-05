@@ -1,17 +1,25 @@
 import {AppButton, AppInput, AppText} from '@components';
 import {Box} from '@theme';
+import {LogApp} from '@utils';
 import {useFormik} from 'formik';
 import React from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export const LoginScreen = () => {
 
+  const handleonSubmit = (values: {
+    email: string;
+    password: string;
+  } ) => {
+    LogApp({values})
+  }
+
   const {values, errors, touched, setFieldValue} = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
-    onSubmit: (values) => { },
+    onSubmit: handleonSubmit,
   });
   return (
     <KeyboardAwareScrollView

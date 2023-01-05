@@ -10,7 +10,7 @@ export interface Loading extends ViewProps {
 }
 
 export const Loading: React.FC<Loading> = props => {
-  let {
+  const {
     isLoading,
     color = Colors.blue,
     mini = false,

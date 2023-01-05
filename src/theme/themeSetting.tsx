@@ -13,6 +13,7 @@ import {StorageConstant} from '@types';
 import {StatusBar} from 'react-native';
 import {Spacing} from './appSpacing';
 import {FontSize} from './fontSize';
+import {LogApp} from '@utils';
 const theme = createTheme({
   dark: false,
   colors: {
@@ -76,7 +77,9 @@ export type Theme = typeof theme;
 export const Box = createBox<Theme>();
 export const Text = createText<Theme>();
 export const ThemeAppContext = React.createContext({
-  updateTheme: (isLight: boolean) => { },
+  updateTheme: (isLight: boolean) => {
+    LogApp("CHANGE_THEME", isLight + "");
+  },
 });
 
 export const ThemeProvider = ({children}: any) => {

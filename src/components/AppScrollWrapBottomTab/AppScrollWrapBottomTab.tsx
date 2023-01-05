@@ -4,7 +4,7 @@ import {Animated, FlatList, StyleProp, ViewStyle} from "react-native";
 import {getStatusBarHeight} from "react-native-status-bar-height";
 import {useDispatch, useSelector} from "react-redux";
 interface AppScrollWrapBottomTabProps {
-  children: any;
+  children: JSX.Element;
   style?: StyleProp<ViewStyle>;
   isHeightStatus?: boolean;
 }

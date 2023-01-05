@@ -10,9 +10,15 @@ export interface typeOfColors {
   colorDisable: string;
   primary: string;
   placeHoderColor: string;
+  red: string;
 }
 
-export const darkTheme: any = {
+type themeType = {
+  dark: boolean;
+  colors: typeOfColors;
+}
+
+export const darkTheme: themeType = {
   // default
   dark: true,
   colors: {
@@ -31,7 +37,7 @@ export const darkTheme: any = {
   },
 };
 
-export const lightTheme: any = {
+export const lightTheme: themeType = {
   dark: false,
   colors: {
     background: '#fff',

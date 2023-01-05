@@ -1,7 +1,6 @@
 import {RFPercentage} from 'react-native-responsive-fontsize';
 import {Device} from './device';
 import {Dimensions, StyleSheet} from 'react-native';
-import {isIPhoneXMax} from 'react-native-status-bar-height';
 
 const BASE_FONT_SIZE = 2;
 function ReduceTextFor18_9(number: number) {

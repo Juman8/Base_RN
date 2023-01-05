@@ -1,9 +1,8 @@
+import React from 'react';
 import {BackIcon} from '@assets';
 import {AppText} from '@components';
 import {goBack} from '@navigation';
 import {FontSize, Spacing, useTheme} from '@theme';
-import {DEVICE} from '@utils';
-import React from 'react';
 import {Keyboard, StyleProp, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle} from 'react-native';
 
 export interface IAppHeader {

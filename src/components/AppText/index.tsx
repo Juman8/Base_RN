@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 import {ResponsiveValue, SpacingProps, TypographyProps} from '@shopify/restyle';
 import {FontWithBold_Barlow, Text, Theme, useTheme} from '@theme';
 import React from 'react';
@@ -5,7 +6,7 @@ import {StyleProp, StyleSheet, TextProps, TextStyle} from 'react-native';
 import TextTicker from 'react-native-text-ticker';
 interface AppTextProps {
   style?: StyleProp<TextStyle>;
-  children: any;
+  children: JSX.Element | string | undefined;
   variant?: ResponsiveValue<
     'body' | 'button' | 'header' | 'text' | 'title1' | 'title2' | 'title3',
     {

@@ -7,7 +7,6 @@
     "ios": "react-native run-ios --simulator='iPhone 8'",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "i": "--ignore-engines",
     "link_assets": "npx react-native-asset",
     "rename": "npx react-native-rename ",
@@ -20,7 +19,10 @@
     "codePushStagging": "appcenter codepush release-react -a cao.tran-adamosoft.com/TemplateAd-1 -d Staging",
     "codePushRelease": "appcenter codepush release-react -a cao.tran-adamosoft.com/TemplateAd-1 -d Production",
     "codePushReleaseAndroid": "appcenter codepush release-react -a cao.tran-adamosoft.com/TemplateAd -d Production",
-    "codePushStagingAndroid": "appcenter codepush release-react -a cao.tran-adamosoft.com/TemplateAd -d Staging"
+    "codePushStagingAndroid": "appcenter codepush release-react -a cao.tran-adamosoft.com/TemplateAd -d Staging",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
+    "preci": "rm -fr node_modules",
+    "ci": "yarn install --frozen-lockfile"
   },
   "dependencies": {
     "@invertase/react-native-apple-authentication": "^2.2.2",
@@ -104,6 +106,13 @@
       "jsx",
       "json",
       "node"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json}": [
+      "prettier src --write",
+      "eslint src --fix",
+      "git add"
     ]
   }
 }

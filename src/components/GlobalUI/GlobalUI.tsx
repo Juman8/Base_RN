@@ -1,15 +1,23 @@
-// import {ModalJobSuccess} from '@screens';
-import React, {useImperativeHandle, useState, useRef} from 'react';
+import React, {useImperativeHandle, useState} from 'react';
 import {Loading} from './Loading';
 import Modal from 'react-native-modal';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {AppText} from '../AppText';
 import {Box, Colors, deviceWidth, Spacing} from '@theme';
 import {AppButton} from '../AppButton';
+import {t} from 'i18next';
+
+type optionsType = {
+  isAlert?: boolean;
+  title?: string;
+  message?: string;
+  onPress?: () => void;
+
+}
 
 export const GlobalUI = React.forwardRef((props, ref) => {
   const [isLoading, setLoading] = useState(false);
-  const [options, setOptions] = useState<any>({isAlert: false});
+  const [options, setOptions] = useState<optionsType>({isAlert: false});
   const {isAlert, title, message, onPress} = options;
 
   useImperativeHandle(
@@ -52,11 +60,11 @@ export const GlobalUI = React.forwardRef((props, ref) => {
       <Modal isVisible={true} style={styles.styleMargin}>
         <TouchableOpacity style={styles.btn} activeOpacity={1}>
           <TouchableOpacity style={styles.container} activeOpacity={1}>
-            <AppText style={styles.title}>{title || 'Notification'}</AppText>
+            <AppText style={styles.title}>{title || t('common.btnNotification')}</AppText>
             <AppText style={styles.message}>{message}</AppText>
             <Box flexDirection="row" justifyContent="space-between">
               <AppButton
-                label={onPress ? 'Cancel' : 'Confirm'}
+                label={onPress ? t('common.btnCancel') : t('common.btnConfirm')}
                 style={[
                   styles.btnCancel,
                   !!onPress && {backgroundColor: Colors.gray},
@@ -69,7 +77,7 @@ export const GlobalUI = React.forwardRef((props, ref) => {
               />
               {!!onPress && (
                 <AppButton
-                  label={'Confirm'}
+                  label={t('common.btnConfirm')}
                   style={styles.btn2}
                   onPress={() => {
                     onPress?.();

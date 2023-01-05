@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {BORDER_RADIUS, Box, Colors, Theme, useTheme} from '@theme';
+import {Box, Colors, Theme, useTheme} from '@theme';
 import {
   KeyboardTypeOptions,
   Pressable,
@@ -10,6 +10,7 @@ import {
 import {styles} from './styles';
 import {AppText} from '../AppText';
 import {SpacingProps, TypographyProps} from '@shopify/restyle';
+
 import {Eye, EyeActive} from '@assets';
 
 export interface appInputProps extends TextInputProps {

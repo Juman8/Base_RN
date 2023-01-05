@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import i18next from 'i18next';
 import {Platform} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -73,7 +74,7 @@ class AxiosClass {
     params?: any,
   ): Promise<T> {
     LogApp('GET ------->>', url);
-    let headerCheck = headers ? headers : {};
+    const headerCheck = headers ? headers : {};
     const newHeader: any = {
       headers: {
         _id: this.incrementRequestId,
@@ -109,7 +110,7 @@ class AxiosClass {
   }
 
   postNormal<T>(url: string, body: any, header: any = {}): Promise<T> {
-    let newBody = body ? {...body} : {};
+    const newBody = body ? {...body} : {};
     newBody.lang = i18next.language;
     LogApp('POSTNORMAL ------->>', url, newBody);
     return this.api.post(url, newBody, {
@@ -141,7 +142,7 @@ class AxiosClass {
 
   postForm<T>(url: string, body: FormData): Promise<T> {
     LogApp('POSTFORM ------->>', url, body);
-    let newBody = body ? _.clone(body) : new FormData();
+    const newBody = body ? _.clone(body) : new FormData();
     if (newBody) {
       newBody.append('lang', i18next.language);
     }

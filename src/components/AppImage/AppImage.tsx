@@ -1,12 +1,12 @@
 import {NoImage} from '@assets';
 import {Box, useTheme} from '@theme';
 import React, {useEffect, useState} from 'react';
-import {ImageStyle, StyleProp, ActivityIndicator} from 'react-native';
-import FastImage, {ResizeMode, Source} from 'react-native-fast-image';
+import {StyleProp, ActivityIndicator} from 'react-native';
+import FastImage, {ImageStyle, ResizeMode, Source} from 'react-native-fast-image';
 
 interface propsImage {
   uri: string;
-  style?: StyleProp<ImageStyle> | any;
+  style?: StyleProp<ImageStyle>;
   resizeMode?: ResizeMode;
   defaultSource?: Source;
   imgSource?: Source;

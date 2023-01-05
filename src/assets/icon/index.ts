@@ -2,8 +2,6 @@ export * from './icon.type';
 export * from './userIcon';
 export * from './settingsIcon';
 export * from './searchIcon';
-export * from './downIcon3D';
-export * from './flash3D';
 
 import BackIcon from './svg/backLeft.svg';
 

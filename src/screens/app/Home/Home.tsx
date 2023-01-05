@@ -1,22 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet} from 'react-native';
-import {Box, useTheme} from '@theme';
 import {
   AppButton,
   AppInput,
   AppScrollWrapBottomTab,
-  GlobalService,
-  LargeList,
-  VirtualList,
+  GlobalService, VirtualList
 } from '@components';
 import {AppchangeLanguage} from '@instances';
+import {useTheme} from '@theme';
 import {ENUM_LANGUAGE} from '@translations';
-import {useTranslation} from 'react-i18next';
 import i18next from 'i18next';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {StackScreenProps} from '@react-navigation/stack';
-import {RootStackParamList} from '@navigation';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
+import {StyleSheet} from 'react-native';
 
 const data = [
   {
@@ -41,9 +35,9 @@ const data = [
   },
 ];
 
-type Props = StackScreenProps<RootStackParamList, 'NewsDetailScreen'>;
+// type Props = StackScreenProps<RootStackParamList, 'NewsDetailScreen'>;
 
-const Home = (props: Props) => {
+const Home = () => {
   /* use navigation: props.navigation
     hoặc khai báo const route = useRoute<RouteProp<RootStackParamList, SCREEN_ROUTE.HOME>>();
     use route: props.route
@@ -60,7 +54,7 @@ const Home = (props: Props) => {
     GlobalService.hideLoading();
   }, []);
   const onSwitchLang = AppchangeLanguage();
-  const insets = useSafeAreaInsets();
+  // const insets = useSafeAreaInsets();
 
   return (
     <AppScrollWrapBottomTab isHeightStatus>

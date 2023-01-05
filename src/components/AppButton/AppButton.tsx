@@ -28,7 +28,12 @@ export interface ButtonProps extends TouchableOpacityProps {
 
 }
 
-const WrapContent = ({isWrap, children}: any) => {
+interface WrapContentProps {
+  isWrap?: boolean;
+  children: JSX.Element[] | JSX.Element;
+}
+
+const WrapContent = ({isWrap, children}: WrapContentProps) => {
   if (isWrap) {
     return (
       <Box flexWrap="wrap" flexDirection="row">
@@ -42,7 +47,7 @@ const WrapContent = ({isWrap, children}: any) => {
 export function AppButton(props: ButtonProps) {
   const {
     label,
-    onPress = () => { },
+    onPress = () => {},
     style,
     Icon,
     labelStyle,

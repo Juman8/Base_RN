@@ -9,7 +9,6 @@ interface FlatListHorizontalProps {
   renderItem: ListRenderItem<any> | null | undefined;
   label?: string;
   isViewMore?: boolean;
-  style?: any;
   onPressViewMore?: () => void;
 }
 
