@@ -3,7 +3,7 @@ jobs:
   build-and-test:
     macos:
       xcode: "10.2.0"
-    working_directory: /Users/distiller/project
+    working_directory: /Base_RN
     environment:
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: test
@@ -22,7 +22,7 @@ jobs:
   adhoc:
     macos:
       xcode: "10.2.0"
-    working_directory: /Users/distiller/project
+    working_directory: /Base_RN
     environment:
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: adhoc
@@ -39,7 +39,7 @@ jobs:
   beta:
     macos:
       xcode: "10.2.0"
-    working_directory: /Users/distiller/project
+    working_directory: /Base_RN
     environment:
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: beta
