@@ -27,7 +27,6 @@ const options = {
 function App() {
   useEffect(() => {
     codePush.sync(options);
-    alert("THao XẤUC Trai"); 
   }, [])
   return (
     <Provider store={store}>

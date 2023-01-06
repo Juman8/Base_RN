@@ -5,13 +5,13 @@ import thunk from 'redux-thunk';
 import {AsyncStorage} from '@utils';
 
 const newAsyncStorage = {
-  getItem: (key: string) => {
-    AsyncStorage.getString(key)
+  getItem: async (key: string) => {
+    return await AsyncStorage.getString(key)
   },
-  setItem: (key: string, value: string | number | boolean | Uint8Array) => {
+  setItem: async (key: string, value: string | number | boolean | Uint8Array) => {
     AsyncStorage.set(key, value)
   },
-  removeItem: (key: string) => {
+  removeItem: async (key: string) => {
     AsyncStorage.delete(key)
   }
 }

@@ -112,7 +112,7 @@ export const ThemeProvider = ({children}: any) => {
 
   const onChangeTheme = React.useCallback(async () => {
     const oldSaveValue = AsyncStorage.getString(StorageConstant.THEME);
-    onUpDateTheme(oldSaveValue !== '');
+    onUpDateTheme(!!oldSaveValue);
   }, [onUpDateTheme]);
 
   React.useEffect(() => {
