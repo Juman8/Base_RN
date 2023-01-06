@@ -1,7 +1,7 @@
 version: 2.1 
 jobs:   
  build:     
-  working_directory: ~/repo     
+  working_directory: ~/master     
   docker:       
     - image: circleci/node:16.16.0
   steps:       
