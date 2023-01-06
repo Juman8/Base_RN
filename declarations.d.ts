@@ -3,4 +3,4 @@ declare module '*.svg' {
   const content: React.StatelessComponent<SvgProps>;
   export default content;
 }
-// declare module 'react-native-video';
+declare module 'react-native-flash-message';
