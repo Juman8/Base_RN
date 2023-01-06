@@ -3,7 +3,7 @@ jobs:
   node:
     working_directory: ~/Base_RN
     docker:
-      - image: cimg/node:12.16
+      - image: cimg/node:16.16.0
 
     steps:
       - checkout
@@ -137,7 +137,6 @@ jobs:
             mkdir -p test-results/fastlane
             bundle exec fastlane test
             mv fastlane/report.xml test-results/fastlane
-
       - store_test_results:
           path: test-results
 
@@ -154,4 +153,3 @@ workflows:
       - macos-build-and-test:
           requires:
             - node
-            
