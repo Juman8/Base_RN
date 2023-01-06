@@ -1,21 +1,41 @@
-version: 2.1 
-jobs:   
- build:     
-  working_directory: ~/master     
-  docker:       
-    - image: circleci/node:16.16.0
-  steps:       
-    - checkout       
-    - run:           
-      name: Update NPM           
-      command: "sudo npm install -g npm@5"       
-   - restore_cache:           
-      key: dependency-cache-{{ checksum "package-lock.json" }}                          - run:
-   name: Install Dependencies           
-   command: npm install       
-- save_cache:           
-   key: dependency-cache-{{ checksum "package-lock.json" }}                      paths:
-- ./node_modules       
-- run:           
-name: Run tests           
-command: npm run test
+version: 2.1
+jobs:
+  build-and-test:
+    macos:
+      xcode: 13.4.1
+    environment:
+      FL_OUTPUT_DIR: output
+
+    steps:
+      - checkout
+      - run:
+          name: Install CocoaPods
+          command: pod install --verbose
+
+      - run:
+          name: Build and run tests
+          command: fastlane scan
+          environment:
+            SCAN_DEVICE: iPhone 8
+            SCAN_SCHEME: WebTests
+
+      - store_test_results:
+          path: output/scan
+      - store_artifacts:
+          path: output
+
+  deploy-snapshot:
+    docker:
+      - image: cimg/deploy:2022.08
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    steps:
+      - checkout
+      - run: echo "Do the things"
+
+workflows:
+  build-test-lint:
+    jobs:
+      - deploy-snapshot
+      - build-and-test
