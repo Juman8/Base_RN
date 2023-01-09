@@ -48,7 +48,7 @@ jobs:
   macos-build-and-test:
     working_directory: ~/Base_RN
     macos:
-      xcode: 11.3.0
+      xcode: 14.1
     environment:
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: test
