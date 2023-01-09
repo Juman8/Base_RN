@@ -113,7 +113,6 @@ jobs:
     working_directory: ~/Base_RN/android
     docker:
       - image: circleci/android:api-29-node
-      - image: circleci/ruby:3.0.0
     steps:
       - checkout:
           path: ~/Base_RN
