@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/Base_RN
     docker:
       - image: cimg/node:16.16.0
-      - image: cimg/ruby:3.0.0
+      - image: jruby:9.3
 
     steps:
       - checkout
