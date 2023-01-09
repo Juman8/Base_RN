@@ -1,4 +1,8 @@
 version: 2.1
+orbs:
+  ruby: circleci/ruby@3.3.0
+  node: circleci/node@16.16.0
+
 jobs:
   node:
     working_directory: ~/Base_RN
