@@ -9,7 +9,7 @@ interface AppScrollWrapBottomTabProps {
   isHeightStatus?: boolean;
 }
 
-const NewFlatlist = Animated.createAnimatedComponent(FlatList);
+const NewFlatList = Animated.createAnimatedComponent(FlatList);
 
 export const AppScrollWrapBottomTab = (props: AppScrollWrapBottomTabProps) => {
   const scrollYOld = useRef(0);
@@ -27,7 +27,7 @@ export const AppScrollWrapBottomTab = (props: AppScrollWrapBottomTabProps) => {
   }
 
   return (
-    <NewFlatlist 
+    <NewFlatList 
       bounces={false}
       style={{marginTop: props.isHeightStatus ? getStatusBarHeight() + 10 : 0}}
       overScrollMode={"never"}

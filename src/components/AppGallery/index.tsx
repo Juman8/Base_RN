@@ -14,7 +14,7 @@ interface HeaderPropsType {
   file: {name: string;}[];
 }
 
-export const AppGarelly = (props: HeaderPropsType) => {
+export const AppGallery = (props: HeaderPropsType) => {
   const {file = [], onDoubleTap, onPress} = props;
   const scaleAnimation = useMemo(() => new Animated.Value(0), []);
   const [page, setPage] = React.useState(1);
