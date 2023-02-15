@@ -141,7 +141,7 @@ class AxiosClass {
 
   postForm<T>(url: string, body: FormData): Promise<T> {
     LogApp('POSTFORM ------->>', url, body);
-    const newBody = body ? _.clone(body) : new FormData();
+    const newBody =  new FormData();
     if (newBody) {
       newBody.append('lang', i18next.language);
     }
