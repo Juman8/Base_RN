@@ -1,0 +1,47 @@
+diff --git a/node_modules/metro/src/lib/TerminalReporter.js b/node_modules/metro/src/lib/TerminalReporter.js
+index b30e0cb..538d41e 100644
+--- a/node_modules/metro/src/lib/TerminalReporter.js
++++ b/node_modules/metro/src/lib/TerminalReporter.js
+@@ -134,21 +134,21 @@ class TerminalReporter {
+       this.terminal.log(msg);
+     }
+   }
++                   
+   _logInitializing(port, hasReducedPerformance) {
+     const logo = [
+       "",
+-      "                        ▒▒▓▓▓▓▒▒",
+-      "                     ▒▓▓▓▒▒░░▒▒▓▓▓▒",
+-      "                  ▒▓▓▓▓░░░▒▒▒▒░░░▓▓▓▓▒",
+-      "                 ▓▓▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▓▓",
+-      "                 ▓▓░░░░░▒▓▓▓▓▓▓▒░░░░░▓▓",
+-      "                 ▓▓░░▓▓▒░░░▒▒░░░▒▓▒░░▓▓",
+-      "                 ▓▓░░▓▓▓▓▓▒▒▒▒▓▓▓▓▒░░▓▓",
+-      "                 ▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▒░░▓▓",
+-      "                 ▓▓▒░░▒▒▓▓▓▓▓▓▓▓▒░░░▒▓▓",
+-      "                  ▒▓▓▓▒░░░▒▓▓▒░░░▒▓▓▓▒",
+-      "                     ▒▓▓▓▒░░░░▒▓▓▓▒",
+-      "                        ▒▒▓▓▓▓▒▒",
++      "                       .-'''-.             .-'''-.",
++      "                      I .===. I           I .===. I",
++      "                      >< 6 6 ><           >< 6 6 ><",
++      "                     ( <_ . _> )         ( <_ . _> )",
++      "                      |-  A  -|           |-     -|",
++      "                  ====|-  N  -|====   ====|-  T  -|====",
++      "                      |-  D  -|           |-  R  -|",
++      "                      |-  R  -|           |-  A  -|",
++      `                      [-  E  -]           [-  N  -]`,
++      `                      [-  W  -]           [-     -]`,
++      "                      (__| |__)           (__| |__)",
+       "",
+       "",
+     ];
+@@ -224,7 +224,7 @@ class TerminalReporter {
+         this.terminal.log(
+           color.bold(
+             " ".repeat(19 - version.length / 2),
+-            "Welcome to Metro " + chalk.white(version) + "\n"
++            "Welcome to BaseRN " + chalk.white(version) + "\n"
+           ) + chalk.dim("              Fast - Scalable - Integrated\n\n")
+         );
+         if (event.hasReducedPerformance) {

@@ -11,6 +11,7 @@
 
   [RNBootSplash initWithStoryboard:@"LaunchScreen" rootView:rootView];
   self.moduleName = @"TemplateAd";
+  self.initialProps = @{};
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
