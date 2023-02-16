@@ -37,6 +37,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8E9593BB245440369A7CB825 /* PingFang-SC-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB865F1713794942923A8FC5 /* PingFang-SC-Medium.ttf */; };
 		A20B97C720944C4B92E7CCCB /* Barlow-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F30EF50720B48CBB320DA9A /* Barlow-ExtraLightItalic.ttf */; };
+		A462E0B5299CD05A00EFED89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A462E0B4299CD05900EFED89 /* GoogleService-Info.plist */; };
 		A49979BE28E6CD8D00FF9C88 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A49979BD28E6CD8D00FF9C88 /* Config.xcconfig */; };
 		A8241B61A18B468391318E5B /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14931F5B46BF43D1B6CC428D /* Poppins-Bold.ttf */; };
 		B6C70E5E6CB147AFAEB5B86E /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE326FA4AE4845EA91A9C864 /* Poppins-Medium.ttf */; };
@@ -87,6 +88,7 @@
 		8DB103E450A74EE3A1A78B61 /* Barlow-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-BlackItalic.ttf"; path = "../src/assets/fonts/Barlow-BlackItalic.ttf"; sourceTree = "<group>"; };
 		9F30EF50720B48CBB320DA9A /* Barlow-ExtraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-ExtraLightItalic.ttf"; path = "../src/assets/fonts/Barlow-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		9F91AE06637349C48CA8693E /* Barlow-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-Bold.ttf"; path = "../src/assets/fonts/Barlow-Bold.ttf"; sourceTree = "<group>"; };
+		A462E0B4299CD05900EFED89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A49979BD28E6CD8D00FF9C88 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		AA0DDB920BA44CC59C242398 /* Barlow-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-ThinItalic.ttf"; path = "../src/assets/fonts/Barlow-ThinItalic.ttf"; sourceTree = "<group>"; };
 		CC1871EA3A6C4E0FAAE73E96 /* Barlow-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-ExtraBoldItalic.ttf"; path = "../src/assets/fonts/Barlow-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 		13B07FAE1A68108700A75B9A /* TemplateAd */ = {
 			isa = PBXGroup;
 			children = (
+				A462E0B4299CD05900EFED89 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -363,6 +366,7 @@
 				1B42D84AB44C468FAF7F6DDD /* PingFang-SC-Light.ttf in Resources */,
 				8E9593BB245440369A7CB825 /* PingFang-SC-Medium.ttf in Resources */,
 				186FCCC645784EBD9FDB3DAC /* PingFang-SC-Thin.ttf in Resources */,
+				A462E0B5299CD05A00EFED89 /* GoogleService-Info.plist in Resources */,
 				71CF4EE190704BB1B9779349 /* Poppins-Black.ttf in Resources */,
 				A8241B61A18B468391318E5B /* Poppins-Bold.ttf in Resources */,
 				0A028A62FBD443D484FB14FA /* Poppins-Light.ttf in Resources */,
@@ -628,20 +632,21 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T5C8JTGRDX;
+				DEVELOPMENT_TEAM = 432URK2BA6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = TemplateAd/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Jamin's App";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.join.managerment;
 				PRODUCT_NAME = TemplateAd;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -659,19 +664,20 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T5C8JTGRDX;
+				DEVELOPMENT_TEAM = 432URK2BA6;
 				INFOPLIST_FILE = TemplateAd/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Jamin's App";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.join.managerment;
 				PRODUCT_NAME = TemplateAd;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
