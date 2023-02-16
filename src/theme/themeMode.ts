@@ -9,8 +9,10 @@ export interface typeOfColors {
   whiteColor: string;
   colorDisable: string;
   primary: string;
-  placeHoderColor: string;
+  placeHolderColor: string;
   red: string;
+  divider: string;
+  transparent: string;
 }
 
 type themeType = {
@@ -33,7 +35,9 @@ export const darkTheme: themeType = {
     colorDisable: '#c0c0c0',
     primary: '#4d4fdb',
     red: "#ff667d",
-    placeHoderColor: '#B4B4B4'
+    placeHolderColor: '#B4B4B4',
+    divider: '#262626',
+    transparent: 'transparent',
   },
 };
 
@@ -51,6 +55,8 @@ export const lightTheme: themeType = {
     colorDisable: '#c0c0c0',
     primary: '#4d4fdb',
     red: "#ff667d",
-    placeHoderColor: '#B4B4B4'
+    placeHolderColor: '#B4B4B4',
+    divider: '#cfcfcf',
+    transparent: 'transparent',
   },
 };

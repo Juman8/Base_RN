@@ -5,4 +5,5 @@ export * from './Flatlist';
 export * from './GlobalUI';
 export * from './AppInput';
 export * from './AppScrollWrapBottomTab/AppScrollWrapBottomTab';
+export * from './AppHeader';
 export * from './Flatlist/LargeList';

@@ -2,6 +2,7 @@ import React, {memo} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {SCREEN_ROUTE} from '../route';
 import {TabNavigator} from '../navigator/TabNavigator';
+import {HeartRate} from '@screens';
 
 const MainStack = createStackNavigator<SCREEN_ROUTE>();
 
@@ -16,6 +17,10 @@ const MainStackComponent = memo(() => {
       <MainStack.Screen
         name={SCREEN_ROUTE.MAIN_STACK}
         component={TabNavigator}
+      /> 
+      <MainStack.Screen
+        name={SCREEN_ROUTE.HEAR_RATE}
+        component={HeartRate}
       />
     </MainStack.Navigator>
   );

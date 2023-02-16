@@ -14,6 +14,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {FlatList as ListForDrag} from 'react-native-gesture-handler';
+import {AppText} from '../AppText';
 interface VirtualListProps {
   renderItem: ListRenderItem<any> | null | undefined;
   onRefresh?: () => void;
@@ -111,9 +112,9 @@ const VirtualList = React.memo(
       if (!isLoading && data?.length < 1) {
         return (
           <View style={styles.viewHeader}>
-            <Text textAlign="center" color="">
+            <AppText textAlign="center" style={{color: themeColor.textColor}}>
               {emptyText}
-            </Text>
+            </AppText>
           </View>
         );
       }

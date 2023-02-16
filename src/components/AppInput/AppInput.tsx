@@ -23,6 +23,7 @@ export interface appInputProps extends TextInputProps {
   keyboardType?: KeyboardTypeOptions;
   error?: string;
   touched?: boolean;
+  labelStyle?: StyleProp<TextStyle>;
 }
 
 
@@ -37,7 +38,8 @@ export function AppInput(props: appInputProps & SpacingProps<Theme> &
     maxLength,
     keyboardType,
     error,
-    touched
+    touched,
+    labelStyle,
   } = props;
   const [isFocus, setFocus] = useState(false);
   const [isPrivateText, setSecureTextEntry] = useState(secureTextEntry);
@@ -45,7 +47,7 @@ export function AppInput(props: appInputProps & SpacingProps<Theme> &
 
   return (
     <Box style={{width: '100%'}} {...props}>
-      {!!label && <AppText marginBottom={"s"}>{label}</AppText>}
+      {!!label && <AppText marginBottom={"m"} style={labelStyle}>{label}</AppText>}
       <Box justifyContent={"center"}>
         <TextInput
           value={value}
@@ -58,7 +60,7 @@ export function AppInput(props: appInputProps & SpacingProps<Theme> &
           maxLength={maxLength}
           keyboardType={keyboardType}
           autoCapitalize="none"
-          placeholderTextColor={themeColor.placeHoderColor}
+          placeholderTextColor={themeColor.placeHolderColor}
           clearButtonMode="while-editing"
         />
         {!!error && touched && <AppText variant={"title3"} fontSize={11} style={{color: Colors.lightRed}} marginTop="sm">{error}</AppText>}

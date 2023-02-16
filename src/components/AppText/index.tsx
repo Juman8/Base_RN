@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-import {ResponsiveValue, SpacingProps, TypographyProps} from '@shopify/restyle';
+import {Breakpoint, ResponsiveValue, SpacingProps, TypographyProps} from '@shopify/restyle';
 import {FontWithBold_Barlow, Text, Theme, useTheme} from '@theme';
 import React from 'react';
 import {StyleProp, StyleSheet, TextProps, TextStyle} from 'react-native';
@@ -7,39 +8,38 @@ import TextTicker from 'react-native-text-ticker';
 interface AppTextProps {
   style?: StyleProp<TextStyle>;
   children: JSX.Element | string | undefined;
-  variant?: ResponsiveValue<
-    'body' | 'button' | 'header' | 'text' | 'title1' | 'title2' | 'title3',
-    {
-      colors: any;
-      spacing: {
-        sm: number;
-        s: number;
-        xs: number;
-        m: number;
-        l: number;
-        xl: number;
-      };
-      borderRadii: {
-        s: number;
-        m: number;
-        l: number;
-        xl: number;
-      };
-      breakpoints: {
-        phone: number;
-        tablet: number;
-      };
-      textVariants: {
-        title1: string;
-        title2: string;
-        title3: string;
-        body: string;
-        button: string;
-        header: string;
-        text: string;
-      };
-    }
-  >;
+  variant?: ResponsiveValue<"body" | "button" | "header" | "text" | "title1" | "title2" | "title3", {
+    phone: number;
+    tablet: number;
+  }> | undefined
+  colors?: any;
+  spacing?: {
+    sm: number;
+    s: number;
+    xs: number;
+    m: number;
+    l: number;
+    xl: number;
+  };
+  borderRadii?: {
+    s: number;
+    m: number;
+    l: number;
+    xl: number;
+  };
+  breakpoints?: {
+    phone: number;
+    tablet: number;
+  };
+  textVariants?: {
+    title1: string;
+    title2: string;
+    title3: string;
+    body: string;
+    button: string;
+    header: string;
+    text: string;
+  };
 }
 
 export const AppText = (

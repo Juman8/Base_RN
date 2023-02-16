@@ -2,26 +2,34 @@ import firestore from '@react-native-firebase/firestore';
 
 const COLLECTION_FOR_MINT = "Mint";
 
-type dataContent = {
-  spO2_before_am: number;
-  pulse_before_pm: number;
+export type dataHealthContent = {
+  id?: string;
 
-  spO2_after_am_1h: number;
-  spO2_after_am_2h: number;
-  spO2_after_pm_1h: number;
-  spO2_after_pm_2h: number;
+  // SPO2
+  // >AM<
+  spO2_before_am: string;
+  spO2_after_am_1h: string;
+  spO2_after_am_2h: string;
 
-  pulse_after_am_1h: number;
-  pulse_after_am_2h: number;
-  pulse_after_pm_1h: number;
-  pulse_after_pm_2h: number;
+  // >PM<
+  spO2_before_pm: string;
+  spO2_after_pm_1h: string;
+  spO2_after_pm_2h: string;
 
-  heart_data_dateTime: number;
+  // PULSE
+  // >AM<
+  pulse_before_am: string;
+  pulse_after_am_1h: string;
+  pulse_after_am_2h: string;
+
+  // >PM<
+  pulse_before_pm: string;
+  pulse_after_pm_1h: string;
+  pulse_after_pm_2h: string;
+
+  created: number;
 };
 
-export type dataHeath = {
-  data: dataContent[];
-};
 
 class FirebaseSvc {
   public referentCollectionMint: any = null;
@@ -29,7 +37,7 @@ class FirebaseSvc {
     this.referentCollectionMint = firestore().collection(COLLECTION_FOR_MINT);
   }
 
-  public getListDataOfHealth(callback: (value: dataHeath) => void) {
+  public getListDataOfHealth(callback: (value: dataHealthContent[]) => void) {
     return this.referentCollectionMint
       .onSnapshot((querySnapShot: any) => {
         const dataHeath: any = [];
@@ -42,13 +50,36 @@ class FirebaseSvc {
       });
   }
 
-  public onUpdateDataHeath(data: dataContent, idDocument: number) {
+  public onHandleDataChange = (
+    callback: (value: dataHealthContent) => void,
+  ) => {
+    return this.referentCollectionMint
+      .orderBy('created', 'desc')
+      .limit(1)
+      .onSnapshot(
+        (snapshot: any) => {
+          snapshot?.docChanges().forEach(function (change: any) {
+            const data = change.doc.data();
+            if (change.type === 'added') {
+              callback(data);
+            } else if (change.type === 'modified') {
+              callback(data);
+            }
+          });
+        },
+        (err: any) => {
+          console.log({err});
+        },
+      );
+  };
+
+  public onUpdateDataHeath(data: dataHealthContent, idDocument: number) {
     return this.referentCollectionMint.doc(idDocument).update({
       ...data,
     });
   }
 
-  public onAddDataHeath(data: dataContent) {
+  public onAddDataHeath(data: dataHealthContent) {
     return this.referentCollectionMint.add({
       ...data,
     });
