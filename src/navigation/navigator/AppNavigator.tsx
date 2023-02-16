@@ -31,7 +31,7 @@ const NavigationApp = React.forwardRef((props, ref: any) => {
           />
         ) : (
           <Stack.Screen
-              name={SCREEN_ROUTE.MAIN_ROOT}
+            name={SCREEN_ROUTE.MAIN_ROOT}
             component={MainStackComponent}
             options={{headerShown: false}}
           />
