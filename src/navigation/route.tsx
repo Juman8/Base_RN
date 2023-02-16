@@ -20,18 +20,6 @@ export const ROUTER_BOTTOM_TAB = [
     route: Home,
   },
   {
-    key: SCREEN_ROUTE.TRADE_PAGE,
-    route: Home,
-  },
-  {
-    key: SCREEN_ROUTE.MAIN_PAGE,
-    route: Home,
-  },
-  {
-    key: SCREEN_ROUTE.DISCOVER_PAGE,
-    route: Home,
-  },
-  {
     key: SCREEN_ROUTE.ACCOUNT_PAGE,
     route: Home,
   },

@@ -15,6 +15,7 @@ import {
 } from 'react-native-safe-area-context';
 import codePush from "react-native-code-push";
 import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {firebaseSvc} from '@utils'
 
 initI18n();
 

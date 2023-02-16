@@ -1,8 +1,8 @@
-import {DiscoverIcon, MainIcon, MarketIcon, TradeIcon, UserIcon} from '@assets';
+import {MainIcon, MainIconActive, UserIcon, UserIconActive} from '@assets';
 import {ROUTER_BOTTOM_TAB} from '@navigation';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs/lib/typescript/src/types';
 import {getStatusOfBottomTab} from '@redux';
-import {Spacing, Text, useTheme} from '@theme';
+import {Spacing, useTheme} from '@theme';
 import React, {memo, useEffect, useRef} from 'react';
 import {Animated, InteractionManager, TouchableWithoutFeedback, View} from 'react-native';
 import {useSelector} from "react-redux";
@@ -14,8 +14,16 @@ const SourceImage = (props: {label?: string; isFocused: boolean;}) => {
 
   switch (label) {
     case ROUTER_BOTTOM_TAB[0].key:
+      if (isFocused) {
+        return (
+          <MainIconActive
+            width={Spacing.width25}
+            height={Spacing.width25}
+          />
+        );
+      }
       return (
-        <MarketIcon
+        <MainIcon
           fill={
             isFocused
               ? themeColor.color_Icon_Selected
@@ -26,42 +34,14 @@ const SourceImage = (props: {label?: string; isFocused: boolean;}) => {
         />
       );
     case ROUTER_BOTTOM_TAB[1].key:
-      return (
-        <TradeIcon
-          fill={
-            isFocused
-              ? themeColor.color_Icon_Selected
-              : themeColor.color_Tab_Unselected
-          }
-          width={Spacing.width25}
-          height={Spacing.width25}
-        />
-      );
-    case ROUTER_BOTTOM_TAB[2].key:
-      return (
-        <MainIcon
-          fill={
-            isFocused
-              ? themeColor.color_Icon_Selected
-              : themeColor.color_Tab_Unselected
-          }
-          width={Spacing.width50}
-          height={Spacing.width50}
-        />
-      );
-    case ROUTER_BOTTOM_TAB[3].key:
-      return (
-        <DiscoverIcon
-          fill={
-            isFocused
-              ? themeColor.color_Icon_Selected
-              : themeColor.color_Tab_Unselected
-          }
-          width={Spacing.width23}
-          height={Spacing.width23}
-        />
-      );
-    case ROUTER_BOTTOM_TAB[4].key:
+      if (isFocused) {
+        return (
+          <UserIconActive
+            width={Spacing.width25}
+            height={Spacing.width25}
+          />
+        );
+      }
       return (
         <UserIcon
           fill={
@@ -83,7 +63,6 @@ export const CustomTabBar = memo(function CustomTabBar({
   descriptors,
   navigation,
 }: BottomTabBarProps) {
-  const arrayLable = ['Market', 'Trade', '', 'Discover', 'Me'];
   const {themeColor} = useTheme();
   const statusOfBottomTab = useSelector(getStatusOfBottomTab)
   const refHeight = useRef(50);
@@ -91,7 +70,7 @@ export const CustomTabBar = memo(function CustomTabBar({
 
   useEffect(() => {
     Animated.timing(refAnimated.current, {
-      toValue: statusOfBottomTab ? 0 : refHeight.current,
+      toValue: statusOfBottomTab ? 0 : refHeight.current + 5,
       duration: 500,
       useNativeDriver: true,
     }).start();
@@ -152,6 +131,7 @@ export const CustomTabBar = memo(function CustomTabBar({
           };
 
           return (
+            <View style={{flex: 1, alignItems:'center'}}>
             <TouchableWithoutFeedback
               key={'tab-' + index.toString()}
               accessibilityRole="button"
@@ -168,17 +148,9 @@ export const CustomTabBar = memo(function CustomTabBar({
                     size: 0,
                   })}
                 <SourceImage label={label} isFocused={isFocused} />
-                {index !== 2 && (
-                  <Text
-                    variant={'text'}
-                    numberOfLines={1}
-                    style={styles.txtTabName}
-                  >
-                    {arrayLable[index]}
-                  </Text>
-                )}
               </View>
             </TouchableWithoutFeedback>
+            </View>
           );
         })}
       </View>

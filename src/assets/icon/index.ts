@@ -5,14 +5,14 @@ export * from './searchIcon';
 
 import BackIcon from './svg/backLeft.svg';
 
-import DiscoverIcon from './tab/discover.svg';
 import MainIcon from './tab/home.svg';
-import MarketIcon from './tab/market.svg';
-import TradeIcon from './tab/trade.svg';
+import MainIconActive from './tab/homeActive.svg';
 import UserIcon from './tab/me.svg';
+import UserIconActive from './tab/meActive.svg';
 import IconLiked from './iconLiked.svg';
 import Eye from './eye.svg';
 import EyeActive from './eyeActive.svg';
+import LoveIcon from './loveIcon.svg';
 
-export {DiscoverIcon, MainIcon, MarketIcon, TradeIcon, UserIcon, IconLiked, Eye, EyeActive, BackIcon};
+export {LoveIcon, UserIconActive, MainIcon, MainIconActive, UserIcon, IconLiked, Eye, EyeActive, BackIcon};
 export * from '../icon/image';
