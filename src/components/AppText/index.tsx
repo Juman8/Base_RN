@@ -11,7 +11,7 @@ interface AppTextProps {
   variant?: ResponsiveValue<"body" | "button" | "header" | "text" | "title1" | "title2" | "title3", {
     phone: number;
     tablet: number;
-  }> | undefined
+  }> | undefined;
   colors?: any;
   spacing?: {
     sm: number;

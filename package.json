@@ -22,7 +22,8 @@
     "codePushStagingAndroid": "appcenter codepush release-react -a cao.tran-adamosoft.com/TemplateAd -d Staging",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
     "preci": "rm -fr node_modules",
-    "ci": "yarn install --frozen-lockfile"
+    "ci": "yarn install --frozen-lockfile",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@invertase/react-native-apple-authentication": "^2.2.2",
@@ -51,6 +52,8 @@
     "i18next": "^21.9.2",
     "i18next-http-backend": "^1.4.2",
     "lodash": "^4.17.21",
+    "patch-package": "^6.5.1",
+    "postinstall-postinstall": "^2.1.0",
     "react": "18.2.0",
     "react-i18next": "^11.18.6",
     "react-native": "0.71.3",

@@ -48,9 +48,10 @@ interface VirtualListProps {
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
   ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
-  listKey?: string;
+  listKey?: string | undefined;
   isOnlyList?: boolean;
   nestedScrollEnabled?: boolean;
+  onChangeActiveIndexItem?: (value: number[]) => void;
 }
 
 const RenderContent = ({
@@ -121,6 +122,13 @@ const VirtualList = React.memo(
       return null;
     }, [isLoading, data?.length, emptyText]);
 
+    const onViewRef = React.useRef((values: any) => {
+      const {viewableItems} = values;
+      const indexs: number[] = viewableItems.map((it: {index: number}) => it.index);
+      props.onChangeActiveIndexItem?.(indexs);
+    });
+    const viewConfigRef = React.useRef({viewAreaCoveragePercentThreshold: 10});
+
     return (
       <RenderContent
         isOnlyList={isOnlyList}
@@ -130,6 +138,8 @@ const VirtualList = React.memo(
         data={data}
       >
         <NEW_LIST
+          onViewableItemsChanged={onViewRef.current}
+          viewabilityConfig={viewConfigRef.current}
           listKey={listKey}
           ListHeaderComponent={props.ListHeaderComponent || ListHeaderComponent}
           contentContainerStyle={props.contentContainerStyle}
