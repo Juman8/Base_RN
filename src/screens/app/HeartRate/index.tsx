@@ -3,7 +3,7 @@ import {Box, useTheme} from "@theme";
 import {AppButton, AppHeader, AppInput, AppText, GlobalService} from '@components';
 import {ContentView} from './ContentView';
 import {Pressable, StyleSheet} from 'react-native';
-import {dataHealthContent, showAlertMessage} from '@utils';
+import {dataHealthContent, firebaseSvc, showAlertMessage} from '@utils';
 
 export type dataHealthContentProps = {
   id?: string;
@@ -24,11 +24,14 @@ export type dataHealthContentProps = {
 
 
 export const HeartRate = (props: {dataContent: dataHealthContent;}) => {
-  const { dataContent } = props;
+  const {dataContent: dataHeart} = props;
   const [dataDetail, setDataDetail] = useState<dataHealthContentProps>();
   const [isAm, setIsAm] = useState<boolean>(true);
   const [isChanged, setChanged] = useState<boolean>(false);
   const {themeColor} = useTheme();
+  const [dataContent, setDataContent] = useState(dataHeart);
+
+  useEffect(() => {setDataContent(dataHeart);}, [dataHeart]);
 
   const LabelView = ({title}: {title: string;}) => {
     return (
@@ -62,7 +65,7 @@ export const HeartRate = (props: {dataContent: dataHealthContent;}) => {
     if (!dataContent) {
       setDataDetail(undefined);
       setChanged(false);
-      return () =>{} 
+      return () => { };
     }
     let obj = undefined;
     if (isAm) {
@@ -76,7 +79,7 @@ export const HeartRate = (props: {dataContent: dataHealthContent;}) => {
         pulse_before: dataContent.pulse_before_am,
         pulse_after_1h: dataContent.pulse_after_am_1h,
         pulse_after_2h: dataContent.pulse_after_am_2h,
-      }
+      };
     } else {
       obj = {
         spO2_before: dataContent.spO2_before_pm,
@@ -88,38 +91,100 @@ export const HeartRate = (props: {dataContent: dataHealthContent;}) => {
         pulse_before: dataContent.pulse_before_pm,
         pulse_after_1h: dataContent.pulse_after_pm_1h,
         pulse_after_2h: dataContent.pulse_after_pm_2h,
-      }
+      };
     }
-    setDataDetail(obj)
-  }, [isAm, dataContent])
+    setDataDetail(obj);
+  }, [isAm, dataContent]);
 
   const onPressChange = (status: boolean) => {
-    if (isChanged){
+    if (isChanged) {
       GlobalService.showAlert({
         message: 'Dữ liệu thay đổi sẽ mất bạn có muốn thay đổi không',
         onPress: () => {
           setChanged(false);
-          setIsAm(prv => !prv)
+          setIsAm(prv => !prv);
         }
-      })
+      });
       return null;
     }
-    setIsAm(status)
-  }
+    setIsAm(status);
+  };
+
+  const onHandleConfirm = () => {
+    let obj = undefined;
+    if (isAm) {
+      obj = {
+        spO2_before_am: dataDetail?.spO2_before,
+        spO2_after_am_1h: dataDetail?.spO2_after_1h,
+        spO2_after_am_2h: dataDetail?.spO2_after_2h,
+
+        // PULSE
+        // >AM<
+        pulse_before_am: dataDetail?.pulse_before,
+        pulse_after_am_1h: dataDetail?.pulse_after_1h,
+        pulse_after_am_2h: dataDetail?.pulse_after_2h,
+      };
+    } else {
+      obj = {
+        spO2_before_pm: dataDetail?.spO2_before,
+        spO2_after_pm_1h: dataDetail?.spO2_after_1h,
+        spO2_after_pm_2h: dataDetail?.spO2_after_2h,
+
+        // PULSE
+        // >pm<
+        pulse_before_pm: dataDetail?.pulse_before,
+        pulse_after_pm_1h: dataDetail?.pulse_after_1h,
+        pulse_after_pm_2h: dataDetail?.pulse_after_2h,
+      };
+    }
+    const newData: any = {
+      ...dataContent,
+      ...obj,
+    };
+
+    const valueData = formatDataHearth(newData);
+
+    if (!dataDetail?.id) {
+      firebaseSvc.onAddDataHeath(valueData, (id: number) => {
+        setDataContent((prv: any) => {
+          return {
+            ...prv,
+            id,
+          };
+        });
+      });
+    } else {
+      firebaseSvc.onUpdateDataHeath(valueData, dataDetail.id);
+    }
+  };
+
+  const formatDataHearth = (data: dataHealthContent) => {
+    const objValues = Object.values(data);
+    const objKeys = Object.keys(data);
+
+    const newObj: any = {};
+    objValues.forEach((el, index) => {
+      if (el) {
+        newObj[objKeys[index]] = el;
+      }
+    });
+
+    return newObj;
+  };
 
   return (
     <Box flex={1}>
       <AppHeader title="Heart Rate Data" isBack />
       <Box padding="l" flex={1} >
-        <Box flexDirection={"row"} alignItems={"center"} mb="l"> 
-          <Pressable onPress={() => {onPressChange(true)}} style={{flexDirection:'row', alignItems:'center'}}>
-            <Box style={[styles.viewContentRadio, {borderColor: themeColor.divider, }, isAm && {backgroundColor: 'white'}]} 
-          /> 
-          <AppText marginLeft={"s"}>AM</AppText>
+        <Box flexDirection={"row"} alignItems={"center"} mb="l">
+          <Pressable onPress={() => {onPressChange(true);}} style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Box style={[styles.viewContentRadio, {borderColor: themeColor.divider, }, isAm && {backgroundColor: 'white'}]}
+            />
+            <AppText marginLeft={"s"}>AM</AppText>
           </Pressable>
           <Pressable onPress={() => {onPressChange(false);}} style={{flexDirection: 'row', alignItems: 'center'}}>
             <Box style={[styles.viewContentRadio, {borderColor: themeColor.divider, }, !isAm && {backgroundColor: 'white'}]} ml="l" />
-          <AppText marginLeft={"s"}>PM</AppText>
+            <AppText marginLeft={"s"}>PM</AppText>
           </Pressable>
         </Box>
 
@@ -162,11 +227,13 @@ export const HeartRate = (props: {dataContent: dataHealthContent;}) => {
           value2={dataDetail?.pulse_after_2h}
         />
       </Box>
-      <AppButton label='Confirm' style={{marginHorizontal: 20, marginBottom: 20}} disabled={!isChanged} />
+      <AppButton label='Confirm' style={{marginHorizontal: 20, marginBottom: 20}} disabled={!isChanged}
+        onPress={onHandleConfirm}
+      />
     </Box>
   );
 };
 
 const styles = StyleSheet.create({
-  viewContentRadio: {width: 30, height: 30,  borderWidth: 2, borderRadius: 15}
-})
+  viewContentRadio: {width: 30, height: 30, borderWidth: 2, borderRadius: 15}
+});

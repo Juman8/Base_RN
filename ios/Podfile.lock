@@ -628,6 +628,10 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.24):
     - BoringSSL-GRPC/Interface (= 0.0.24)
   - BoringSSL-GRPC/Interface (0.0.24)
+  - Charts (4.1.0):
+    - Charts/Core (= 4.1.0)
+  - Charts/Core (4.1.0):
+    - SwiftAlgorithms (~> 1.0)
   - CocoaAsyncSocket (7.6.5)
   - CodePush (7.1.0):
     - Base64 (~> 1.1)
@@ -1175,6 +1179,10 @@ PODS:
   - React-jsinspector (0.71.3)
   - React-logger (0.71.3):
     - glog
+  - react-native-charts-wrapper (0.5.11):
+    - Charts (= 4.1.0)
+    - React
+    - SwiftyJSON (= 5.0)
   - react-native-config (1.5.0):
     - react-native-config/App (= 1.5.0)
   - react-native-config/App (1.5.0):
@@ -1335,6 +1343,8 @@ PODS:
     - SDWebImage/Core (~> 5.10)
   - SocketRocket (0.6.0)
   - SSZipArchive (2.2.3)
+  - SwiftAlgorithms (1.0.0)
+  - SwiftyJSON (5.0.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -1393,6 +1403,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-charts-wrapper (from `../node_modules/react-native-charts-wrapper`)
   - react-native-config (from `../node_modules/react-native-config`)
   - react-native-fbsdk-next (from `../node_modules/react-native-fbsdk-next`)
   - react-native-mmkv (from `../node_modules/react-native-mmkv`)
@@ -1435,6 +1446,7 @@ SPEC REPOS:
     - AppCenterReactNativeShared
     - Base64
     - BoringSSL-GRPC
+    - Charts
     - CocoaAsyncSocket
     - FBAEMKit
     - FBSDKCoreKit
@@ -1480,6 +1492,8 @@ SPEC REPOS:
     - SDWebImageWebPCoder
     - SocketRocket
     - SSZipArchive
+    - SwiftAlgorithms
+    - SwiftyJSON
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -1531,6 +1545,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-charts-wrapper:
+    :path: "../node_modules/react-native-charts-wrapper"
   react-native-config:
     :path: "../node_modules/react-native-config"
   react-native-fbsdk-next:
@@ -1609,6 +1625,7 @@ SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
+  Charts: 354f86803d11d9c35de280587fef50d1af063978
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   CodePush: dce1b253fde81078249ea9cd4b948e4ac7b761a9
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
@@ -1670,6 +1687,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 515b703d23ffadeac7687bc2d12fb08b90f0aaa1
   React-jsinspector: 9f7c9137605e72ca0343db4cea88006cb94856dd
   React-logger: 957e5dc96d9dbffc6e0f15e0ee4d2b42829ff207
+  react-native-charts-wrapper: 4461b72f48e737a490e968bf2468cc0fd2281681
   react-native-config: 5330c8258265c1e5fdb8c009d2cabd6badd96727
   react-native-fbsdk-next: d6e1c6ad1693c891add104ab529d96906784ba9c
   react-native-mmkv: a2a40a0458bdbc9d43c4e7752ecfc5e3a87b66dd
@@ -1706,9 +1724,11 @@ SPEC CHECKSUMS:
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   Yoga: 5ed1699acbba8863755998a4245daa200ff3817b
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 78b9dfee84a01683859ab2e42e231763a02ae3f0
+PODFILE CHECKSUM: 87ade2dfcb511504bc06a06f348f00647c8d5d7a
 
 COCOAPODS: 1.11.3

@@ -1,6 +1,7 @@
 import {t} from 'i18next';
 import {showMessage} from 'react-native-flash-message';
 import {MMKV} from 'react-native-mmkv';
+import Reactotron from 'reactotron-react-native';
 
 export const AsyncStorage = new MMKV();
 
@@ -23,6 +24,7 @@ export const LogApp = (
 ) => {
   if (__DEV__) {
     value ? console.log(key, value, ...optionalParams) : console.log(key);
+    value ? Reactotron.log(key, value, ...optionalParams) : Reactotron.log(key);
   }
 };
 export type DecimalFormat = '1k' | '1.2k' | '1.23k' | '1.234k' | '1,234';

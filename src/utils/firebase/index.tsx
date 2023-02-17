@@ -1,4 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
+import {LogApp, showAlertMessage} from '@utils';
 
 const COLLECTION_FOR_MINT = "Mint";
 
@@ -42,7 +43,7 @@ class FirebaseSvc {
       .onSnapshot((querySnapShot: any) => {
         const dataHeath: any = [];
         querySnapShot.docs.map((doc: any) => {
-          if (doc.data().is_chatting) {
+          if (doc.data()) {
             dataHeath.push({...doc.data()});
           }
         });
@@ -68,20 +69,24 @@ class FirebaseSvc {
           });
         },
         (err: any) => {
-          console.log({err});
+          LogApp({err});
         },
       );
   };
 
-  public onUpdateDataHeath(data: dataHealthContent, idDocument: number) {
+  public onUpdateDataHeath(data: dataHealthContent, idDocument: string) {
     return this.referentCollectionMint.doc(idDocument).update({
       ...data,
     });
   }
 
-  public onAddDataHeath(data: dataHealthContent) {
+  public onAddDataHeath(data: dataHealthContent, callBack: (id: string) => void) {
     return this.referentCollectionMint.add({
       ...data,
+    }).then((dataP: {id: string;}) => {
+      callBack(dataP.id);
+    }).catch(function () {
+      showAlertMessage('Lỗi khi thêm dữ liệu, vui lòng thử lại', 'warning');
     });
   }
 
