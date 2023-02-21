@@ -7,8 +7,9 @@ import React, {useState, useRef, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import {Animated, StyleSheet, TouchableOpacity} from "react-native";
 import {useSelector} from "react-redux";
-import {dataHealthContent, firebaseSvc} from '@utils'
+import {dataHealthContent, firebaseSvc, LogApp} from '@utils';
 import {navigate, SCREEN_ROUTE} from "@navigation";
+import {ViewNote} from "./ViewNote";
 
 const TOP = 40 + Spacing.width25;
 const BOTTOM = Spacing.width25 - 10;
@@ -23,6 +24,7 @@ export const useHookHome = () => {
   const translateY = useRef(new Animated.Value(50 + Spacing.width25)).current;
 
   const [dataContent, setDataContent] = useState<dataHealthContent[]>([]);
+  const [dataToday, setDataToDay] = useState<dataHealthContent>();
 
   useEffect(() => {
     GlobalService.hideLoading();
@@ -48,31 +50,32 @@ export const useHookHome = () => {
 
   useEffect(() => {
     firebaseSvc.getListDataOfHealth((data) => {
-      setDataContent(data)
-    }) 
-  }, [])
+      LogApp({data});
+      setDataContent(data);
+    });
+  }, []);
 
   useEffect(() => {
     const subscription = firebaseSvc.onHandleDataChange((valueChange: dataHealthContent) => {
       setDataContent((prv: any) => {
         const isExit = prv.findIndex((el: dataHealthContent) => el.id === valueChange.id) !== -1;
         if (!isExit) {
-          return prv.concat([valueChange])
+          return prv.concat([valueChange]);
         } else {
           return prv.map((el: dataHealthContent) => {
             if (el.id === valueChange.id) {
               return {
                 ...valueChange,
-              }; 
+              };
             }
-            return it;
+            return el;
           });
         }
-        
-      })
+
+      });
     });
     return () => subscription();
-  }, [])
+  }, []);
 
   const intA = translateY.interpolate({
     inputRange: [BOTTOM, TOP],
@@ -80,25 +83,37 @@ export const useHookHome = () => {
     extrapolate: 'clamp'
   });
 
-  const ListFooterComponent = (): JSX.Element => {
+  const ListFooterComponent = React.useMemo((): JSX.Element => {
     return (
-      <NewBtnAnimated
-        style={[{
-          bottom: intA,
-        }, styles.btnLove]}
-        onPress={()=> navigate(SCREEN_ROUTE.HEAR_RATE)}
-      >
-        <LoveIcon
-          width={Spacing.width25}
-          height={Spacing.width25}
-        />
-      </NewBtnAnimated>
+      <>
+        <NewBtnAnimated
+          style={[{
+            bottom: intA,
+          }, styles.btnLove]}
+          onPress={() => navigate(SCREEN_ROUTE.HEAR_RATE, {dataContent: dataToday})}
+        >
+          <LoveIcon
+            width={Spacing.width25}
+            height={Spacing.width25}
+          />
+        </NewBtnAnimated>
+        <ViewNote />
+      </>
     );
-  };
+  }, []);
+
+  useEffect(() => {
+    const subscription = firebaseSvc.onGetDataToday((valueChange: dataHealthContent) => {
+      setDataToDay(valueChange);
+    });
+    return () => subscription();
+  }, []);
+
   return {
     ListFooterComponent, setDark, isDark, updateTheme, onSwitchLang, value, setValue, t,
-    dataContent
-  }
+    dataContent,
+    dataToday
+  };
 };
 
 const styles = StyleSheet.create({

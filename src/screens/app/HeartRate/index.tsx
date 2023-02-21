@@ -2,54 +2,24 @@ import React, {useEffect, useState} from 'react';
 import {Box, useTheme} from "@theme";
 import {AppButton, AppHeader, AppInput, AppText, GlobalService} from '@components';
 import {ContentView} from './ContentView';
-import {Pressable, StyleSheet} from 'react-native';
+import {Pressable, ScrollView, StyleSheet} from 'react-native';
 import {dataHealthContent, firebaseSvc, showAlertMessage} from '@utils';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {LabelView} from './LabelView';
+import {HearAM} from './HearAM';
+import {HearPM} from './HearPM';
+import {useRoute} from '@react-navigation/native';
+import MaskInput, {Masks} from 'react-native-mask-input';
+import dayjs from 'dayjs';
 
-export type dataHealthContentProps = {
-  id?: string;
+export const HeartRate = () => {
+  const route = useRoute();
 
-  // SPO2
-  // >AM<
-  spO2_before: string;
-  spO2_after_1h: string;
-  spO2_after_2h: string;
-
-  // PULSE
-  // >AM<
-  pulse_before: string;
-  pulse_after_1h: string;
-  pulse_after_2h: string;
-
-};
-
-
-export const HeartRate = (props: {dataContent: dataHealthContent;}) => {
-  const {dataContent: dataHeart} = props;
-  const [dataDetail, setDataDetail] = useState<dataHealthContentProps>();
-  const [isAm, setIsAm] = useState<boolean>(true);
+  const {dataContent, isAM} = route?.params || {} as any;
+  const [dataDetail, setDataDetail] = useState<dataHealthContent>(dataContent);
+  const [isAm, setIsAm] = useState<boolean>(isAM === undefined ? true : isAM);
   const [isChanged, setChanged] = useState<boolean>(false);
   const {themeColor} = useTheme();
-  const [dataContent, setDataContent] = useState(dataHeart);
-
-  useEffect(() => {setDataContent(dataHeart);}, [dataHeart]);
-
-  const LabelView = ({title}: {title: string;}) => {
-    return (
-      <Box flexDirection="row" alignItems={"center"} >
-        <Box flex={1} justifyContent={'center'}>
-          <Box height={4} width={4} backgroundColor="red" position={"absolute"} borderRadius="xl" left={0} zIndex={99} />
-          <Box backgroundColor={"divider"} height={1} />
-          {/* <Box height={4} width={4} backgroundColor="red" position={"absolute"} borderRadius="xl" right={0} /> */}
-        </Box>
-        <AppText paddingHorizontal={"m"} style={{minWidth: 80}} textAlign="center">{title}</AppText>
-        <Box flex={1} justifyContent={'center'}>
-          {/* <Box height={4} width={4} backgroundColor="red" position={"absolute"} borderRadius="xl" left={0} zIndex={99} /> */}
-          <Box backgroundColor={"divider"} height={1} />
-          <Box height={4} width={4} backgroundColor="red" position={"absolute"} borderRadius="xl" right={0} />
-        </Box>
-      </Box>
-    );
-  };
 
   const onChangeData = (data: any) => {
     setChanged(true);
@@ -61,92 +31,28 @@ export const HeartRate = (props: {dataContent: dataHealthContent;}) => {
     });
   };
 
-  useEffect(() => {
-    if (!dataContent) {
-      setDataDetail(undefined);
-      setChanged(false);
-      return () => { };
-    }
-    let obj = undefined;
-    if (isAm) {
-      obj = {
-        spO2_before: dataContent.spO2_before_am,
-        spO2_after_1h: dataContent.spO2_after_am_1h,
-        spO2_after_2h: dataContent.spO2_after_am_2h,
-
-        // PULSE
-        // >AM<
-        pulse_before: dataContent.pulse_before_am,
-        pulse_after_1h: dataContent.pulse_after_am_1h,
-        pulse_after_2h: dataContent.pulse_after_am_2h,
-      };
-    } else {
-      obj = {
-        spO2_before: dataContent.spO2_before_pm,
-        spO2_after_1h: dataContent.spO2_after_pm_1h,
-        spO2_after_2h: dataContent.spO2_after_pm_2h,
-
-        // PULSE
-        // >pm<
-        pulse_before: dataContent.pulse_before_pm,
-        pulse_after_1h: dataContent.pulse_after_pm_1h,
-        pulse_after_2h: dataContent.pulse_after_pm_2h,
-      };
-    }
-    setDataDetail(obj);
-  }, [isAm, dataContent]);
-
   const onPressChange = (status: boolean) => {
-    if (isChanged) {
-      GlobalService.showAlert({
-        message: 'Dữ liệu thay đổi sẽ mất bạn có muốn thay đổi không',
-        onPress: () => {
-          setChanged(false);
-          setIsAm(prv => !prv);
-        }
-      });
-      return null;
-    }
-    setIsAm(status);
+    GlobalService.showLoading();
+    setTimeout(() => {
+      GlobalService.hideLoading();
+      setIsAm(status);
+    }, 50);
   };
 
   const onHandleConfirm = () => {
-    let obj = undefined;
-    if (isAm) {
-      obj = {
-        spO2_before_am: dataDetail?.spO2_before,
-        spO2_after_am_1h: dataDetail?.spO2_after_1h,
-        spO2_after_am_2h: dataDetail?.spO2_after_2h,
-
-        // PULSE
-        // >AM<
-        pulse_before_am: dataDetail?.pulse_before,
-        pulse_after_am_1h: dataDetail?.pulse_after_1h,
-        pulse_after_am_2h: dataDetail?.pulse_after_2h,
-      };
-    } else {
-      obj = {
-        spO2_before_pm: dataDetail?.spO2_before,
-        spO2_after_pm_1h: dataDetail?.spO2_after_1h,
-        spO2_after_pm_2h: dataDetail?.spO2_after_2h,
-
-        // PULSE
-        // >pm<
-        pulse_before_pm: dataDetail?.pulse_before,
-        pulse_after_pm_1h: dataDetail?.pulse_after_1h,
-        pulse_after_pm_2h: dataDetail?.pulse_after_2h,
-      };
+    if (dataDetail.created && dataDetail.created.length < 10) {
+      return showAlertMessage("Định dạng ngày không đúng, vui lòng nhập lại đi mẹ Mint", "danger");
     }
     const newData: any = {
-      ...dataContent,
-      ...obj,
+      ...dataDetail,
     };
 
     const valueData = formatDataHearth(newData);
 
     if (!dataDetail?.id) {
-      firebaseSvc.onAddDataHeath(valueData, (id: number) => {
-        setDataContent((prv: any) => {
+      firebaseSvc.onAddDataHeath(valueData, (id: number | string) => {
+        showAlertMessage("Add successfully", "success");
+        setDataDetail((prv: any) => {
           return {
             ...prv,
             id,
@@ -155,6 +61,7 @@ export const HeartRate = (props: {dataContent: dataHealthContent;}) => {
       });
     } else {
       firebaseSvc.onUpdateDataHeath(valueData, dataDetail.id);
+      showAlertMessage("Update successfully", "success");
     }
   };
 
@@ -173,7 +80,7 @@ export const HeartRate = (props: {dataContent: dataHealthContent;}) => {
   };
 
   return (
-    <Box flex={1}>
+    <KeyboardAwareScrollView >
       <AppHeader title="Heart Rate Data" isBack />
       <Box padding="l" flex={1} >
         <Box flexDirection={"row"} alignItems={"center"} mb="l">
@@ -188,49 +95,29 @@ export const HeartRate = (props: {dataContent: dataHealthContent;}) => {
           </Pressable>
         </Box>
 
-        {/* BEFORE */}
-        <LabelView title="BEFORE" />
-        <ContentView
-          setDataDetail1={(value: string) => {
-            onChangeData({spO2_before: value.trim()});
+        {isAm ? <HearAM dataDetail={dataDetail} onChangeData={onChangeData} /> :
+          <HearPM dataDetail={dataDetail} onChangeData={onChangeData} />}
+        <AppInput
+          isMasked
+          value={dataDetail?.created || dayjs().format('DD/MM/YYYY')}
+          onChangeText={(masked) => {
+            setChanged(true);
+            setDataDetail(prv => {
+              return {
+                ...prv,
+                created: masked,
+              };
+            });
           }}
-          setDataDetail2={(value: string) => {
-            onChangeData({pulse_before: value.trim()});
-          }}
-          value1={dataDetail?.spO2_before}
-          value2={dataDetail?.pulse_before}
-        />
-
-        {/* AFTER 1h */}
-        <LabelView title="AFTER 1H" />
-        <ContentView
-          setDataDetail1={(value: string) => {
-            onChangeData({spO2_after_1h: value.trim()});
-          }}
-          setDataDetail2={(value: string) => {
-            onChangeData({pulse_after_1h: value.trim()});
-          }}
-          value1={dataDetail?.spO2_after_1h}
-          value2={dataDetail?.pulse_after_1h}
-        />
-
-        {/* AFTER 2h */}
-        <LabelView title="AFTER 2H" />
-        <ContentView
-          setDataDetail1={(value: string) => {
-            onChangeData({spO2_after_2h: value.trim()});
-          }}
-          setDataDetail2={(value: string) => {
-            onChangeData({pulse_after_2h: value.trim()});
-          }}
-          value1={dataDetail?.spO2_after_2h}
-          value2={dataDetail?.pulse_after_2h}
+          placeholder="DD/MM/YYYY"
+          mask={Masks.DATE_DDMMYYYY}
+          keyboardType="numeric"
         />
       </Box>
       <AppButton label='Confirm' style={{marginHorizontal: 20, marginBottom: 20}} disabled={!isChanged}
         onPress={onHandleConfirm}
       />
-    </Box>
+    </KeyboardAwareScrollView>
   );
 };
 

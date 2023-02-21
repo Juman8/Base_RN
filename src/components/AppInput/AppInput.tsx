@@ -5,6 +5,7 @@ import {
   Pressable,
   TextInput,
   TextInputProps,
+  TextStyle,
   ViewProps
 } from 'react-native';
 import {styles} from './styles';
@@ -12,8 +13,10 @@ import {AppText} from '../AppText';
 import {SpacingProps, TypographyProps} from '@shopify/restyle';
 
 import {Eye, EyeActive} from '@assets';
+import MaskInput, {MaskInputProps} from 'react-native-mask-input';
+import {StyleProp} from 'react-native';
 
-export interface appInputProps extends TextInputProps {
+export interface appInputProps extends TextInputProps, MaskInputProps {
   label?: string;
   value: string;
   onChangeText: (value: string) => void;
@@ -24,8 +27,8 @@ export interface appInputProps extends TextInputProps {
   error?: string;
   touched?: boolean;
   labelStyle?: StyleProp<TextStyle>;
+  isMasked?: boolean;
 }
-
 
 export function AppInput(props: appInputProps & SpacingProps<Theme> &
   TypographyProps<Theme> & ViewProps) {
@@ -40,10 +43,24 @@ export function AppInput(props: appInputProps & SpacingProps<Theme> &
     error,
     touched,
     labelStyle,
+    isMasked,
   } = props;
   const [isFocus, setFocus] = useState(false);
   const [isPrivateText, setSecureTextEntry] = useState(secureTextEntry);
   const {themeColor} = useTheme();
+  if (isMasked) {
+    return (
+      <Box style={{width: '100%'}} {...props}>
+        <MaskInput
+          {...props}
+          value={value}
+          onChangeText={(masked, unmasked) => onChangeText(masked)}
+          style={[styles.inputStyle, {color: themeColor.textColor}, isFocus && styles.btnActive, secureTextEntry && {paddingRight: 50}]}
+          placeholderTextColor={themeColor.primary}
+        />
+      </Box >
+    );
+  }
 
   return (
     <Box style={{width: '100%'}} {...props}>

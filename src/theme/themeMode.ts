@@ -1,3 +1,5 @@
+import {en} from "@translations";
+
 export interface typeOfColors {
   background: string;
   color_Tab_Unselected: string;
@@ -15,10 +17,27 @@ export interface typeOfColors {
   transparent: string;
 }
 
+export enum ENUM_COLORS {
+  background = "background",
+  color_Tab_Unselected = "color_Tab_Unselected",
+  color_Tab_Selected = "color_Tab_Selected",
+  icon = "icon",
+  backgroundColorTab = "backgroundColorTab",
+  color_Icon_Selected = "color_Icon_Selected",
+  textColor = "textColor",
+  whiteColor = "whiteColor",
+  colorDisable = "colorDisable",
+  primary = "primary",
+  placeHolderColor = "placeHolderColor",
+  red = "red",
+  divider = "divider",
+  transparent = "transparent",
+}
+
 type themeType = {
   dark: boolean;
   colors: typeOfColors;
-}
+};
 
 export const darkTheme: themeType = {
   // default

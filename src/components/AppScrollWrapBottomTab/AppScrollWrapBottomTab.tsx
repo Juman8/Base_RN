@@ -40,7 +40,7 @@ export const AppScrollWrapBottomTab = (props: AppScrollWrapBottomTabProps) => {
         bounces={false}
         style={{marginTop: props.isHeightStatus ? getStatusBarHeight() : 0}}
         overScrollMode={"never"}
-        contentContainerStyle={[props.style, {paddingBottom: getStatusBarHeight()}]}
+        contentContainerStyle={[{paddingBottom: getStatusBarHeight()}]}
         scrollEventThrottle={32}
         onScroll={(e) => {
           const y = e.nativeEvent.contentOffset.y;
@@ -49,14 +49,14 @@ export const AppScrollWrapBottomTab = (props: AppScrollWrapBottomTabProps) => {
           }
           refDebounce.current = setTimeout(() => {
             onScroll(y);
-          }, 80);
+          }, 10);
         }}
         renderItem={() => {
           return (
-            <Box style={{ flex: 1}}>
+            <Box style={[{flex: 1}, props.style,]}>
               {props.children}
             </Box>
-          )
+          );
         }}
         data={[{}]}
         keyExtractor={() => "listRoot_Name"}
