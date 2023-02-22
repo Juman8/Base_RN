@@ -54,6 +54,7 @@ target 'TemplateAd' do
   pod 'GoogleUtilities', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
   pod 'CodePush', :path => '../node_modules/react-native-code-push'
+  pod 'RNBootSplash', :path => '../node_modules/react-native-bootsplash'
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|

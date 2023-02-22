@@ -1,9 +1,8 @@
-import {Box} from '@theme';
-import {dataHealthContent} from '@utils';
-import React from 'react';
-import {Dimensions, StyleSheet} from 'react-native';
+import {DEVICE} from '@utils';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet} from 'react-native';
 import {
-  LineChart,
+  LineChart
 } from "react-native-chart-kit";
 
 export enum ENUM_COLORS_CHART {
@@ -20,19 +19,28 @@ interface ChartHomeProps {
 
 export const ChartHome = (props: ChartHomeProps) => {
   const {dataSets, labels, onDataPointClick} = props;
+  const [WidthChart, setWidthChart] = useState(DEVICE.width);
+  const dataLengthRatio = dataSets[0].data.length / 7;
+
+  useEffect(() => {
+    const _WidthChart = dataLengthRatio < 1 ? DEVICE.width : (DEVICE.width * dataLengthRatio);
+    setWidthChart(_WidthChart);
+  }, [dataLengthRatio]);
+
   return (
     <LineChart
       data={{
         labels: labels,
         datasets: dataSets || [{data: []}]
       }}
-      width={Dimensions.get("window").width} // from react-native
+      width={WidthChart} // from react-native
       height={220}
       yAxisInterval={1} // optional, defaults to 1
+      yBgr="#000"
       chartConfig={{
-        backgroundColor: "#fff",
-        backgroundGradientFrom: "#rgba(0,0,0,0.5)",
-        backgroundGradientTo: "#fff",
+        backgroundColor: "rgba(0,0,0,0.6)",
+        backgroundGradientFrom: "#rgba(0,0,0,0.2)",
+        backgroundGradientTo: "rgba(0,0,0,0.6)",
         decimalPlaces: 2, // optional, defaults to 2dp
         color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
         labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -40,8 +48,8 @@ export const ChartHome = (props: ChartHomeProps) => {
           borderRadius: 16
         },
         propsForDots: {
-          r: "2",
-          strokeWidth: "1",
+          r: "4",
+          strokeWidth: "0.5",
           stroke: "#ffa726"
         },
         propsForLabels: {

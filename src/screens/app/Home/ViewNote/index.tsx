@@ -26,9 +26,16 @@ export const ViewNote = () => {
   const [hide, setHIde] = useState(false);
   const isHIdeState: any = useRef(false);
 
+  useEffect(() => {
+    setTimeout(() => {
+      onPressIcon();
+    }, 1500);
+  }, []);
+
   const onPressIcon = () => {
     if (isHIdeState.current) clearTimeout(isHIdeState.current);
     isHIdeState.current = setTimeout(() => setHIde(prv => !prv), 300);
+
     if (arrAnimated.current) {
       arrAnimated.current.stop();
     }
@@ -57,7 +64,7 @@ export const ViewNote = () => {
   });
 
   return (
-    <NewBoxAnimated position={"absolute"} right={0} top={getStatusBarHeight() + 80} paddingVertical={"s"} borderTopLeftRadius="s" borderBottomLeftRadius={"s"} paddingRight="s"
+    <NewBoxAnimated position={"absolute"} right={0} top={getStatusBarHeight() + 90} paddingVertical={"s"} borderTopLeftRadius="s" borderBottomLeftRadius={"s"} paddingRight="s"
       style={{
         backgroundColor: `${themeColor.backgroundColorTab}99`,
         transform: [{

@@ -86,7 +86,9 @@ export const AppHeader = (props: IAppHeader) => {
   };
   return (
     <TouchableOpacity
-      style={[styles.container, {backgroundColor: themeColor.background, borderBottomColor: themeColor.divider, borderBottomWidth: 1}, styleContainer]}
+      style={[styles.container, {
+        backgroundColor: themeColor.background, borderBottomColor: themeColor.divider, borderBottomWidth: 1,
+      }, styleContainer]}
       onPressIn={() => Keyboard.dismiss()}
       activeOpacity={1}
     >

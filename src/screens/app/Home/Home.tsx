@@ -1,15 +1,19 @@
 import {AppButton, AppHeader, AppScrollWrapBottomTab, AppText, GlobalService} from '@components';
-import {Box} from '@theme';
+import {Box, ENUM_COLORS} from '@theme';
 import {LogApp} from '@utils';
 import dayjs from 'dayjs';
-import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Pressable, ScrollView, StyleSheet} from 'react-native';
 import {ChartHome, ENUM_COLORS_CHART} from './ChartHome';
 import {useHookHome} from './Home.hook';
 import {HomeToday} from './HomeToday';
 import {setStatus} from '@redux';
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import {useDispatch} from 'react-redux';
+import {CloseIcon, IconCalendar, IconMenu} from '@assets';
+import {ModalDetail} from './ModalDetail';
+import FastImage from 'react-native-fast-image';
+import {AppMonthPicker} from './AppMonthPicker';
 dayjs.extend(customParseFormat);
 
 type dataChart = {data: number[]; color: () => ENUM_COLORS_CHART;};
@@ -18,15 +22,14 @@ const Home = () => {
 
   const {ListFooterComponent, dataToday, dataContent} = useHookHome();
   const dispatch = useDispatch();
-
-
   const [dataDashboardPULSE_AM, setDataDashboardPULSE_AM] = useState<dataChart[]>([{data: [0], color: () => ENUM_COLORS_CHART.BEFORE}]);
   const [dataDashboardPULSE_PM, setDataDashboardPULSE_PM] = useState<dataChart[]>([{data: [0], color: () => ENUM_COLORS_CHART.BEFORE}]);
   const [dataDashboardSPO2_AM, setDataDashboardSPO2_AM] = useState<dataChart[]>([{data: [0], color: () => ENUM_COLORS_CHART.BEFORE}]);
   const [dataDashboardSPO2_PM, setDataDashboardSPO2_PM] = useState<dataChart[]>([{data: [0], color: () => ENUM_COLORS_CHART.BEFORE}]);
   const [labels, setLabels] = useState<string[]>([]);
   const [indexActive, setIndexActive] = useState<number | undefined>();
-  LogApp({dataDashboardSPO2_AM, dataDashboardPULSE_AM});
+
+  const refMonthPicker = useRef() as any;
 
   // SPO2
   useEffect(() => {
@@ -106,14 +109,14 @@ const Home = () => {
       };
 
 
-      dataContent.forEach(el => {
-        arr_am_spO2.data = arr_am_spO2.data.concat([(+el.pulse_before_am || 0)]);
-        arr_am_spO2_1.data = arr_am_spO2_1.data.concat([+(el.pulse_after_am_1h || 0)]);
-        arr_am_spO2_2.data = arr_am_spO2_2.data.concat([+(el.pulse_after_am_2h || 0)]);
+      dataContent.forEach((el, index) => {
+        arr_am_spO2.data[index] = (+el.pulse_before_am || 0);
+        arr_am_spO2_1.data[index] = +(el.pulse_after_am_1h || 0);
+        arr_am_spO2_2.data[index] = +(el.pulse_after_am_2h || 0);
 
-        arr_pm_spO2.data = arr_pm_spO2.data.concat([+(el.pulse_before_pm || 0)]);
-        arr_pm_spO2_1.data = arr_pm_spO2_1.data.concat([+(el.pulse_after_pm_1h || 0)]);
-        arr_pm_spO2_2.data = arr_pm_spO2_2.data.concat([+(el.pulse_after_pm_2h || 0)]);
+        arr_pm_spO2.data[index] = +(el.pulse_before_pm || 0);
+        arr_pm_spO2_1.data[index] = +(el.pulse_after_pm_1h || 0);
+        arr_pm_spO2_2.data[index] = +(el.pulse_after_pm_2h || 0);
       });
       const dataChartSPO2_AM = [arr_am_spO2, arr_am_spO2_1, arr_am_spO2_2];
       const dataChartSPO2_PM = [arr_pm_spO2, arr_pm_spO2_1, arr_pm_spO2_2];
@@ -139,12 +142,26 @@ const Home = () => {
 
   return (
     <>
-      <AppScrollWrapBottomTab isHeightStatus
+      <AppScrollWrapBottomTab
         ListFooterComponent={ListFooterComponent}
+        ListHeaderComponent={<>
+          <AppHeader title="Dashboard" />
+          <Box flexDirection={"row"} justifyContent="space-between" paddingVertical={"s"} paddingRight="s">
+            <Box flexDirection={"row"} alignItems="center">
+              <FastImage source={IconCalendar} style={{width: 15, height: 18, marginRight: 10, }} />
+              <AppText variant={"title3"} color={ENUM_COLORS.placeHolderColor} >01/2023</AppText>
+            </Box>
+            <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={() => {
+              refMonthPicker.current.showPicker(true);
+            }}>
+              <FastImage source={IconMenu} style={{width: 18, height: 22}} />
+            </Pressable>
+          </Box>
+        </>}
+        isHeightStatus={false}
       >
         <>
-          <AppHeader title="Dashboard" />
-          <AppText marginVertical={"s"} variant="title2">PULSE_AM</AppText>
+          <AppText variant="title2">PULSE_AM</AppText>
           <ChartHome dataSets={dataDashboardPULSE_AM} labels={labels}
             onDataPointClick={onDataPointClick}
           />
@@ -169,20 +186,11 @@ const Home = () => {
 
         </>
       </AppScrollWrapBottomTab>
-      {indexActive !== undefined &&
-        <Box position={"absolute"} bottom={0} width="100%" style={{backgroundColor: '#000'}} height="90%" >
-          <Box padding="s" pt={"l"}>
-            <AppText textAlign={"center"} variant={"title1"}>{dataContent[indexActive]?.created}</AppText></Box>
-          <ScrollView>
-            <HomeToday dataToday={dataContent[indexActive]} />
-          </ScrollView>
-          <Box alignItems={"center"} paddingBottom="s" style={{backgroundColor: 'transparent'}}>
-            <AppButton label="Close" isWrap
-              onPress={() => setIndexActive(undefined)}
-            />
-          </Box>
-        </Box>
-      }
+      <ModalDetail visible={indexActive !== undefined}
+        data={dataContent[indexActive || 0]}
+        setIndexActive={setIndexActive}
+      />
+      <AppMonthPicker ref={refMonthPicker} />
     </>
   );
 };
