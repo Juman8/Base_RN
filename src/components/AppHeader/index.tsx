@@ -1,24 +1,26 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BackIcon} from '@assets';
 import {AppText} from '@components';
 import {goBack} from '@navigation';
 import {FontSize, Spacing, useTheme} from '@theme';
 import {Keyboard, StyleProp, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle} from 'react-native';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {Alert} from 'react-native';
 
 export interface IAppHeader {
   title?: string;
-  styleContainer?: StyleProp<ViewStyle>
+  styleContainer?: StyleProp<ViewStyle>;
   styleTitle?: StyleProp<TextStyle>;
-  goBack?: boolean;
+  isBack?: boolean;
   backIconColor?: string;
   IconLeft?: any;
   IconRight?: any;
-  styleIconLeft?: StyleProp<ViewStyle>
+  styleIconLeft?: StyleProp<ViewStyle>;
   iconLeftFillColor?: string;
   onPressBtnLeft?: () => void;
   onPressRight?: () => void;
   styleTextRight?: StyleProp<TextStyle>;
-  styleBtnRight?: StyleProp<ViewStyle>
+  styleBtnRight?: StyleProp<ViewStyle>;
   colorBackIcon?: string;
   titleRight?: string;
 }
@@ -28,7 +30,7 @@ export const AppHeader = (props: IAppHeader) => {
     title,
     styleContainer,
     styleTitle,
-    goBack: isBack,
+    isBack,
     styleIconLeft,
     IconLeft,
     iconLeftFillColor,
@@ -84,12 +86,14 @@ export const AppHeader = (props: IAppHeader) => {
   };
   return (
     <TouchableOpacity
-      style={[styles.container, {backgroundColor: themeColor.background}, styleContainer]}
+      style={[styles.container, {
+        backgroundColor: themeColor.background, borderBottomColor: themeColor.divider, borderBottomWidth: 1,
+      }, styleContainer]}
       onPressIn={() => Keyboard.dismiss()}
       activeOpacity={1}
     >
       {renderLeft()}
-      {title && <AppText style={[styles.title, {color: themeColor.textColor} , styleTitle]}>{title}</AppText>}
+      {title && <AppText style={[styles.title, {color: themeColor.textColor}, styleTitle]}>{title}</AppText>}
       {renderRight()}
     </TouchableOpacity>
   );
@@ -103,7 +107,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: Spacing.width16,
-    paddingVertical: Spacing.height20,
+    paddingVertical: Spacing.height15,
+    paddingTop: 10 + getStatusBarHeight(),
   },
   title: {
     fontSize: FontSize.Font18,

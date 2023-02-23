@@ -6,20 +6,21 @@ import {AsyncStorage} from '@utils';
 
 const newAsyncStorage = {
   getItem: async (key: string) => {
-    return await AsyncStorage.getString(key)
+    return await AsyncStorage.getString(key);
   },
   setItem: async (key: string, value: string | number | boolean | Uint8Array) => {
-    AsyncStorage.set(key, value)
+    return AsyncStorage.set(key, value);
   },
   removeItem: async (key: string) => {
-    AsyncStorage.delete(key)
+    return AsyncStorage.delete(key);
   }
-}
+};
 
 const persistConfig = {
   key: 'root',
   storage: newAsyncStorage,
-  whitelist: ['bottomTabSlice']
+  whitelist: ['accountSlice'],
+  blackList: ["bottomTabSlice"]
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

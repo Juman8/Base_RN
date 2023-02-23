@@ -14,6 +14,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {FlatList as ListForDrag} from 'react-native-gesture-handler';
+import {AppText} from '../AppText';
 interface VirtualListProps {
   renderItem: ListRenderItem<any> | null | undefined;
   onRefresh?: () => void;
@@ -47,9 +48,10 @@ interface VirtualListProps {
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
   ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
-  listKey?: string;
+  listKey?: string | undefined;
   isOnlyList?: boolean;
   nestedScrollEnabled?: boolean;
+  onChangeActiveIndexItem?: (value: number[]) => void;
 }
 
 const RenderContent = ({
@@ -111,14 +113,21 @@ const VirtualList = React.memo(
       if (!isLoading && data?.length < 1) {
         return (
           <View style={styles.viewHeader}>
-            <Text textAlign="center" color="">
+            <AppText textAlign="center" style={{color: themeColor.textColor}}>
               {emptyText}
-            </Text>
+            </AppText>
           </View>
         );
       }
       return null;
     }, [isLoading, data?.length, emptyText]);
+
+    const onViewRef = React.useRef((values: any) => {
+      const {viewableItems} = values;
+      const indexs: number[] = viewableItems.map((it: {index: number}) => it.index);
+      props.onChangeActiveIndexItem?.(indexs);
+    });
+    const viewConfigRef = React.useRef({viewAreaCoveragePercentThreshold: 10});
 
     return (
       <RenderContent
@@ -129,6 +138,8 @@ const VirtualList = React.memo(
         data={data}
       >
         <NEW_LIST
+          onViewableItemsChanged={onViewRef.current}
+          viewabilityConfig={viewConfigRef.current}
           listKey={listKey}
           ListHeaderComponent={props.ListHeaderComponent || ListHeaderComponent}
           contentContainerStyle={props.contentContainerStyle}

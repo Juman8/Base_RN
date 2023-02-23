@@ -1,29 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {MainStackComponent} from '../stack/MainStack';
-import {Theme, useTheme} from '@theme';
-import RNBootSplash from "react-native-bootsplash";
-import {AuthStackComponent} from '../stack/AuthStack';
-import {getTokenUserFromStore} from '@redux';
-import {useSelector} from 'react-redux';
 import {createStackNavigator} from '@react-navigation/stack';
+import {getTokenUserFromStore} from '@redux';
+import {useTheme} from '@theme';
+import React, {useEffect} from 'react';
+import RNBootSplash from "react-native-bootsplash";
+import {useSelector} from 'react-redux';
 import {SCREEN_ROUTE} from '../route';
+import {AuthStackComponent} from '../stack/AuthStack';
+import {MainStackComponent} from '../stack/MainStack';
 const Stack = createStackNavigator();
 //main stack app
 const NavigationApp = React.forwardRef((props, ref: any) => {
-  const dataTheme: {theme: Theme;} = useTheme() as any;
+  const dataTheme = useTheme() as any;
   const token = useSelector(getTokenUserFromStore);
 
   useEffect(() => {
     RNBootSplash.hide({fade: true, duration: 300});
   }, []);
 
-
   const renderStackApp = () => {
     return (
       <Stack.Navigator>
-        {token ? (
+        {!token ? (
           <Stack.Screen
             name={SCREEN_ROUTE.AUTH_STACK}
             component={AuthStackComponent}

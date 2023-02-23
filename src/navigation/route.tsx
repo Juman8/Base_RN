@@ -6,6 +6,8 @@ export enum SCREEN_ROUTE {
   AUTH_STACK = 'AUTH_STACK',
   MAIN_ROOT = 'MAIN_ROOT',
   MAIN_STACK = 'MAIN_STACK',
+  HEAR_RATE = 'HEAR_RATE',
+
   HOME_PAGE = 'HOME_PAGE',
   TRADE_PAGE = 'TRADE_PAGE',
   MAIN_PAGE = 'MAIN_PAGE',
@@ -21,6 +23,6 @@ export const ROUTER_BOTTOM_TAB = [
   },
   {
     key: SCREEN_ROUTE.ACCOUNT_PAGE,
-    route: Home,
+    route: () => <></>,
   },
 ];

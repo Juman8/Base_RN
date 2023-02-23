@@ -1197,6 +1197,8 @@ PODS:
   - react-native-mmkv (2.7.0):
     - MMKV (>= 1.2.13)
     - React-Core
+  - react-native-month-year-picker (1.9.0):
+    - React
   - react-native-netinfo (9.3.7):
     - React-Core
   - react-native-safe-area-context (4.5.0):
@@ -1396,6 +1398,7 @@ DEPENDENCIES:
   - react-native-config (from `../node_modules/react-native-config`)
   - react-native-fbsdk-next (from `../node_modules/react-native-fbsdk-next`)
   - react-native-mmkv (from `../node_modules/react-native-mmkv`)
+  - react-native-month-year-picker (from `../node_modules/react-native-month-year-picker`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1537,6 +1540,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fbsdk-next"
   react-native-mmkv:
     :path: "../node_modules/react-native-mmkv"
+  react-native-month-year-picker:
+    :path: "../node_modules/react-native-month-year-picker"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-safe-area-context:
@@ -1673,6 +1678,7 @@ SPEC CHECKSUMS:
   react-native-config: 5330c8258265c1e5fdb8c009d2cabd6badd96727
   react-native-fbsdk-next: d6e1c6ad1693c891add104ab529d96906784ba9c
   react-native-mmkv: a2a40a0458bdbc9d43c4e7752ecfc5e3a87b66dd
+  react-native-month-year-picker: 948797e981ca502427024a34b17f545eb321bbff
   react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-safe-area-context: 39c2d8be3328df5d437ac1700f4f3a4f75716acc
   React-perflogger: af8a3d31546077f42d729b949925cc4549f14def
@@ -1709,6 +1715,6 @@ SPEC CHECKSUMS:
   Yoga: 5ed1699acbba8863755998a4245daa200ff3817b
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 78b9dfee84a01683859ab2e42e231763a02ae3f0
+PODFILE CHECKSUM: d95f397d8cdf3ec7c32fb94279385f7d81744b65
 
 COCOAPODS: 1.11.3

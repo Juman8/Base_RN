@@ -64,29 +64,29 @@ export const CustomTabBar = memo(function CustomTabBar({
   navigation,
 }: BottomTabBarProps) {
   const {themeColor} = useTheme();
-  const statusOfBottomTab = useSelector(getStatusOfBottomTab)
+  const statusOfBottomTab = useSelector(getStatusOfBottomTab);
   const refHeight = useRef(50);
   const refAnimated = useRef(new Animated.Value(0));
 
   useEffect(() => {
     Animated.timing(refAnimated.current, {
       toValue: statusOfBottomTab ? 0 : refHeight.current + 5,
-      duration: 500,
+      duration: 300,
       useNativeDriver: true,
     }).start();
-  }, [statusOfBottomTab])
+  }, [statusOfBottomTab]);
 
   const translateY = refAnimated.current.interpolate({
     inputRange: [0, refHeight.current],
     outputRange: [0, refHeight.current],
     extrapolate: 'clamp',
-  })
+  });
 
   const opacity = translateY.interpolate({
-    inputRange: [0, refHeight.current/2 ,refHeight.current],
+    inputRange: [0, refHeight.current / 2, refHeight.current],
     outputRange: [1, 0.8, 0.5],
     extrapolate: 'clamp',
-  })
+  });
 
   return (
     <Animated.View
@@ -131,25 +131,25 @@ export const CustomTabBar = memo(function CustomTabBar({
           };
 
           return (
-            <View style={{flex: 1, alignItems:'center'}}>
-            <TouchableWithoutFeedback
-              key={'tab-' + index.toString()}
-              accessibilityRole="button"
-              accessibilityLabel={options.tabBarAccessibilityLabel}
-              testID={options.tabBarTestID}
-              onPress={onPress}
-            >
-              <View style={styles.bottomBarIcon}>
-                {options &&
-                  options.tabBarIcon &&
-                  options.tabBarIcon({
-                    focused: isFocused,
-                    color: '',
-                    size: 0,
-                  })}
-                <SourceImage label={label} isFocused={isFocused} />
-              </View>
-            </TouchableWithoutFeedback>
+            <View style={{flex: 1, alignItems: 'center'}}>
+              <TouchableWithoutFeedback
+                key={'tab-' + index.toString()}
+                accessibilityRole="button"
+                accessibilityLabel={options.tabBarAccessibilityLabel}
+                testID={options.tabBarTestID}
+                onPress={onPress}
+              >
+                <View style={styles.bottomBarIcon}>
+                  {options &&
+                    options.tabBarIcon &&
+                    options.tabBarIcon({
+                      focused: isFocused,
+                      color: '',
+                      size: 0,
+                    })}
+                  <SourceImage label={label} isFocused={isFocused} />
+                </View>
+              </TouchableWithoutFeedback>
             </View>
           );
         })}

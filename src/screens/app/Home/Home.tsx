@@ -1,164 +1,225 @@
-import {LoveIcon, Spacing} from '@assets';
-import {
-  AppButton,
-  AppInput,
-  AppScrollWrapBottomTab,
-  GlobalService, VirtualList
-} from '@components';
-import {AppchangeLanguage} from '@instances';
-import {getStatusOfBottomTab} from '@redux';
-import {useTheme} from '@theme';
-import {ENUM_LANGUAGE} from '@translations';
-import i18next from 'i18next';
+import {AppButton, AppHeader, AppScrollWrapBottomTab, AppText, GlobalService} from '@components';
+import {Box, ENUM_COLORS} from '@theme';
+import {LogApp} from '@utils';
+import dayjs from 'dayjs';
 import React, {useEffect, useRef, useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import {Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {useSelector} from "react-redux";
+import {Pressable, ScrollView, StyleSheet} from 'react-native';
+import {ChartHome, ENUM_COLORS_CHART} from './ChartHome';
+import {useHookHome} from './Home.hook';
+import {HomeToday} from './HomeToday';
+import {setStatus} from '@redux';
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import {useDispatch} from 'react-redux';
+import {CloseIcon, IconCalendar, IconMenu} from '@assets';
+import {ModalDetail} from './ModalDetail';
+import FastImage from 'react-native-fast-image';
+import {AppMonthPicker} from './AppMonthPicker';
+import {ENUM_APP_CHART} from '@constants';
+dayjs.extend(customParseFormat);
 
-const NewBtnAnimated = Animated.createAnimatedComponent(TouchableOpacity)
-
-const data = [
-  {
-    name: 1,
-    id: 1,
-  },
-  {
-    name: 1,
-    id: 2,
-  },
-  {
-    name: 1,
-    id: 3,
-  },
-  {
-    name: 1,
-    id: 4,
-  },
-  {
-    name: 1,
-    id: 5,
-  },
-];
-
-// type Props = StackScreenProps<RootStackParamList, 'NewsDetailScreen'>;
-
-const TOP = 40 + Spacing.width25;
-const BOTTOM = Spacing.width25 - 10;
+type dataChart = {data: number[]; color: () => ENUM_COLORS_CHART;};
 
 const Home = () => {
-  /* use navigation: props.navigation
-    hoặc khai báo const route = useRoute<RouteProp<RootStackParamList, SCREEN_ROUTE.HOME>>();
-    use route: props.route
-    hoặc khai báo const navigation = useNavigation<NavigationProp<RootStackParamList, SCREEN_ROUTE.HOME>>();
-    không sử dụng các function được khai báo trong file NavigationUtils.tsx khi đang ở trong các component có thể truy cập navigation prop. 
-    Các function đấy được dùng trong trường hợp 'navigate without prop navigation'
-  */
-  const {updateTheme} = useTheme();
-  const {t} = useTranslation();
-  const [isDark, setDark] = useState(true);
-  const [value, setValue] = useState('');
-  const statusOfBottomTab = useSelector(getStatusOfBottomTab);
-  const translateY = useRef(new Animated.Value(50 + Spacing.width25)).current;
 
+  const {ListFooterComponent, dataToday, dataContent, monthFilter, setMonFilter} = useHookHome();
+  const dispatch = useDispatch();
+  const [dataDashboardPULSE_AM, setDataDashboardPULSE_AM] = useState<dataChart[]>([{data: [0], color: () => ENUM_COLORS_CHART.BEFORE}]);
+  const [dataDashboardPULSE_PM, setDataDashboardPULSE_PM] = useState<dataChart[]>([{data: [0], color: () => ENUM_COLORS_CHART.BEFORE}]);
+  const [dataDashboardSPO2_AM, setDataDashboardSPO2_AM] = useState<dataChart[]>([{data: [0], color: () => ENUM_COLORS_CHART.BEFORE}]);
+  const [dataDashboardSPO2_PM, setDataDashboardSPO2_PM] = useState<dataChart[]>([{data: [0], color: () => ENUM_COLORS_CHART.BEFORE}]);
+  const [labels, setLabels] = useState<string[]>([]);
+  const [indexActive, setIndexActive] = useState<number | undefined>();
+  const [typeOfChart, setTypeOfChart] = useState<string>();
+
+  const refMonthPicker = useRef() as any;
+
+  // SPO2
   useEffect(() => {
-    GlobalService.hideLoading();
-  }, []);
-  const onSwitchLang = AppchangeLanguage();
-  // const insets = useSafeAreaInsets();
-  
-  useEffect(() => {
-    if (statusOfBottomTab) {
-      Animated.timing(translateY, {
-        toValue: TOP,
-        duration: 500,
-        useNativeDriver: false
-      }).start();
+    if (dataContent && dataContent.length > 0) {
+      // spo2
+      const arr_am_spO2: dataChart = {
+        data: [0],
+        color: () => ENUM_COLORS_CHART.BEFORE
+      };
+      const arr_am_spO2_1: dataChart = {
+        data: [0],
+        color: () => ENUM_COLORS_CHART.AFTER_1h
+      };
+      const arr_am_spO2_2: dataChart = {
+        data: [0],
+        color: () => ENUM_COLORS_CHART.AFTER_2h
+      };
+      const arr_pm_spO2: dataChart = {
+        data: [0],
+        color: () => ENUM_COLORS_CHART.BEFORE
+      };
+      const arr_pm_spO2_1: dataChart = {
+        data: [0],
+        color: () => ENUM_COLORS_CHART.AFTER_1h
+      };
+      const arr_pm_spO2_2: dataChart = {
+        data: [0],
+        color: () => ENUM_COLORS_CHART.AFTER_2h
+      };
+
+      const label: string[] = [];
+
+      dataContent.forEach((el, index) => {
+        arr_am_spO2.data[index] = (+el.spO2_before_am || 0);
+        arr_am_spO2_1.data[index] = +(el.spO2_after_am_1h || 0);
+        arr_am_spO2_2.data[index] = +(el.spO2_after_am_2h || 0);
+
+        arr_pm_spO2.data[index] = +(el.spO2_before_pm || 0);
+        arr_pm_spO2_1.data[index] = +(el.spO2_after_pm_1h || 0);
+        arr_pm_spO2_2.data[index] = +(el.spO2_after_pm_2h || 0);
+        label.push(dayjs(el.created).format('DD/MM'));
+      });
+      const dataChartSPO2_AM = [arr_am_spO2, arr_am_spO2_1, arr_am_spO2_2];
+      const dataChartSPO2_PM = [arr_pm_spO2, arr_pm_spO2_1, arr_pm_spO2_2];
+      setDataDashboardSPO2_AM(dataChartSPO2_AM);
+      setDataDashboardSPO2_PM(dataChartSPO2_PM);
+      setLabels(label);
     } else {
-      Animated.timing(translateY, {
-        toValue: BOTTOM,
-        duration: 500,
-        useNativeDriver: false
-      }).start();
+      const mData = [{data: [0], color: () => ENUM_COLORS_CHART.BEFORE}];
+      setDataDashboardSPO2_AM(mData);
+      setDataDashboardSPO2_PM(mData);
+      setDataDashboardPULSE_AM(mData);
+      setDataDashboardPULSE_PM(mData);
+      setLabels([]);
     }
-  }, [statusOfBottomTab])
+  }, [dataContent]);
+  //PULSE
+  useEffect(() => {
+    if (dataContent && dataContent.length > 0) {
+      // spo2
+      const arr_am_spO2: dataChart = {
+        data: [0],
+        color: () => ENUM_COLORS_CHART.BEFORE
+      };
+      const arr_am_spO2_1: dataChart = {
+        data: [0],
+        color: () => ENUM_COLORS_CHART.AFTER_1h
+      };
+      const arr_am_spO2_2: dataChart = {
+        data: [0],
+        color: () => ENUM_COLORS_CHART.AFTER_2h
+      };
+      const arr_pm_spO2: dataChart = {
+        data: [0],
+        color: () => ENUM_COLORS_CHART.BEFORE
+      };
+      const arr_pm_spO2_1: dataChart = {
+        data: [0],
+        color: () => ENUM_COLORS_CHART.AFTER_1h
+      };
+      const arr_pm_spO2_2: dataChart = {
+        data: [0],
+        color: () => ENUM_COLORS_CHART.AFTER_2h
+      };
 
-  const intA = translateY.interpolate({
-    inputRange: [BOTTOM,TOP],
-    outputRange: [BOTTOM,TOP],
-    extrapolate:'clamp'
-  })
 
-  const ListFooterComponent = (): JSX.Element => {
-    return (
-      <NewBtnAnimated
-        style={[{
-          bottom: intA, 
-        }, styles.btnLove]}
-      >
-        <LoveIcon
-          width={Spacing.width25}
-          height={Spacing.width25}
-        />
-      </NewBtnAnimated>
-    )
-  }
+      dataContent.forEach((el, index) => {
+        arr_am_spO2.data[index] = (+el.pulse_before_am || 0);
+        arr_am_spO2_1.data[index] = +(el.pulse_after_am_1h || 0);
+        arr_am_spO2_2.data[index] = +(el.pulse_after_am_2h || 0);
+
+        arr_pm_spO2.data[index] = +(el.pulse_before_pm || 0);
+        arr_pm_spO2_1.data[index] = +(el.pulse_after_pm_1h || 0);
+        arr_pm_spO2_2.data[index] = +(el.pulse_after_pm_2h || 0);
+      });
+      const dataChartSPO2_AM = [arr_am_spO2, arr_am_spO2_1, arr_am_spO2_2];
+      const dataChartSPO2_PM = [arr_pm_spO2, arr_pm_spO2_1, arr_pm_spO2_2];
+
+      setDataDashboardPULSE_AM(dataChartSPO2_AM);
+      setDataDashboardPULSE_PM(dataChartSPO2_PM);
+    }
+  }, [dataContent]);
+
+  const onDataPointClick = (index: number, type: string) => {
+    setTypeOfChart(type);
+    GlobalService.showLoading();
+    setTimeout(() => {
+      setIndexActive(index);
+      GlobalService.hideLoading();
+    }, 500);
+  };
+
+  useEffect(() => {
+    if (indexActive) {
+      dispatch(setStatus(false));
+    }
+  }, [indexActive]);
 
   return (
-    <AppScrollWrapBottomTab isHeightStatus
-      ListFooterComponent={<ListFooterComponent />}
-    >
-      <VirtualList
-        data={data}
-        renderItem={() => {
-          return (
-            <>
-              <AppButton
-                style={styles.btn1}
-                label={t('switchTheme')}
-                isWrap
-                onPress={() => {
-                  setDark(!isDark);
-                  updateTheme(!isDark);
-                }}
-              />
-              <AppButton
-                label={t('switchLang')}
-                isWrap
-                onPress={() => {
-                  GlobalService.showLoading();
-                  onSwitchLang(
-                    i18next.language === ENUM_LANGUAGE.vi
-                      ? ENUM_LANGUAGE.en
-                      : ENUM_LANGUAGE.vi,
-                  );
-                  setTimeout(() => {
-                    GlobalService.hideLoading();
-                  }, 1000);
-                }}
-              />
-              <AppInput
-                value={value}
-                onChangeText={setValue}
-                placeholder="OKOKOKO"
-                label={'OKOKOK'}
-              />
-            </>
-          );
+    <>
+      <AppScrollWrapBottomTab
+        ListFooterComponent={ListFooterComponent}
+        ListHeaderComponent={<>
+          <AppHeader title="Dashboard" />
+          <Box flexDirection={"row"} justifyContent="space-between" paddingVertical={"s"} paddingRight="s">
+            <Box flexDirection={"row"} alignItems="center">
+              <FastImage source={IconCalendar} style={{width: 15, height: 18, marginRight: 10, }} />
+              <AppText variant={"title3"} color={ENUM_COLORS.placeHolderColor} >{monthFilter}</AppText>
+            </Box>
+            <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={() => {
+              refMonthPicker.current.showPicker(true);
+            }}>
+              <FastImage source={IconMenu} style={{width: 18, height: 22}} />
+            </Pressable>
+          </Box>
+        </>}
+        isHeightStatus={false}
+      >
+        <>
+          <AppText variant="title2">{ENUM_APP_CHART.PULSE_AM}</AppText>
+          <ChartHome dataSets={dataDashboardPULSE_AM} labels={labels}
+            onDataPointClick={(index: number) => {
+              onDataPointClick(index, ENUM_APP_CHART.PULSE_AM);
+            }}
+          />
+          <AppText marginVertical={"s"} variant="title2">{ENUM_APP_CHART.PULSE_PM}</AppText>
+          <ChartHome dataSets={dataDashboardPULSE_PM} labels={labels}
+            onDataPointClick={(index: number) => {
+              onDataPointClick(index, ENUM_APP_CHART.PULSE_PM);
+            }}
+          />
+
+          <AppText marginVertical={"s"} variant="title2">{ENUM_APP_CHART.SP02_AM}</AppText>
+          <ChartHome dataSets={dataDashboardSPO2_AM} labels={labels}
+            onDataPointClick={(index: number) => {
+              onDataPointClick(index, ENUM_APP_CHART.SP02_AM);
+            }}
+          />
+          <AppText marginVertical={"s"} variant="title2">{ENUM_APP_CHART.SP02_PM}</AppText>
+          <ChartHome dataSets={dataDashboardSPO2_PM} labels={labels}
+            onDataPointClick={(index: number) => {
+              onDataPointClick(index, ENUM_APP_CHART.SP02_PM);
+            }}
+          />
+
+          <Box paddingHorizontal={"s"}>
+            <AppText marginVertical={"s"} variant="title2">TODAY</AppText>
+            <HomeToday dataToday={dataToday} />
+          </Box>
+
+        </>
+      </AppScrollWrapBottomTab>
+      <ModalDetail visible={indexActive !== undefined}
+        data={dataContent[indexActive || 0]}
+        setIndexActive={setIndexActive}
+        typeOfChart={typeOfChart}
+      />
+      <AppMonthPicker ref={refMonthPicker}
+        onChangeDate={(date) => {
+          setMonFilter(dayjs(date).format('MM/YYYY'));
         }}
       />
-    </AppScrollWrapBottomTab>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   btn1: {marginBottom: 20},
-  btnLove: {
-    position: 'absolute',
-    right: 20,
-    backgroundColor: 'rgba(0,0,0,0.1)',
-    padding: 10,
-    borderRadius: 100,
-  }
 });
 
 export {Home};

@@ -1,3 +1,5 @@
+import {en} from "@translations";
+
 export interface typeOfColors {
   background: string;
   color_Tab_Unselected: string;
@@ -9,14 +11,33 @@ export interface typeOfColors {
   whiteColor: string;
   colorDisable: string;
   primary: string;
-  placeHoderColor: string;
+  placeHolderColor: string;
   red: string;
+  divider: string;
+  transparent: string;
+}
+
+export enum ENUM_COLORS {
+  background = "background",
+  color_Tab_Unselected = "color_Tab_Unselected",
+  color_Tab_Selected = "color_Tab_Selected",
+  icon = "icon",
+  backgroundColorTab = "backgroundColorTab",
+  color_Icon_Selected = "color_Icon_Selected",
+  textColor = "textColor",
+  whiteColor = "whiteColor",
+  colorDisable = "colorDisable",
+  primary = "primary",
+  placeHolderColor = "placeHolderColor",
+  red = "red",
+  divider = "divider",
+  transparent = "transparent",
 }
 
 type themeType = {
   dark: boolean;
   colors: typeOfColors;
-}
+};
 
 export const darkTheme: themeType = {
   // default
@@ -33,7 +54,9 @@ export const darkTheme: themeType = {
     colorDisable: '#c0c0c0',
     primary: '#4d4fdb',
     red: "#ff667d",
-    placeHoderColor: '#B4B4B4'
+    placeHolderColor: '#B4B4B4',
+    divider: '#262626',
+    transparent: 'transparent',
   },
 };
 
@@ -51,6 +74,8 @@ export const lightTheme: themeType = {
     colorDisable: '#c0c0c0',
     primary: '#4d4fdb',
     red: "#ff667d",
-    placeHoderColor: '#B4B4B4'
+    placeHolderColor: '#B4B4B4',
+    divider: '#cfcfcf',
+    transparent: 'transparent',
   },
 };
