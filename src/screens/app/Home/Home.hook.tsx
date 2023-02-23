@@ -28,8 +28,8 @@ export const useHookHome = () => {
     firebaseSvc.getListDataOfHealth((data) => {
       LogApp({data});
       setDataContent(data);
-    });
-  }, []);
+    }, monthFilter);
+  }, [monthFilter]);
 
   useEffect(() => {
     const subscription = firebaseSvc.onHandleDataChange((valueChange: dataHealthContent) => {
@@ -49,9 +49,9 @@ export const useHookHome = () => {
         }
 
       });
-    });
+    }, monthFilter);
     return () => subscription();
-  }, []);
+  }, [monthFilter]);
 
 
   const ListFooterComponent = React.useMemo((): JSX.Element => {

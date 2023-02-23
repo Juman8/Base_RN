@@ -1,8 +1,8 @@
 import {AppText} from "@components";
 import {navigate, SCREEN_ROUTE} from "@navigation";
-import {Box, ENUM_COLORS, Text} from "@theme";
-import {dataHealthContent, firebaseSvc} from "@utils";
-import React, {useEffect, useState} from "react";
+import {Box, ENUM_COLORS} from "@theme";
+import {dataHealthContent} from "@utils";
+import React, {forwardRef, useImperativeHandle, useRef} from "react";
 import {Pressable} from "react-native";
 
 const BtnAngle = () => {
@@ -23,7 +23,7 @@ const ViewLabel = ({label, value, isHide}: any) => {
   );
 };
 
-export const HomeToday = ({dataToday}: {dataToday?: dataHealthContent;}) => {
+export const HomeToday = forwardRef(({dataToday}: {dataToday?: dataHealthContent;}, ref) => {
 
   const renderTab = (type: string, valueBefore?: string, valueAfter_1h?: string, valueAfter_2h?: string) => {
     return (
@@ -46,10 +46,22 @@ export const HomeToday = ({dataToday}: {dataToday?: dataHealthContent;}) => {
     );
   };
 
+  const refHeight = useRef(0);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      onGetOffset: () => refHeight.current,
+    }),
+    [],
+  );
+
   return (
     <>
       <Pressable onPress={() => navigate(SCREEN_ROUTE.HEAR_RATE, {dataContent: dataToday, isAM: true})}>
-        <Box style={{backgroundColor: 'rgba(0,0,0,0.5)', padding: 10, borderRadius: 10}}>
+        <Box style={{backgroundColor: 'rgba(0,0,0,0.5)', padding: 10, borderRadius: 10}} onLayout={(e) => {
+          refHeight.current = e.nativeEvent.layout.height;
+        }}>
           <AppText color={ENUM_COLORS.red} variant="title2" fontWeight={"700"}>AM</AppText>
           <Box marginLeft={"m"}>
             {renderTab("SPO2", dataToday?.spO2_before_am, dataToday?.spO2_after_am_1h, dataToday?.spO2_after_am_2h)}
@@ -69,4 +81,4 @@ export const HomeToday = ({dataToday}: {dataToday?: dataHealthContent;}) => {
     </>
   );
 
-};
+});

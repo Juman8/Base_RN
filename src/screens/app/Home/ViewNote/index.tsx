@@ -29,7 +29,7 @@ export const ViewNote = () => {
   useEffect(() => {
     setTimeout(() => {
       onPressIcon();
-    }, 1500);
+    }, 3000);
   }, []);
 
   const onPressIcon = () => {

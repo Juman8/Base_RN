@@ -11,12 +11,16 @@ import {HearPM} from './HearPM';
 import {useRoute} from '@react-navigation/native';
 import MaskInput, {Masks} from 'react-native-mask-input';
 import dayjs from 'dayjs';
+import {goBack} from '@navigation';
 
 export const HeartRate = () => {
   const route = useRoute();
 
   const {dataContent, isAM, isToday} = route?.params || {} as any;
-  const [dataDetail, setDataDetail] = useState<dataHealthContent>(dataContent);
+  const [dataDetail, setDataDetail] = useState<dataHealthContent>(dataContent ? {
+    ...dataContent,
+    created: dayjs(dataContent.created).format('DD/MM/YYYY')
+  } : undefined);
   const [isAm, setIsAm] = useState<boolean>(isAM === undefined ? true : isAM);
   const [isChanged, setChanged] = useState<boolean>(false);
   const {themeColor} = useTheme();
@@ -25,7 +29,10 @@ export const HeartRate = () => {
   useEffect(() => {
     if (isToday) {
       firebaseSvc.onGetDataTodayNotEvent((data) => {
-        setDataDetail(data);
+        setDataDetail({
+          ...data,
+          created: dayjs(data?.created).format('DD/MM/YYYY')
+        });
       });
     }
   }, [isToday]);
@@ -49,11 +56,13 @@ export const HeartRate = () => {
   };
 
   const onHandleConfirm = () => {
+    GlobalService.showLoading();
     if (dataDetail.created && dataDetail.created.length < 10) {
       return showAlertMessage("Định dạng ngày không đúng, vui lòng nhập lại đi mẹ Mint", "danger");
     }
     const newData: any = {
       ...dataDetail,
+      created: dayjs(dataDetail.created, 'DD/MM/YYYY').valueOf()
     };
 
     const valueData = formatDataHearth(newData);
@@ -71,6 +80,8 @@ export const HeartRate = () => {
     } else {
       firebaseSvc.onUpdateDataHeath(valueData, dataDetail.id);
       showAlertMessage("Update successfully", "success");
+      GlobalService.hideLoading();
+      goBack();
     }
   };
 
@@ -106,10 +117,12 @@ export const HeartRate = () => {
 
         {isAm ? <HearAM dataDetail={dataDetail} onChangeData={onChangeData} /> :
           <HearPM dataDetail={dataDetail} onChangeData={onChangeData} />}
+        {console.log(111, dataDetail?.created)}
         <AppInput
           isMasked
           value={dataDetail?.created || dayjs().format('DD/MM/YYYY')}
           onChangeText={(masked) => {
+            console.log({masked});
             setChanged(true);
             setDataDetail(prv => {
               return {

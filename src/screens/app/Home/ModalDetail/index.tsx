@@ -1,7 +1,9 @@
 import {CloseIcon} from "@assets";
 import {AppText} from "@components";
+import {ENUM_APP_CHART} from "@constants";
 import {Box} from "@theme";
 import {dataHealthContent, DEVICE} from "@utils";
+import dayjs from "dayjs";
 import {transform} from "lodash";
 import React, {useEffect, useRef} from "react";
 import {ScrollView, Pressable, Animated} from "react-native";
@@ -13,11 +15,15 @@ interface ModalProps {
   data: dataHealthContent;
   setIndexActive: (value: number | undefined) => void;
   visible: boolean;
+  typeOfChart: ENUM_APP_CHART | undefined;
 }
 
 export const ModalDetail = (props: ModalProps) => {
-  const {data, setIndexActive, visible} = props;
+  const {data, setIndexActive, visible, typeOfChart} = props;
   const refCurrent = useRef(new Animated.Value(0)).current;
+
+  const refHeightAM = useRef<any>();
+  const refScroll = useRef<ScrollView>();
 
   useEffect(() => {
     if (visible) {
@@ -25,8 +31,17 @@ export const ModalDetail = (props: ModalProps) => {
         toValue: 0,
         useNativeDriver: true
       }).start();
+
     }
   }, [visible]);
+
+  useEffect(() => {
+    if (typeOfChart === ENUM_APP_CHART.SP02_PM || typeOfChart === ENUM_APP_CHART.PULSE_PM) {
+      setTimeout(() => {
+        refScroll.current?.scrollTo({animated: true, y: refHeightAM.current?.onGetOffset()});
+      }, 500);
+    }
+  }, [typeOfChart, visible]);
 
   const onClose = () => {
     Animated.timing(refCurrent, {
@@ -36,6 +51,7 @@ export const ModalDetail = (props: ModalProps) => {
     }).start();
     setTimeout(() => setIndexActive(undefined), 400);
   };
+
 
   if (!visible) {
     return null;
@@ -50,9 +66,9 @@ export const ModalDetail = (props: ModalProps) => {
 
     >
       <Box padding="s" pt={"l"}>
-        <AppText textAlign={"center"} variant={"title1"}>{data?.created}</AppText></Box>
-      <ScrollView>
-        <HomeToday dataToday={data} />
+        <AppText textAlign={"center"} variant={"title1"}>{dayjs(data?.created).format('DD/MM/YYYY')}</AppText></Box>
+      <ScrollView ref={refScroll}>
+        <HomeToday dataToday={data} ref={refHeightAM} />
         <Box height={54} />
       </ScrollView>
       <Pressable onPress={onClose} style={{
