@@ -20,7 +20,7 @@ type dataChart = {data: number[]; color: () => ENUM_COLORS_CHART;};
 
 const Home = () => {
 
-  const {ListFooterComponent, dataToday, dataContent} = useHookHome();
+  const {ListFooterComponent, dataToday, dataContent, monthFilter, setMonFilter} = useHookHome();
   const dispatch = useDispatch();
   const [dataDashboardPULSE_AM, setDataDashboardPULSE_AM] = useState<dataChart[]>([{data: [0], color: () => ENUM_COLORS_CHART.BEFORE}]);
   const [dataDashboardPULSE_PM, setDataDashboardPULSE_PM] = useState<dataChart[]>([{data: [0], color: () => ENUM_COLORS_CHART.BEFORE}]);
@@ -149,7 +149,7 @@ const Home = () => {
           <Box flexDirection={"row"} justifyContent="space-between" paddingVertical={"s"} paddingRight="s">
             <Box flexDirection={"row"} alignItems="center">
               <FastImage source={IconCalendar} style={{width: 15, height: 18, marginRight: 10, }} />
-              <AppText variant={"title3"} color={ENUM_COLORS.placeHolderColor} >01/2023</AppText>
+              <AppText variant={"title3"} color={ENUM_COLORS.placeHolderColor} >{monthFilter}</AppText>
             </Box>
             <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={() => {
               refMonthPicker.current.showPicker(true);
@@ -190,7 +190,11 @@ const Home = () => {
         data={dataContent[indexActive || 0]}
         setIndexActive={setIndexActive}
       />
-      <AppMonthPicker ref={refMonthPicker} />
+      <AppMonthPicker ref={refMonthPicker}
+        onChangeDate={(date) => {
+          setMonFilter(dayjs(date).format('MM/YYYY'));
+        }}
+      />
     </>
   );
 };

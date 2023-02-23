@@ -1,3 +1,4 @@
+import {GlobalService} from '@components';
 import firestore from '@react-native-firebase/firestore';
 import {LogApp, showAlertMessage} from '@utils';
 import dayjs from 'dayjs';
@@ -116,6 +117,32 @@ class FirebaseSvc {
         (err: any) => {
           LogApp({err});
         },
+      );
+  }
+
+  public onGetDataTodayNotEvent(callBack: (data: any) => void) {
+    GlobalService.showLoading();
+
+    return this.referentCollectionMint
+      .where('created', '==', dayjs().format('DD/MM/YYYY'))
+      .limit(1)
+      .onSnapshot((querySnapShot: any) => {
+        const dataHeath: any = [];
+        querySnapShot.docs.map((doc: any) => {
+          if (doc.data()) {
+            dataHeath.push({
+              ...doc.data(),
+              id: doc.id
+            });
+          }
+        });
+        GlobalService.hideLoading();
+        callBack(dataHeath[0]);
+      },
+        (err: any) => {
+          GlobalService.hideLoading();
+          LogApp({err});
+        }
       );
   }
 }

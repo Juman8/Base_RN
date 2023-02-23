@@ -14,7 +14,7 @@ interface AppScrollWrapBottomTabProps {
 
 const NewFlatList = Animated.createAnimatedComponent(FlatList);
 
-export const AppScrollWrapBottomTab = (props: AppScrollWrapBottomTabProps) => {
+export const AppScrollWrapBottomTab = React.memo((props: AppScrollWrapBottomTabProps) => {
   const scrollYOld = useRef(0);
   const refDebounce: any = useRef(null);
   const dispatch = useDispatch();
@@ -64,4 +64,4 @@ export const AppScrollWrapBottomTab = (props: AppScrollWrapBottomTabProps) => {
       {props.ListFooterComponent}
     </Box>
   );
-};
+});

@@ -2,7 +2,13 @@ import dayjs from 'dayjs';
 import React, {useCallback, useImperativeHandle, useState} from 'react';
 import MonthPicker from 'react-native-month-year-picker';
 
-export const AppMonthPicker = React.forwardRef((props, ref) => {
+interface propsAppPicker {
+  onChangeDate: (data: Date) => void;
+}
+
+export const AppMonthPicker = React.forwardRef((props: propsAppPicker, ref) => {
+
+  const {onChangeDate} = props;
 
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
@@ -20,9 +26,9 @@ export const AppMonthPicker = React.forwardRef((props, ref) => {
   const onValueChange = useCallback(
     (event, newDate) => {
       const selectedDate = newDate || date;
-
       showPicker(false);
       setDate(selectedDate);
+      onChangeDate(selectedDate);
     },
     [date, showPicker],
   );
@@ -35,7 +41,8 @@ export const AppMonthPicker = React.forwardRef((props, ref) => {
       onChange={onValueChange}
       value={date}
       maximumDate={dayjs().toDate()}
-      locale="vi"
+      locale="en"
+      mode="number"
     />
   );
 });

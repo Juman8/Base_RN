@@ -15,11 +15,20 @@ import dayjs from 'dayjs';
 export const HeartRate = () => {
   const route = useRoute();
 
-  const {dataContent, isAM} = route?.params || {} as any;
+  const {dataContent, isAM, isToday} = route?.params || {} as any;
   const [dataDetail, setDataDetail] = useState<dataHealthContent>(dataContent);
   const [isAm, setIsAm] = useState<boolean>(isAM === undefined ? true : isAM);
   const [isChanged, setChanged] = useState<boolean>(false);
   const {themeColor} = useTheme();
+
+
+  useEffect(() => {
+    if (isToday) {
+      firebaseSvc.onGetDataTodayNotEvent((data) => {
+        setDataDetail(data);
+      });
+    }
+  }, [isToday]);
 
   const onChangeData = (data: any) => {
     setChanged(true);
