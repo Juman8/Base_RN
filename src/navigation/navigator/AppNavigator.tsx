@@ -16,7 +16,9 @@ const NavigationApp = React.forwardRef((props, ref: any) => {
   const token = useSelector(getTokenUserFromStore);
 
   useEffect(() => {
-    RNBootSplash.hide({fade: true, duration: 300});
+    setTimeout(() => {
+      RNBootSplash.hide({fade: true, duration: 300});
+    }, 500);
   }, []);
 
   const renderStackApp = () => {

@@ -172,7 +172,6 @@ class FirebaseSvc {
           }
         });
         GlobalService.hideLoading();
-        console.log({dataHeath});
         callBack(dataHeath[0]);
       },
         (err: any) => {
