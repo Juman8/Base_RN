@@ -34,7 +34,7 @@ index 337e1ef..914e38e 100644
  }
  export default AbstractChart;
 diff --git a/node_modules/react-native-chart-kit/dist/line-chart/LineChart.d.ts b/node_modules/react-native-chart-kit/dist/line-chart/LineChart.d.ts
-index e09cf18..3c9bc27 100644
+index e09cf18..3f871b7 100644
 --- a/node_modules/react-native-chart-kit/dist/line-chart/LineChart.d.ts
 +++ b/node_modules/react-native-chart-kit/dist/line-chart/LineChart.d.ts
 @@ -1,7 +1,7 @@
@@ -42,17 +42,29 @@ index e09cf18..3c9bc27 100644
 -import { Animated, TextInput, ViewStyle } from "react-native";
 -import AbstractChart, { AbstractChartConfig, AbstractChartProps } from "../AbstractChart";
 -import { ChartData, Dataset } from "../HelperTypes";
-+import {Animated, TextInput, ViewStyle} from "react-native";
++import {Animated, NativeScrollEvent, NativeSyntheticEvent, TextInput, ViewStyle} from "react-native";
 +import AbstractChart, {AbstractChartConfig, AbstractChartProps} from "../AbstractChart";
 +import {ChartData, Dataset} from "../HelperTypes";
  export interface LineChartData extends ChartData {
      legend?: string[];
  }
-@@ -195,25 +195,26 @@ declare class LineChart extends AbstractChart<LineChartProps, LineChartState> {
+@@ -186,6 +186,10 @@ export interface LineChartProps extends AbstractChartProps {
+      * The number of horizontal lines
+      */
+     segments?: number;
++    refScroll?: any;
++    onScroll?: (e: NativeSyntheticEvent<NativeScrollEvent>) => void;
++    onTouchStart?: () => void;
++    onTouchEnd?: () => void;
+ }
+ declare type LineChartState = {
+     scrollableDotHorizontalOffset: Animated.Value;
+@@ -195,25 +199,27 @@ declare class LineChart extends AbstractChart<LineChartProps, LineChartState> {
      state: {
          scrollableDotHorizontalOffset: Animated.Value;
      };
 +    yBgr?: string;
++    refScroll?: any;
      getColor: (dataset: Dataset, opacity: number) => string;
      getStrokeWidth: (dataset: Dataset) => number;
      getDatas: (data: Dataset[]) => number[];
@@ -83,7 +95,7 @@ index e09cf18..3c9bc27 100644
      }) => JSX.Element[];
      renderLegend: (width: any, legendOffset: any) => JSX.Element[];
 diff --git a/node_modules/react-native-chart-kit/dist/line-chart/LineChart.js b/node_modules/react-native-chart-kit/dist/line-chart/LineChart.js
-index 1ac4227..0d77f6f 100644
+index 1ac4227..caa8d0d 100644
 --- a/node_modules/react-native-chart-kit/dist/line-chart/LineChart.js
 +++ b/node_modules/react-native-chart-kit/dist/line-chart/LineChart.js
 @@ -12,7 +12,7 @@ var __extends = (this && this.__extends) || (function () {
@@ -225,7 +237,7 @@ index 1ac4227..0d77f6f 100644
          };
          return _this;
      }
-@@ -378,71 +380,93 @@ var LineChart = /** @class */ (function (_super) {
+@@ -378,71 +380,101 @@ var LineChart = /** @class */ (function (_super) {
          }
          var legendOffset = this.props.data.legend ? height * 0.15 : 0;
          return (<View style={style}>
@@ -298,7 +310,15 @@ index 1ac4227..0d77f6f 100644
 +                    </G>
 +                </Svg>
 +            </View>
-+            <ScrollView horizontal style={{ backgroundColor: this.props.yBgr }}>
++            <Animated.ScrollView horizontal style={{ backgroundColor: this.props.yBgr }}
++                ref={(_ref) => this.props.refScroll?.(_ref)}
++                onScroll={this.props.onScroll}
++                scrollEventThrottle={16}
++                onTouchStart={this.props.onTouchStart}
++                onTouchEnd={this.props.onTouchEnd}
++                overScrollMode={"never"}
++                bounces={false}
++            >
 +                <Svg height={height + paddingBottom + legendOffset} width={width - margin * 2 - marginRight}>
 +                    <Rect width="100%" height={height + legendOffset} rx={borderRadius} ry={borderRadius} fill="url(#backgroundGradient)" fillOpacity={transparent ? 0 : 1} />
 +                    {this.props.data.legend &&
@@ -359,7 +379,7 @@ index 1ac4227..0d77f6f 100644
 +                        </G>
 +                    </G>
 +                </Svg>
-+            </ScrollView>
++            </Animated.ScrollView>
 +            {withScrollableDot && (<ScrollView style={StyleSheet.absoluteFill} contentContainerStyle={{ width: width * 2 }} showsHorizontalScrollIndicator={false} scrollEventThrottle={16} onScroll={Animated.event([
 +                {
 +                    nativeEvent: {

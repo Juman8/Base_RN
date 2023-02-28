@@ -20,7 +20,7 @@ const TabNavigator = memo(function () {
       {ROUTER_BOTTOM_TAB.map((it, index) => {
         return (
           <Tab.Screen name={it.key} component={it.route} key={it.key} />
-        )
+        );
       })}
     </Tab.Navigator>
   );

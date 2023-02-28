@@ -10,7 +10,7 @@ export const showAlertMessage = (
   type?: 'success' | 'danger' | 'warning' | 'info',
 ) => {
   showMessage({
-    message: t('title.messages'),
+    message: t('common.messagesNotify'),
     description: message,
     type: type || 'success',
     duration: 1500,

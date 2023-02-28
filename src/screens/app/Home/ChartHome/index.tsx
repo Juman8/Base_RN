@@ -1,5 +1,5 @@
 import {DEVICE} from '@utils';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {
   LineChart
@@ -15,10 +15,14 @@ interface ChartHomeProps {
   dataSets: {data: number[]; color: () => ENUM_COLORS_CHART;}[];
   labels: string[];
   onDataPointClick?: (index: number) => void;
+  onScroll: (x: number) => void;
+  refScroll: (_ref: any) => void;
+  onTouchStart: () => void;
+  onTouchEnd: () => void;
 }
 
 export const ChartHome = (props: ChartHomeProps) => {
-  const {dataSets, labels, onDataPointClick} = props;
+  const {dataSets, labels, onDataPointClick, onScroll, refScroll, onTouchStart, onTouchEnd} = props;
   const [WidthChart, setWidthChart] = useState(DEVICE.width);
   const dataLengthRatio = dataSets[0].data.length / 7;
 
@@ -27,8 +31,29 @@ export const ChartHome = (props: ChartHomeProps) => {
     setWidthChart(_WidthChart);
   }, [dataLengthRatio]);
 
+  const ref = useRef<any>(null);
+  const refTimeout = useRef<any>(null);
+
+  useEffect(() => {
+    refTimeout.current = setTimeout(() => {
+      ref.current?.scrollToEnd?.({animated: true});
+    }, 1500);
+    return () => {
+      clearTimeout(refTimeout.current);
+    };
+  }, [dataLengthRatio]);
+
   return (
     <LineChart
+      refScroll={(_ref: any) => {
+        ref.current = _ref;
+        refScroll(ref);
+      }}
+      onScroll={(e) => {
+        onScroll(e.nativeEvent.contentOffset.x);
+      }}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
       data={{
         labels: labels,
         datasets: dataSets || [{data: []}]

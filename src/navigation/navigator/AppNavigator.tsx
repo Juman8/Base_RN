@@ -15,12 +15,7 @@ const NavigationApp = React.forwardRef((props, ref: any) => {
   const dataTheme = useTheme() as any;
   const token = useSelector(getTokenUserFromStore);
 
-  useEffect(() => {
-    setTimeout(() => {
-      RNBootSplash.hide({fade: true, duration: 300});
-    }, 500);
-  }, []);
-
+  console.log({token});
   const renderStackApp = () => {
     return (
       <Stack.Navigator>
@@ -41,7 +36,13 @@ const NavigationApp = React.forwardRef((props, ref: any) => {
     );
   };
   return (
-    <NavigationContainer theme={dataTheme.theme} ref={ref}>
+    <NavigationContainer theme={dataTheme.theme} ref={ref}
+      onReady={() => {
+        setTimeout(() => {
+          // RNBootSplash.hide();
+        }, 800);
+      }}
+    >
       {renderStackApp()}
     </NavigationContainer>
   );

@@ -20,7 +20,6 @@ import Animated, {useAnimatedStyle, useSharedValue} from 'react-native-reanimate
 import RNBootSplash from "react-native-bootsplash";
 
 
-
 initI18n();
 
 const options = {
@@ -44,6 +43,7 @@ function App() {
           break;
         }
         case codePush.SyncStatus.INSTALLING_UPDATE: {
+          // RNBootSplash.hide();
           setDownloading(true);
           break;
         }
@@ -78,6 +78,7 @@ function App() {
   };
 
   useEffect(() => {
+    RNBootSplash.hide({fade: true, duration: 5000});
     codePushFunction();
   }, []);
 
@@ -89,7 +90,6 @@ function App() {
 
   const AppContent = () => {
     if (isUpdating) {
-      RNBootSplash.hide({fade: true});
       return (
         <Box style={styleApp.viewUpdate}>
           {!downloading ? <ActivityIndicator size={"small"} color={Colors.blue} /> :
@@ -150,5 +150,6 @@ const styleApp = StyleSheet.create({
   viewUpdate: {flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 80, backgroundColor: 'white'}
 
 });
+
 
 export default codePush(options)(App);

@@ -15,6 +15,7 @@ import {ModalDetail} from './ModalDetail';
 import FastImage from 'react-native-fast-image';
 import {AppMonthPicker} from './AppMonthPicker';
 import {ENUM_APP_CHART} from '@constants';
+import {ListChartHome} from './ListChartHome';
 dayjs.extend(customParseFormat);
 
 type dataChart = {data: number[]; color: () => ENUM_COLORS_CHART;};
@@ -171,30 +172,13 @@ const Home = () => {
         isHeightStatus={false}
       >
         <>
-          <AppText variant="title2">{ENUM_APP_CHART.PULSE_AM}</AppText>
-          <ChartHome dataSets={dataDashboardPULSE_AM} labels={labels}
-            onDataPointClick={(index: number) => {
-              onDataPointClick(index, ENUM_APP_CHART.PULSE_AM);
-            }}
-          />
-          <AppText marginVertical={"s"} variant="title2">{ENUM_APP_CHART.PULSE_PM}</AppText>
-          <ChartHome dataSets={dataDashboardPULSE_PM} labels={labels}
-            onDataPointClick={(index: number) => {
-              onDataPointClick(index, ENUM_APP_CHART.PULSE_PM);
-            }}
-          />
-
-          <AppText marginVertical={"s"} variant="title2">{ENUM_APP_CHART.SP02_AM}</AppText>
-          <ChartHome dataSets={dataDashboardSPO2_AM} labels={labels}
-            onDataPointClick={(index: number) => {
-              onDataPointClick(index, ENUM_APP_CHART.SP02_AM);
-            }}
-          />
-          <AppText marginVertical={"s"} variant="title2">{ENUM_APP_CHART.SP02_PM}</AppText>
-          <ChartHome dataSets={dataDashboardSPO2_PM} labels={labels}
-            onDataPointClick={(index: number) => {
-              onDataPointClick(index, ENUM_APP_CHART.SP02_PM);
-            }}
+          <ListChartHome
+            labels={labels}
+            dataDashboardPULSE_AM={dataDashboardPULSE_AM}
+            dataDashboardPULSE_PM={dataDashboardPULSE_PM}
+            dataDashboardSPO2_AM={dataDashboardSPO2_AM}
+            dataDashboardSPO2_PM={dataDashboardSPO2_PM}
+            onDataPointClick={onDataPointClick}
           />
 
           <Box paddingHorizontal={"s"}>

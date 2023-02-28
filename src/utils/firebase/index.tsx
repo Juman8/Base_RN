@@ -124,15 +124,15 @@ class FirebaseSvc {
     const MonthToDay = dayjs().format('MM');
     const YearToDay = dayjs().format('YYYY');
 
-    const time_1 = dayjs(`${dayToDay}/${MonthToDay}/${YearToDay} 00:01`, 'DD/MM/YYYY HH:mm').valueOf();
+    const time_1 = dayjs(`${dayToDay}/${MonthToDay}/${YearToDay} 00:00`, 'DD/MM/YYYY HH:mm').valueOf();
     const time_2 = dayjs(`${dayToDay}/${MonthToDay}/${YearToDay} 23:59`, 'DD/MM/YYYY HH:mm').valueOf();
 
     return this.referentCollectionMint
       .where('created', '>=', time_1)
       .where('created', '<=', time_2)
-      .limit(1)
       .onSnapshot(
         (snapshot: any) => {
+          console.log({snapshot, time_1, time_2});
           snapshot?.docChanges().forEach(function (change: any) {
             const data = change.doc.data();
             callBack({
