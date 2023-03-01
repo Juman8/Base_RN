@@ -95,7 +95,7 @@ index e09cf18..3f871b7 100644
      }) => JSX.Element[];
      renderLegend: (width: any, legendOffset: any) => JSX.Element[];
 diff --git a/node_modules/react-native-chart-kit/dist/line-chart/LineChart.js b/node_modules/react-native-chart-kit/dist/line-chart/LineChart.js
-index 1ac4227..caa8d0d 100644
+index 1ac4227..ec5144e 100644
 --- a/node_modules/react-native-chart-kit/dist/line-chart/LineChart.js
 +++ b/node_modules/react-native-chart-kit/dist/line-chart/LineChart.js
 @@ -12,7 +12,7 @@ var __extends = (this && this.__extends) || (function () {
@@ -315,7 +315,7 @@ index 1ac4227..caa8d0d 100644
 +                onScroll={this.props.onScroll}
 +                scrollEventThrottle={16}
 +                onTouchStart={this.props.onTouchStart}
-+                onTouchEnd={this.props.onTouchEnd}
++                onMomentumScrollEnd={this.props.onTouchEnd}
 +                overScrollMode={"never"}
 +                bounces={false}
 +            >

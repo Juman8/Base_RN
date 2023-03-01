@@ -158,7 +158,6 @@ class FirebaseSvc {
 
 
     return this.referentCollectionMint
-      .limit(1)
       .where('created', '>=', time_1)
       .where('created', '<=', time_2)
       .onSnapshot((querySnapShot: any) => {
