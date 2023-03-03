@@ -1,5 +1,3 @@
-import {en} from "@translations";
-
 export interface typeOfColors {
   background: string;
   color_Tab_Unselected: string;

@@ -4,6 +4,21 @@ import firestore from '@react-native-firebase/firestore';
 import {LogApp, showAlertMessage} from '@utils';
 import dayjs from 'dayjs';
 const COLLECTION_FOR_MINT = "Mint";
+import firebase from '@react-native-firebase/app';
+const firebaseConfig = {
+  apiKey: "AIzaSyAwrHtrfBeKxnZm4HOa7P9qeuSRyosgsO4",
+  authDomain: "appmanager-173b8.firebaseapp.com",
+  projectId: "appmanager-173b8",
+  storageBucket: "appmanager-173b8.appspot.com",
+  messagingSenderId: "557308220413",
+  appId: "1:557308220413:web:f4aba512ba4cdb5960ff94",
+  measurementId: "G-B0XRN2C8SX",
+  databaseURL: 'https://console.cloud.google.com/firestore/data/panel/Mint?project=appmanager-173b8'
+};
+if (firebase.apps.length <= 0) {
+  firebase.initializeApp(firebaseConfig).finally(() => {
+  });
+}
 
 export type dataHealthContent = {
   id?: string;
@@ -43,8 +58,9 @@ class FirebaseSvc {
   public getListDataOfHealth(callback: (value: dataHealthContent[]) => void, dateFilter: string) {
     const month = dateFilter.split('/')[0];
     const year = dateFilter.split('/')[1];
-    const time_1 = dayjs(`01/${month}/${year} 00:01`, 'DD/MM/YYYY HH:mm').valueOf();
-    const time_2 = dayjs(`31/${month}/${year} 23:59`, 'DD/MM/YYYY HH:mm').valueOf();
+    const time_1 = dayjs(`01/${month}/${year} 00:00`, 'DD/MM/YYYY HH:mm').valueOf();
+    const EndOfDay = dayjs(`01/${month}/${year}`, 'DD/MM/YYYY').endOf("month").format('DD');
+    const time_2 = dayjs(`${EndOfDay}/${month}/${year} 23:59`, 'DD/MM/YYYY HH:mm').valueOf();
 
     return this.referentCollectionMint
       .orderBy('created', 'asc')
@@ -69,8 +85,9 @@ class FirebaseSvc {
   ) => {
     const month = dateFilter.split('/')[0];
     const year = dateFilter.split('/')[1];
-    const time_1 = dayjs(`01/${month}/${year} 00:01`, 'DD/MM/YYYY HH:mm').valueOf();
-    const time_2 = dayjs(`31/${month}/${year} 23:59`, 'DD/MM/YYYY HH:mm').valueOf();
+    const time_1 = dayjs(`01/${month}/${year} 00:00`, 'DD/MM/YYYY HH:mm').valueOf();
+    const EndOfDay = dayjs(`01/${month}/${year}`, 'DD/MM/YYYY').endOf("month").format('DD');
+    const time_2 = dayjs(`${EndOfDay}/${month}/${year} 23:59`, 'DD/MM/YYYY HH:mm').valueOf();
 
     return this.referentCollectionMint
       .orderBy('created', 'desc')
@@ -132,7 +149,6 @@ class FirebaseSvc {
       .where('created', '<=', time_2)
       .onSnapshot(
         (snapshot: any) => {
-          console.log({snapshot, time_1, time_2});
           snapshot?.docChanges().forEach(function (change: any) {
             const data = change.doc.data();
             callBack({

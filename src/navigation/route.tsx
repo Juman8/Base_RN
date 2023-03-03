@@ -16,6 +16,21 @@ export enum SCREEN_ROUTE {
   LOGIN = 'LOGIN',
 }
 
+export interface RootStackParamList {
+  [key: string]: any;
+  [SCREEN_ROUTE.MAIN_STACK]: undefined;
+  [SCREEN_ROUTE.HOME_PAGE]: undefined;
+  [SCREEN_ROUTE.MAIN_PAGE]: undefined;
+
+  [SCREEN_ROUTE.ACCOUNT_PAGE]: undefined;
+  [SCREEN_ROUTE.LOGIN]: undefined;
+  [SCREEN_ROUTE.AUTH_STACK]: undefined;
+  [SCREEN_ROUTE.TRADE_PAGE]: undefined;
+  [SCREEN_ROUTE.MAIN_ROOT]: undefined;
+
+  [SCREEN_ROUTE.DISCOVER_PAGE]: undefined;
+}
+
 const Account = () => <></>;
 
 export const ROUTER_BOTTOM_TAB = [
