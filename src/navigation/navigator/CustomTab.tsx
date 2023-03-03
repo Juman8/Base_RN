@@ -58,11 +58,7 @@ const SourceImage = (props: {label?: string; isFocused: boolean;}) => {
   }
 };
 
-export const CustomTabBar = memo(function CustomTabBar({
-  state,
-  descriptors,
-  navigation,
-}: BottomTabBarProps) {
+export const CustomTabBar = memo(function CustomTabBar({state, navigation}: BottomTabBarProps) {
   const {themeColor} = useTheme();
   const statusOfBottomTab = useSelector(getStatusOfBottomTab);
   const refHeight = useRef(50);
@@ -106,14 +102,6 @@ export const CustomTabBar = memo(function CustomTabBar({
     >
       <View style={styles.contentContainer} pointerEvents="box-none">
         {state.routes.map((route, index) => {
-          const {options} = descriptors[route.key];
-          const label: any =
-            options.tabBarLabel !== undefined
-              ? options.tabBarLabel
-              : options.title !== undefined
-                ? options.title
-                : route.name;
-
           const isFocused = state.index === index;
 
           const onPress = () => {
@@ -130,24 +118,28 @@ export const CustomTabBar = memo(function CustomTabBar({
             });
           };
 
+          const onLongPress = () => {
+            if (isFocused) {
+              InteractionManager.runAfterInteractions(() => {
+                navigation.emit({
+                  type: 'tabLongPress',
+                  target: route.key,
+                });
+              });
+            }
+          };
+
           return (
-            <View style={{flex: 1, alignItems: 'center'}}>
+            <View style={{flex: 1, alignItems: 'center'}} key={'tab-' + index.toString()}>
               <TouchableWithoutFeedback
-                key={'tab-' + index.toString()}
                 accessibilityRole="button"
-                accessibilityLabel={options.tabBarAccessibilityLabel}
-                testID={options.tabBarTestID}
+                accessibilityLabel={route.key}
+                testID={route.key}
                 onPress={onPress}
+                onLongPress={onLongPress}
               >
                 <View style={styles.bottomBarIcon}>
-                  {options &&
-                    options.tabBarIcon &&
-                    options.tabBarIcon({
-                      focused: isFocused,
-                      color: '',
-                      size: 0,
-                    })}
-                  <SourceImage label={label} isFocused={isFocused} />
+                  <SourceImage label={route.name} isFocused={isFocused} />
                 </View>
               </TouchableWithoutFeedback>
             </View>
