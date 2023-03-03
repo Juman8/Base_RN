@@ -26,12 +26,13 @@ or using LogApp() || reactoron to log.
 + npm install -g appcenter-cli
 + npm install -g code-push-cli
 + code-push login 
++ run: appcenter profile list to check login app
++ run: appcenter apps list to check list app
 + edit name app trong script (package.json)
 + run: createAppCenterAndroid
 + run: createAppCenterIOS
 + change CodePushDeploymentKey: android/values.xml
 + edit CodePushDeploymentKey: ios/info.plit
-
 
 
 
