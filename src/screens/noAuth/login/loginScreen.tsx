@@ -16,7 +16,7 @@ export const LoginScreen = () => {
     email: string;
     password: string;
   }) => {
-    if (values.email !== "Mint" && values.password !== "Mint") {
+    if (values.email !== "Mint" || values.password !== "Mint") {
       showAlertMessage("Lỗi đăng nhập", "warning");
     } else {
       dispatch(setAccountToken("MINT"));

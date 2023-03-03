@@ -12,10 +12,10 @@ export const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    width:'100%',
+    width: '100%',
     // paddingTop: 10,
     flexDirection: 'row',
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
   },
   bottomBarIcon: {
     alignItems: 'center',
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     width: '100%',
-    height: 80 + ( isTablet() ? 20 : 0),
+    height: 80 + (isTablet() ? 20 : 0),
   },
   viewImageContainer: {
     width: '100%',
@@ -72,7 +72,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  txtNoti: { fontSize: 8, color: 'white' },
+  txtNoti: {fontSize: 8, color: 'white'},
   txtTabName: {
     textAlign: 'center',
     lineHeight: 15,

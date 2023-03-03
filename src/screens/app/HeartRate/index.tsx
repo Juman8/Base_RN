@@ -117,12 +117,10 @@ export const HeartRate = () => {
 
         {isAm ? <HearAM dataDetail={dataDetail} onChangeData={onChangeData} /> :
           <HearPM dataDetail={dataDetail} onChangeData={onChangeData} />}
-        {console.log(111, dataDetail?.created)}
         <AppInput
           isMasked
           value={dataDetail?.created || dayjs().format('DD/MM/YYYY')}
           onChangeText={(masked) => {
-            console.log({masked});
             setChanged(true);
             setDataDetail(prv => {
               return {

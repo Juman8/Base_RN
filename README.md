@@ -17,8 +17,11 @@ or using LogApp() || reactoron to log.
 #IOS
 + 1242x2688   ~ iiPhone 11 Pro Max
 + 1242x2208 :  ~ ip 8plus
-+ video preview: 
++ 1290x2796 or 2796x1290: ~iphone 14
+
++ video preview:
 + 
+
 #Code push
 + npm install -g appcenter-cli
 + npm install -g code-push-cli

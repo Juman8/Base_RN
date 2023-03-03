@@ -11,11 +11,11 @@ import {
   TextInput,
 } from 'react-native';
 import App from './App';
-import {name as appName} from './app.json';
+import { name as appName } from './app.json';
 import 'react-native-gesture-handler';
 import '@theme';
 if (__DEV__) {
-  import ('./ReactotronConfig')
+  import('./ReactotronConfig');
 }
 
 Text.defaultProps = {

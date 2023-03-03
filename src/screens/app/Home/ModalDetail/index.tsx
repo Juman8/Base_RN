@@ -15,7 +15,7 @@ interface ModalProps {
   data: dataHealthContent;
   setIndexActive: (value: number | undefined) => void;
   visible: boolean;
-  typeOfChart: ENUM_APP_CHART | undefined;
+  typeOfChart: string | undefined;
 }
 
 export const ModalDetail = (props: ModalProps) => {
@@ -23,7 +23,7 @@ export const ModalDetail = (props: ModalProps) => {
   const refCurrent = useRef(new Animated.Value(0)).current;
 
   const refHeightAM = useRef<any>();
-  const refScroll = useRef<ScrollView>();
+  const refScroll = useRef<any>();
 
   useEffect(() => {
     if (visible) {
