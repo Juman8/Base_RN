@@ -1,14 +1,14 @@
-# Template ts
+## Template ts
 
 project for Template ts
 
-# Role 
+## Role 
 using esling + prittier
 disable hermes
 using tranform remove console to remove console.log before build
 or using LogApp() || reactoron to log.
 
-#ANDROID
+##ANDROID
 + logo: 512x512
 + Feature graphic: 1024*512
 + screenshot: 16:9 or 9:16
@@ -22,7 +22,8 @@ or using LogApp() || reactoron to log.
 + video preview:
 + 
 
-#Code push
+##[Code push](https://github.com/microsoft/appcenter-cli)
+
 + npm install -g appcenter-cli
 + npm install -g code-push-cli
 + code-push login 
