@@ -1,7 +1,7 @@
 //if you using .env pls change domain in below line.
 
 export const ApiConfigs = {
-  baseURL: 'https://localhost:3000/api/',
+  baseURL: 'https://reactnative.dev/',
   headers: {
     'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'application/json',
