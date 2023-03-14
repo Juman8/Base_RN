@@ -97,7 +97,7 @@ const LargeList = React.memo(
       if (!isLoading && data?.length < 1) {
         return (
           <View style={styles.viewHeader}>
-            <Text textAlign="center" color="">
+            <Text textAlign="center">
               {emptyText}
             </Text>
           </View>
