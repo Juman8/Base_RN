@@ -140,7 +140,7 @@ const VirtualList = React.memo(
         <NEW_LIST
           onViewableItemsChanged={onViewRef.current}
           viewabilityConfig={viewConfigRef.current}
-          listKey={listKey}
+          key={listKey}
           ListHeaderComponent={props.ListHeaderComponent || ListHeaderComponent}
           contentContainerStyle={props.contentContainerStyle}
           style={props.style}

@@ -3,7 +3,7 @@ import {Box, ENUM_COLORS} from '@theme';
 import {LogApp} from '@utils';
 import dayjs from 'dayjs';
 import React, {useEffect, useRef, useState} from 'react';
-import {Pressable, ScrollView, StyleSheet} from 'react-native';
+import {FlatList, Pressable, ScrollView, StyleSheet} from 'react-native';
 import {ChartHome, ENUM_COLORS_CHART} from './ChartHome';
 import {useHookHome} from './Home.hook';
 import {HomeToday} from './HomeToday';
