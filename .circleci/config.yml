@@ -1,52 +1,32 @@
 version: 2.1
 
 orbs:
-  android: circleci/android@1.1.2
-  fastlane: fastlane/fastlane@2.5.2
+  node: circleci/node@4.5.0
+  react-native: anvilco/react-native@1.0.1
 
 jobs:
-  build_android:
-    executor: android/default
-    steps:
-      - checkout
-      - run:
-          name: Install Dependencies
-          command: |
-            nvm install 16.16
-            npm install -g react-native-cli
-            npm install
-      - run:
-          name: Build Android APK
-          command: |
-            cd android && ./gradlew assembleRelease
-      - store_artifacts:
-          path: android/app/build/outputs/apk/release/app-release.apk
-          destination: app-release.apk
-
-  build_ios:
+  build:
     macos:
-      xcode: "14.1.0"
+      xcode: "14.1"
+    executor:
+      name: react-native/default
     steps:
       - checkout
+      - node/install
+      - react-native/install
       - run:
-          name: Install Dependencies
-          command: |
-            nvm install 16.16
-            npm install -g react-native-cli
-            npm install
+          name: Install dependencies
+          command: yarn install
       - run:
-          name: Build iOS IPA
+          name: Build app
           command: |
-            bundle install
-            bundle exec fastlane ios build_app
+            cd ios && pod install && cd ..
+            yarn run ios:build
       - store_artifacts:
           path: ios/build/*.ipa
-          destination: app.ipa
 
 workflows:
-  build:
+  build_and_deploy:
     jobs:
-      - build_android
-      - build_ios:
-          requires:
-            - build_android
+      - build:
+          context: deploy
