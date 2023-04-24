@@ -1,8 +1,9 @@
 import rootReducer from './rootReducer';
 import {persistStore, persistReducer} from 'redux-persist';
 import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
+import { setupListeners } from '@reduxjs/toolkit/query';
 import {AsyncStorage} from '@utils';
+import {rootMiddle} from './rootApi';
 
 const newAsyncStorage = {
   getItem: async (key: string) => {
@@ -27,9 +28,10 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: persistedReducer,
   devTools: __DEV__,
-  middleware: [thunk],
+  middleware: rootMiddle,
 });
 
+setupListeners(store.dispatch);
 export const persistor = persistStore(store);
 
 export type AppDispatch = typeof store.dispatch;

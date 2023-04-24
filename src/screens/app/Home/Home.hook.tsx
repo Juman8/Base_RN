@@ -1,5 +1,6 @@
 import {GlobalService} from "@components";
 import {AppChangeLanguage} from "@instances";
+import {authApi} from "@redux";
 import {useTheme} from "@theme";
 import {dataHealthContent, firebaseSvc, LogApp} from '@utils';
 import dayjs from "dayjs";
@@ -14,6 +15,9 @@ export const useHookHome = () => {
   const [isDark, setDark] = useState(true);
   const [value, setValue] = useState('');
 
+
+  const {data, isLoading} = authApi.useGetListDataQuery();
+  
   const [dataContent, setDataContent] = useState<dataHealthContent[]>([]);
   const [dataToday, setDataToDay] = useState<dataHealthContent>();
   const [monthFilter, setMonFilter] = useState<string>(dayjs().format('MM/YYYY'));

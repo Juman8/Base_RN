@@ -1,23 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import {persistor, store} from '@redux';
-import {PersistGate} from 'redux-persist/integration/react';
-import {NavigationApp, NavigationUtils} from '@navigation';
-import {initI18n} from './src/translations';
-import {Box, Colors, ThemeProvider} from '@theme';
-import {ActivityIndicator, Platform, StyleSheet} from 'react-native';
-import FlashMessage from 'react-native-flash-message';
 import {AppText, GlobalService, GlobalUI} from '@components';
-import {Provider} from 'react-redux';
+import {NavigationApp, NavigationUtils} from '@navigation';
+import {persistor, store} from '@redux';
+import {Box, Colors, ThemeProvider} from '@theme';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, Platform, StyleSheet} from 'react-native';
+import RNBootSplash from "react-native-bootsplash";
+import codePush, {DownloadProgress} from "react-native-code-push";
+import FlashMessage from 'react-native-flash-message';
+import Animated, {useAnimatedStyle, useSharedValue} from 'react-native-reanimated';
 import {
   initialWindowMetrics,
   SafeAreaProvider,
-  SafeAreaView,
+  SafeAreaView
 } from 'react-native-safe-area-context';
-import codePush, {DownloadProgress} from "react-native-code-push";
 import {getStatusBarHeight} from 'react-native-status-bar-height';
-import Animated, {useAnimatedStyle, useSharedValue} from 'react-native-reanimated';
-import RNBootSplash from "react-native-bootsplash";
-import {firebaseSvc} from '@utils';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import {initI18n} from './src/translations';
 
 initI18n();
 
