@@ -1,130 +1,157 @@
 version: 2.1
-orbs:
-  react-native: echobind/react-native@0.1.0
+jobs:
+  node:
+    working_directory: ~/Base_RN
+    docker:
+      - image: cimg/node:16.16
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+
+      - restore_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+
+      - run: yarn install
+
+      - save_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+          paths:
+            - node_modules
+
+      - run:
+          name: jest tests
+          command: |
+            mkdir -p test-results/jest
+            yarn run test
+          environment:
+            JEST_JUNIT_OUTPUT: test-results/jest/junit.xml
+
+      - persist_to_workspace:
+          root: ~/Base_RN
+          paths:
+            - node_modules
+
+      - store_test_results:
+          path: test-results
+
+      - store_artifacts:
+          path: test-results
+
+  macos-build-and-test:
+    working_directory: ~/Base_RN
+    macos:
+      xcode: 14.1.0
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: test
+
+    steps:
+      - checkout
+      - restore_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+
+      - restore_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+
+      - run: yarn install
+
+      - save_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+          paths:
+            - node_modules
+
+      - restore_cache:
+          key: bundle-v1-{{ checksum "ios/Gemfile.lock" }}-{{ arch }}
+
+      #Pods directory is ignored to match default RN setup, but can also check them into source control
+      #https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
+      - restore_cache:
+          key: pods-v1-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+
+      - run: 
+          command: pod install
+          working_directory: ios
+
+      - run: 
+          command: bundle install
+          working_directory: ios
+
+      - save_cache:
+          key: bundle-v1-{{ checksum "ios/Gemfile.lock" }}-{{ arch }}
+          paths:
+            - vendor/bundle
+
+      - save_cache:
+          key: pods-v1-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+          paths:
+            - ios/Pods
+
+      - run:
+          name: Fastlane
+          command: bundle exec fastlane $FASTLANE_LANE
+          working_directory: ios
+
+      - store_artifacts:
+          path: output
+          
+      - store_test_results:
+          path: output/scan
+            
+  android-build-and-test:
+    working_directory: ~/Base_RN/android
+    docker:
+      - image: circleci/android:api-29-node
+    steps:
+      - checkout:
+          path: ~/Base_RN
+
+      - attach_workspace:
+          at: ~/Base_RN
+
+      - restore_cache:
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}-{{ arch }}
+
+      - run: bundle install
+
+      - save_cache:
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}-{{ arch }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: fastlane tests
+          command: |
+            mkdir -p test-results/fastlane
+            bundle exec fastlane test
+            mv fastlane/report.xml test-results/fastlane
+
+      - store_test_results:
+          path: test-results
+
+      - store_artifacts:
+          path: test-results
+
 workflows:
-  version: 2
-  main:
+  node-android-ios:
     jobs:
-      - react-native/node:
-          name: node
-          filters:
-            branches:
-              ignore:
-                - master
-                - beta
-                - production
-      - react-native/android:
-          name: android
+      - node
+      - android-build-and-test:
           requires:
             - node
-          filters:
-            branches:
-              ignore:
-                - master
-                - beta
-                - production
-          build:
-            - run:
-                name: fastlane adhoc android
-                working_directory: android
-                command: >
-                  bundle exec fastlane adhoc distribute:false
-                  build_number:${CIRCLE_BUILD_NUM}
-      - react-native/ios:
-          name: ios
+      - macos-build-and-test:
           requires:
             - node
-          filters:
-            branches:
-              ignore:
-                - master
-                - beta
-                - production
-          build:
-            - run:
-                name: fastlane adhoc ios
-                working_directory: ios
-                command: >
-                  bundle exec fastlane adhoc distribute:false
-                  build_number:${CIRCLE_BUILD_NUM}
-  alpha:
-    jobs:
-      - react-native/node:
-          name: node (alpha)
-          filters:
-            branches:
-              only: master
-      - react-native/android:
-          name: android (alpha)
-          requires:
-            - node (alpha)
-          filters:
-            branches:
-              only: master
-          build:
-            - run:
-                name: fastlane beta android
-                working_directory: android
-                command: |
-                  # APPCENTER_DISTRIBUTE_GROUP=Internal \
-                  APPCENTER_OWNER_NAME=HomeHero \
-                  APPCENTER_APP_NAME=HomeHero-Android \
-                  bundle exec fastlane adhoc build_number:${CIRCLE_BUILD_NUM}
-      - react-native/ios:
-          name: ios (alpha)
-          requires:
-            - node (alpha)
-          filters:
-            branches:
-              only: master
-          build:
-            - run:
-                name: fastlane adhoc ios
-                working_directory: ios
-                command: |
-                  # Example passing ENV vars to
-                  APPCENTER_DISTRIBUTE_GROUP=Internal \
-                  APPCENTER_OWNER_NAME=MyCompany \
-                  APPCENTER_APP_NAME=MyApp \
-                  bundle exec fastlane adhoc build_number:${CIRCLE_BUILD_NUM}
-  beta:
-    jobs:
-      - react-native/node:
-          name: node (beta)
-          filters:
-            branches:
-              only: beta
-      - react-native/android:
-          name: android (beta)
-          requires:
-            - node (beta)
-          filters:
-            branches:
-              only: beta
-          build:
-            - run:
-                name: fastlane beta android
-                working_directory: android
-                command: |
-                  bundle exec fastlane beta build_number:${CIRCLE_BUILD_NUM}
-  production:
-    jobs:
-      - react-native/node:
-          name: node (production)
-          filters:
-            branches:
-              only: production
-      - react-native/android:
-          name: android (production)
-          requires:
-            - node (production)
-          filters:
-            branches:
-              only: production
-          build:
-            - run:
-                name: fastlane production android
-                working_directory: android
-                command: >
-                  bundle exec fastlane production
-                  build_number:${CIRCLE_BUILD_NUM}
+            
