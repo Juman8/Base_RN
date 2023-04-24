@@ -1,56 +1,52 @@
 version: 2.1
 
+orbs:
+  android: circleci/android@1.1.2
+  fastlane: fastlane/fastlane@2.5.2
+
 jobs:
-  build:
-    macos:
-      xcode: "14.1"
-    environment:
-      RUBY_VERSION: "2.7.5"
-      NODE_VERSION: "16.16"
+  build_android:
+    executor: android/default
     steps:
       - checkout
-
-      # Install dependencies
       - run:
-          name: Install Node.js
+          name: Install Dependencies
           command: |
-            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-            source ~/.nvm/nvm.sh
-            nvm install $NODE_VERSION
-
+            nvm install 16.16
+            npm install -g react-native-cli
+            npm install
       - run:
-          name: Install Java and Android SDK
+          name: Build Android APK
           command: |
-            sudo apt-get update && sudo apt-get install -y openjdk-8-jdk
-            export ANDROID_HOME=~/android-sdk-linux
-            curl https://dl.google.com/android/repository/commandlinetools-linux-6609375_latest.zip --output commandlinetools-linux.zip
-            mkdir -p $ANDROID_HOME/cmdline-tools
-            unzip -d $ANDROID_HOME/cmdline-tools commandlinetools-linux.zip
-            export PATH=$PATH:$ANDROID_HOME/cmdline-tools/tools/bin
-            yes | sdkmanager --licenses
-            sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
+            cd android && ./gradlew assembleRelease
+      - store_artifacts:
+          path: android/app/build/outputs/apk/release/app-release.apk
+          destination: app-release.apk
 
+  build_ios:
+    macos:
+      xcode: "14.1.0"
+    steps:
+      - checkout
       - run:
-          name: Install dependencies and build app
+          name: Install Dependencies
           command: |
-            bundle config set path vendor/bundle
+            nvm install 16.16
+            npm install -g react-native-cli
+            npm install
+      - run:
+          name: Build iOS IPA
+          command: |
             bundle install
-            yarn install
-            yarn android:build
-            yarn ios:build
-
-      # Artifacts
+            bundle exec fastlane ios build_app
       - store_artifacts:
-          path: android/app/build/outputs
-          destination: android
-          when: on_success
-
-      - store_artifacts:
-          path: ios/build
-          destination: ios
-          when: on_success
+          path: ios/build/*.ipa
+          destination: app.ipa
 
 workflows:
-  build_and_test:
+  build:
     jobs:
-      - build
+      - build_android
+      - build_ios:
+          requires:
+            - build_android
