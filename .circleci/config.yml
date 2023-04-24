@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     macos:
-      xcode: "12.4.0"
+      xcode: 14.1
     environment:
       RUBY_VERSION: "2.7.5"
     working_directory: ~/repo
