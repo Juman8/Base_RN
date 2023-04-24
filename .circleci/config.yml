@@ -25,8 +25,8 @@ jobs:
           name: Install Ruby
           command: |
             brew update
-            brew install ruby@$2.7
-            export PATH="/usr/local/opt/ruby@$2.7/bin:$PATH"
+            brew install ruby@2.7
+            export PATH="/usr/local/opt/ruby@2.7/bin:$PATH"
             ruby -v
             gem -v
       - run:
