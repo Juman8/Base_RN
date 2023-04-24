@@ -3,7 +3,7 @@ jobs:
   node:
     working_directory: ~/Base_RN
     docker:
-      - image: cimg/ruby:3.2.0-node
+      - image: cimg/ruby:2.7.5-node
     steps:
       - checkout
 
