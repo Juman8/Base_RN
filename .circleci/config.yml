@@ -3,30 +3,61 @@ version: 2.1
 jobs:
   build:
     macos:
-      xcode: 14.1
+      xcode: "14.1"
     environment:
       RUBY_VERSION: "2.7.5"
-    working_directory: ~/repo
+      NODE_VERSION: "16.16"
     steps:
       - checkout
-      - run: echo 'export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"' >> $BASH_ENV
-      - run: source $BASH_ENV
-      - restore_cache:
-          keys:
-            - yarn-packages-{{ checksum "yarn.lock" }}
-            - yarn-packages-
-      - run: yarn install --frozen-lockfile
-      - save_cache:
-          paths:
-            - ~/.cache/yarn
-          key: yarn-packages-{{ checksum "yarn.lock" }}
-      - restore_cache:
-          keys:
-            - node-modules-{{ checksum "package.json" }}
-            - node-modules-
-      - run: yarn install --check-files
-      - save_cache:
-          paths:
-            - node_modules
-          key: node-modules-{{ checksum "package.json" }}
-      - run: yarn test
+
+      # Install dependencies
+      - run:
+          name: Install Node.js
+          command: |
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+            source ~/.nvm/nvm.sh
+            nvm install $NODE_VERSION
+
+      - run:
+          name: Install Ruby and bundler
+          command: |
+            rbenv install $RUBY_VERSION
+            rbenv global $RUBY_VERSION
+            gem install bundler --no-document
+
+      - run:
+          name: Install Java and Android SDK
+          command: |
+            sudo apt-get update && sudo apt-get install -y openjdk-8-jdk
+            export ANDROID_HOME=~/android-sdk-linux
+            curl https://dl.google.com/android/repository/commandlinetools-linux-6609375_latest.zip --output commandlinetools-linux.zip
+            mkdir -p $ANDROID_HOME/cmdline-tools
+            unzip -d $ANDROID_HOME/cmdline-tools commandlinetools-linux.zip
+            export PATH=$PATH:$ANDROID_HOME/cmdline-tools/tools/bin
+            yes | sdkmanager --licenses
+            sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
+
+      - run:
+          name: Install dependencies and build app
+          command: |
+            bundle config set path vendor/bundle
+            bundle install
+            yarn install
+            yarn android:build
+            yarn ios:build
+
+      # Artifacts
+      - store_artifacts:
+          path: android/app/build/outputs
+          destination: android
+          when: on_success
+
+      - store_artifacts:
+          path: ios/build
+          destination: ios
+          when: on_success
+
+workflows:
+  build_and_test:
+    jobs:
+      - build
