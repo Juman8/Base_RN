@@ -1,66 +1,130 @@
 version: 2.1
-
 orbs:
-  node: circleci/node@4.5.0
-
-jobs:
-  build_android:
-    macos:
-      xcode: "14.1"
-    environment:
-      LANG: en_US.UTF-8
-      LC_ALL: en_US.UTF-8
-      RCT_NO_LAUNCH_PACKAGER: 1
-      ANDROID_HOME: /usr/local/share/android-sdk
-      PATH: $PATH:/usr/local/share/android-sdk/tools:/usr/local/share/android-sdk/platform-tools
-    steps:
-      - checkout
-      - node/install
-      - run:
-          name: Install Git
-          command: sudo apt-get install git
-      - run:
-          name: Install dependencies
-          command: yarn install
-      - run:
-          name: Build APK
-          command: |
-            cd android
-            ./gradlew assembleRelease
-          when: always
-      - store_artifacts:
-          path: android/app/build/outputs/apk/release/*.apk
-
-  build_ios:
-    macos:
-      xcode: "14.1"
-    environment:
-      LANG: en_US.UTF-8
-      LC_ALL: en_US.UTF-8
-      RCT_NO_LAUNCH_PACKAGER: 1
-      PATH: $PATH:$(npm bin -g)
-    steps:
-      - checkout
-      - node/install
-      - run:
-          name: Install Git
-          command: sudo apt-get update && sudo apt-get install -y git
-      - run:
-          name: Install dependencies
-          command: yarn install
-      - run:
-          name: Build IPA
-          command: |
-            cd ios && pod install && cd ..
-            yarn run ios:build
-          when: always
-      - store_artifacts:
-          path: ios/build/*.ipa
-
+  react-native: echobind/react-native@0.1.0
 workflows:
-  build_and_deploy:
+  version: 2
+  main:
     jobs:
-      - build_android:
-          context: deploy
-      - build_ios:
-          context: deploy
+      - react-native/node:
+          name: node
+          filters:
+            branches:
+              ignore:
+                - master
+                - beta
+                - production
+      - react-native/android:
+          name: android
+          requires:
+            - node
+          filters:
+            branches:
+              ignore:
+                - master
+                - beta
+                - production
+          build:
+            - run:
+                name: fastlane adhoc android
+                working_directory: android
+                command: >
+                  bundle exec fastlane adhoc distribute:false
+                  build_number:${CIRCLE_BUILD_NUM}
+      - react-native/ios:
+          name: ios
+          requires:
+            - node
+          filters:
+            branches:
+              ignore:
+                - master
+                - beta
+                - production
+          build:
+            - run:
+                name: fastlane adhoc ios
+                working_directory: ios
+                command: >
+                  bundle exec fastlane adhoc distribute:false
+                  build_number:${CIRCLE_BUILD_NUM}
+  alpha:
+    jobs:
+      - react-native/node:
+          name: node (alpha)
+          filters:
+            branches:
+              only: master
+      - react-native/android:
+          name: android (alpha)
+          requires:
+            - node (alpha)
+          filters:
+            branches:
+              only: master
+          build:
+            - run:
+                name: fastlane beta android
+                working_directory: android
+                command: |
+                  # APPCENTER_DISTRIBUTE_GROUP=Internal \
+                  APPCENTER_OWNER_NAME=HomeHero \
+                  APPCENTER_APP_NAME=HomeHero-Android \
+                  bundle exec fastlane adhoc build_number:${CIRCLE_BUILD_NUM}
+      - react-native/ios:
+          name: ios (alpha)
+          requires:
+            - node (alpha)
+          filters:
+            branches:
+              only: master
+          build:
+            - run:
+                name: fastlane adhoc ios
+                working_directory: ios
+                command: |
+                  # Example passing ENV vars to
+                  APPCENTER_DISTRIBUTE_GROUP=Internal \
+                  APPCENTER_OWNER_NAME=MyCompany \
+                  APPCENTER_APP_NAME=MyApp \
+                  bundle exec fastlane adhoc build_number:${CIRCLE_BUILD_NUM}
+  beta:
+    jobs:
+      - react-native/node:
+          name: node (beta)
+          filters:
+            branches:
+              only: beta
+      - react-native/android:
+          name: android (beta)
+          requires:
+            - node (beta)
+          filters:
+            branches:
+              only: beta
+          build:
+            - run:
+                name: fastlane beta android
+                working_directory: android
+                command: |
+                  bundle exec fastlane beta build_number:${CIRCLE_BUILD_NUM}
+  production:
+    jobs:
+      - react-native/node:
+          name: node (production)
+          filters:
+            branches:
+              only: production
+      - react-native/android:
+          name: android (production)
+          requires:
+            - node (production)
+          filters:
+            branches:
+              only: production
+          build:
+            - run:
+                name: fastlane production android
+                working_directory: android
+                command: >
+                  bundle exec fastlane production
+                  build_number:${CIRCLE_BUILD_NUM}
