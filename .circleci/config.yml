@@ -61,13 +61,26 @@ jobs:
           name: Notify Slack
           command: |
             curl -X POST -H 'Content-type: application/json' --data '{"text":"Build successful!"}' $SLACK_WEBHOOK_URL
-workflows:
-  version: 2
-  build-and-deploy:
-    jobs:
-      - build:
-          context: my-project-secrets
-        filters:
-          branches:
-            only:
-              - main
+  deploy:
+    machine: true
+    environment:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      NODE_VERSION: "16.16.0"
+    steps:
+      - checkout
+      - run:
+          name: Install Node.js and NPM
+          command: |
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+            nvm install $NODE_VERSION
+            nvm use $NODE_VERSION
+            node -v
+            npm -v
+      - run:
+          name: Install Firebase CLI
+          command: |
+            npm install -
