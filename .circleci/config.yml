@@ -8,9 +8,11 @@ jobs:
     macos:
       xcode: "14.1"
     environment:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
       RCT_NO_LAUNCH_PACKAGER: 1
-    executor:
-      name: react-native/android
+      ANDROID_HOME: /usr/local/share/android-sdk
+      PATH: $PATH:/usr/local/share/android-sdk/tools:/usr/local/share/android-sdk/platform-tools
     steps:
       - checkout
       - node/install
@@ -30,9 +32,10 @@ jobs:
     macos:
       xcode: "14.1"
     environment:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
       RCT_NO_LAUNCH_PACKAGER: 1
-    executor:
-      name: react-native/default
+      PATH: $PATH:$(npm bin -g)
     steps:
       - checkout
       - node/install
