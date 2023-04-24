@@ -1,28 +1,73 @@
 version: 2.1
-
 jobs:
   build:
     macos:
-      xcode: 14.1.0
+      xcode: "14.1.0"
     environment:
-      PATH: "/usr/local/opt/node@16/bin:/usr/local/opt/ruby@2.7/bin:$PATH"
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      NODE_VERSION: 16.16.0
+      RUBY_VERSION: 2.7.5
     steps:
       - checkout
-      - run: brew update
-      - run: brew install node@16
-      - run: npm install -g yarn
-      - run: yarn install
-      - run: gem install bundler
-      - run: bundle install
-      - run: cd ios && pod install
       - run:
-        name: Install Git
-        command: brew install git
-      - run: |
-          xcodebuild \
-            -workspace YourApp.xcworkspace \
-            -scheme YourApp \
-            -destination 'platform=iOS Simulator,name=iPhone 13 Pro Max,OS=15.0' \
-            -derivedDataPath build \
-            -quiet \
-            clean build-for-testing
+          name: Install Node.js and NPM
+          command: |
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+            nvm install $NODE_VERSION
+            nvm use $NODE_VERSION
+            node -v
+            npm -v
+      - run:
+          name: Install Ruby
+          command: |
+            brew install ruby@$RUBY_VERSION
+            export PATH="/usr/local/opt/ruby@$RUBY_VERSION/bin:$PATH"
+            ruby -v
+            gem -v
+      - run:
+          name: Install Fastlane
+          command: |
+            sudo gem install fastlane -NV
+            fastlane --version
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
+      - run:
+          name: Install project dependencies
+          command: |
+            bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
+            bundle exec pod install --repo-update
+            npm install
+      - save_cache:
+          paths:
+            - vendor/bundle
+            - ~/.npm
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: Build iOS and Android apps
+          command: |
+            bundle exec fastlane build_ios
+            bundle exec fastlane build_android
+      - run:
+          name: Deploy to Firebase
+          command: |
+            npx firebase-tools deploy --token "$FIREBASE_TOKEN"
+      - run:
+          name: Notify Slack
+          command: |
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"Build successful!"}' $SLACK_WEBHOOK_URL
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build:
+          context: my-project-secrets
+        filters:
+          branches:
+            only:
+              - main
