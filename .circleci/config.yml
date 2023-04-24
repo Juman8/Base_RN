@@ -17,10 +17,7 @@ jobs:
       - run: cd ios && pod install
       - run:
         name: Install Git
-        command: sudo apt-get update && sudo apt-get install -y git
-      - run:
-        name: Display Git Path
-        command: which git
+        command: brew install git
       - run: |
           xcodebuild \
             -workspace YourApp.xcworkspace \
