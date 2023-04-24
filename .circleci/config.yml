@@ -2,31 +2,56 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.5.0
-  react-native: anvilco/react-native@1.0.1
 
 jobs:
-  build:
+  build_android:
     macos:
       xcode: "14.1"
+    environment:
+      RCT_NO_LAUNCH_PACKAGER: 1
+    executor:
+      name: react-native/android
+    steps:
+      - checkout
+      - node/install
+      - run:
+          name: Install dependencies
+          command: yarn install
+      - run:
+          name: Build APK
+          command: |
+            cd android
+            ./gradlew assembleRelease
+          when: always
+      - store_artifacts:
+          path: android/app/build/outputs/apk/release/*.apk
+
+  build_ios:
+    macos:
+      xcode: "14.1"
+    environment:
+      RCT_NO_LAUNCH_PACKAGER: 1
     executor:
       name: react-native/default
     steps:
       - checkout
       - node/install
-      - react-native/install
       - run:
           name: Install dependencies
           command: yarn install
       - run:
-          name: Build app
+          name: Build IPA
           command: |
             cd ios && pod install && cd ..
             yarn run ios:build
+          when: always
       - store_artifacts:
           path: ios/build/*.ipa
 
 workflows:
   build_and_deploy:
     jobs:
-      - build:
+      - build_android:
+          context: deploy
+      - build_ios:
           context: deploy
