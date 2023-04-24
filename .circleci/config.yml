@@ -17,6 +17,9 @@ jobs:
       - checkout
       - node/install
       - run:
+          name: Install Git
+          command: sudo apt-get update && sudo apt-get install -y git
+      - run:
           name: Install dependencies
           command: yarn install
       - run:
@@ -40,11 +43,11 @@ jobs:
       - checkout
       - node/install
       - run:
-          name: Install dependencies
-          command: yarn install
-      - run:
           name: Install Git
           command: sudo apt-get update && sudo apt-get install -y git
+      - run:
+          name: Install dependencies
+          command: yarn install
       - run:
           name: Build IPA
           command: |
