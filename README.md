@@ -35,6 +35,7 @@ or using LogApp() || reactoron to log.
 + change CodePushDeploymentKey: android/values.xml
 + edit CodePushDeploymentKey: ios/info.plit
 
+![Uploading image.png…]()
 
 
 ## [fastlane match](https://docs.fastlane.tools/actions/match/)
