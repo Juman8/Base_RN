@@ -29,7 +29,7 @@ or using LogApp() || reactoron to log.
 + code-push login 
 + run: appcenter profile list to check login app
 + run: appcenter apps list to check list app
-+ edit name app trong script (package.json)
++ edit name app trong script (package.json) trung vơi Xcode name
 + run: createAppCenterAndroid
 + run: createAppCenterIOS
 + change CodePushDeploymentKey: android/values.xml
