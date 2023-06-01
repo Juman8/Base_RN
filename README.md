@@ -2,7 +2,7 @@
 
 Mình cần các thông tin:
 1. Tên app 
-2. Subtitle (ví dụ: Meet new people, do fun stuff!)
+2. Subtitle (ví dụ: Meet new people, do fun stuff!) (max 30 character)
 2. Ảnh preview (Khá Bảnh cung cấp)
 3. Mô tả đầy đủ về app (Description)
 4. Support URL
