@@ -1,5 +1,15 @@
 [Template ts]()
 
+Mình cần các thông tin:
+1. Tên app 
+2. Subtitle (ví dụ: Meet new people, do fun stuff!)
+2. Ảnh preview (Khá Bảnh cung cấp)
+3. Mô tả đầy đủ về app (Description)
+4. Support URL
+5. Marketing URL
+6. Copyright: (Thông tin: ví dụ: © 2022 ADAMO. All Rights Reserved.) 
+7. xin contact infomation của khách hàng
+
 project for Template ts
 
 [Role]
