@@ -15,11 +15,5 @@ jobs:
           command: |
             yarn install
       - run:
-          name: Change to ios directory
-          command: cd ios
-      - run:
-          name: Install CocoaPods dependencies
-          command: pod install
-      - run:
           name: Build with Fastlane
           command: fastlane build
