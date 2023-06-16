@@ -15,5 +15,8 @@ jobs:
           command: |
             yarn install
       - run:
+          name: checkout ios
+          command: cd ios
+      - run:
           name: Build with Fastlane
-          command: fastlane build
+          command: fastlane build --non-interactive
