@@ -19,4 +19,4 @@ jobs:
           command: cd ios
       - run:
           name: Build with Fastlane
-          command: fastlane build
+          command: fastlane build --non-interactive
