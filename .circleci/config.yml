@@ -11,4 +11,4 @@ jobs:
             npm install
       - run:
           name: Build with Fastlane
-          command: fastlane beta
+          command: fastlane build
