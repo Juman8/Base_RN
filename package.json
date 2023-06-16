@@ -23,7 +23,8 @@
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
     "preci": "rm -fr node_modules",
     "ci": "yarn install --frozen-lockfile",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "checkDep": "rnx-align-deps --requirements react-native@0.71.3"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.10",
@@ -63,7 +64,7 @@
     "react-native-gesture-handler": "^2.9.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-mask-input": "^1.2.3",
-    "react-native-mmkv": "^2.7.0",
+    "react-native-mmkv": "^2.8.0",
     "react-native-modal": "^13.0.1",
     "react-native-month-year-picker": "^1.9.0",
     "react-native-reanimated": "^3.0.0",
@@ -88,6 +89,7 @@
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
     "@react-native-community/eslint-config": "^3.2.0",
+    "@rnx-kit/align-deps": "^2.2.2",
     "@testing-library/react-native": "^12.0.1",
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^29.2.1",
@@ -121,5 +123,32 @@
       "eslint src --fix",
       "git add"
     ]
+  },
+  "rnx-kit": {
+    "kitType": "app",
+    "alignDeps": {
+      "requirements": [
+        "react-native@0.71"
+      ],
+      "capabilities": [
+        "animation",
+        "babel-preset-react-native",
+        "core",
+        "core-android",
+        "core-ios",
+        "gestures",
+        "jest",
+        "modal",
+        "navigation/native",
+        "navigation/stack",
+        "netinfo",
+        "react",
+        "react-test-renderer",
+        "safe-area",
+        "screens",
+        "storage",
+        "svg"
+      ]
+    }
   }
 }

@@ -2,86 +2,13 @@ version: 2.1
 jobs:
   build:
     macos:
-      xcode: "14.1.0"
-    environment:
-      LANG: en_US.UTF-8
-      LC_ALL: en_US.UTF-8
-      NODE_VERSION: "16.16.0"
-      RUBY_VERSION: "2.7"
+      xcode: "14.3.0"
     steps:
       - checkout
       - run:
-          name: Install Node.js and NPM
+          name: Install dependencies
           command: |
-            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-            nvm install $NODE_VERSION
-            nvm use $NODE_VERSION
-            node -v
-            npm -v
-      - run:
-          name: Install Ruby
-          command: |
-            brew update
-            brew install ruby@2.7
-            export PATH="/usr/local/opt/ruby@2.7/bin:$PATH"
-            ruby -v
-            gem -v
-      - run:
-          name: Install Fastlane
-          command: |
-            sudo gem install fastlane -NV
-            fastlane --version
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            - v1-dependencies-
-      - run:
-          name: Install project dependencies
-          command: |
-            bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
-            bundle exec pod install --repo-update
             npm install
-      - save_cache:
-          paths:
-            - vendor/bundle
-            - ~/.npm
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
       - run:
-          name: Build iOS and Android apps
-          command: |
-            bundle exec fastlane build_ios
-            bundle exec fastlane build_android
-      - run:
-          name: Deploy to Firebase
-          command: |
-            npx firebase-tools deploy --token "$FIREBASE_TOKEN"
-      - run:
-          name: Notify Slack
-          command: |
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"Build successful!"}' $SLACK_WEBHOOK_URL
-  deploy:
-    machine: true
-    environment:
-      LANG: en_US.UTF-8
-      LC_ALL: en_US.UTF-8
-      NODE_VERSION: "16.16.0"
-    steps:
-      - checkout
-      - run:
-          name: Install Node.js and NPM
-          command: |
-            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-            nvm install $NODE_VERSION
-            nvm use $NODE_VERSION
-            node -v
-            npm -v
-      - run:
-          name: Install Firebase CLI
-          command: |
-            npm install -
+          name: Build with Fastlane
+          command: fastlane beta
