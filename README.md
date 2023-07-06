@@ -1,14 +1,42 @@
 [Template ts]()
 
 Mình cần các thông tin:
-1. Tên app 
-2. Subtitle (ví dụ: Meet new people, do fun stuff!) (IOS: max 30 character, ANDROID: Max 80 character)
-2. Ảnh preview (Khá Bảnh cung cấp)
-3. Mô tả đầy đủ về app (Description)
-4. Support URL
-5. Marketing URL
-6. Copyright: (Thông tin: ví dụ: © 2022 ADAMO. All Rights Reserved.) 
-7. xin contact infomation của khách hàng
+1. App name
+2. App Bundle ID: (com.theassemblyplace.TAPmarketplace)
+3. Subtitle (eg: Meet new people, do fun stuff!) (IOS: max 30 character, ANDROID: Max 80 character)
+4. Picture preview (*)
+5. Full description of the app
+6. Support URL
+7. Marketing URL
+8. Copyright: (eg: © 2023 ADAMO. All Rights Reserved.) 
+9. Contact information (**)
+10. Target age rating
+11. Primary Language
+12. Category: Primary and secondary (optional) (eg: Primary: Business, Secondary: Education)
+13. Privacy Policy URL
+
+> (*) Picture preview includes information: Note that if using an image of the actual device, the image of the corresponding device must be used.
+
+[ANDROID]()
++ logo: 512x512
++ Feature graphic: 1024*512
++ Screenshots: 16:9 or 9:16 Screenshots must be PNG or JPEG, up to 8 MB each, 16:9 or 9:16 aspect ratio, with each side between 320 px and 3,840 px
++ Video preview: link youtube (optional) 
+
+[IOS]()
++ 1242x2688 ~ iiPhone 11 Pro Max
++ 1242x2208 : ~ ip 8plus
++ 1290x2796 or 2796x1290: ~Iphone 14
++ 2048x2732 (Optional If your app includes an iPad app design) ~ IPad 6th & 2nd Gen
+
++ video preview: (Optional)
++ 886x1920 or 1920x886
+
+> (**) Contact information
++ First name
++ Last name
++ Phone number
++ Email
 
 project for Template ts
 
@@ -17,20 +45,6 @@ using esling + prittier
 disable hermes
 using tranform remove console to remove console.log before build
 or using LogApp() || reactoron to log.
-
-[ANDROID]()
-+ logo: 512x512
-+ Feature graphic: 1024*512
-+ screenshot: 16:9 or 9:16
-+ video preview: link youtube
-
-[IOS]()
-+ 1242x2688   ~ iiPhone 11 Pro Max
-+ 1242x2208 :  ~ ip 8plus
-+ 1290x2796 or 2796x1290: ~iphone 14
-
-+ video preview:
-+ 
 
 [Code push](https://github.com/microsoft/appcenter-cli)
 
