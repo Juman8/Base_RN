@@ -38,7 +38,7 @@ Mình cần các thông tin:
 + Phone number
 + Email
 
-project for Template ts
+## Template ts
 
 [Role]
 using esling + prittier
