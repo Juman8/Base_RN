@@ -54,6 +54,7 @@ or using LogApp() || reactoron to log.
 + run: appcenter profile list to check login app
 + run: appcenter apps list to check list app
 + install: react-native-code-push,  "appcenter": "4.4.5", "appcenter-analytics": "4.4.5", "appcenter-crashes": "4.4.5",
++ NOTE: ANDROID You have to add file: `appcenter-config.json || android>app>src>main>assets>appcenter-config.json: {"app_secret": "bbf6a755-bd82-4db8-b9d7-27360a575001"}`
 + add in app/build.gradle [defaultConfig]
   
     ```
