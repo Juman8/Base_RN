@@ -62,11 +62,13 @@ or using LogApp() || reactoron to log.
     ```
 + [Android settup guildline](https://github.com/microsoft/react-native-code-push/blob/master/docs/setup-android.md)
 + [IOS settup guildline](https://github.com/microsoft/react-native-code-push/blob/master/docs/setup-ios.md)
++ Add to Infolist: `<key>CodePushDeploymentKey</key><string>KEY_VALUE</string>`
 + edit name app trong script (package.json) trung vơi Xcode name
 + run: createAppCenterAndroid
 + run: createAppCenterIOS
 + change CodePushDeploymentKey: android/values.xml
 + edit CodePushDeploymentKey: ios/info.plit
++ BUILD: appcenter codepush release-react -a name_owner/app_name -d Staging
 
 ![Uploading image.png…]()
 
