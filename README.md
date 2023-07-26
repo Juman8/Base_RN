@@ -54,6 +54,14 @@ or using LogApp() || reactoron to log.
 + run: appcenter profile list to check login app
 + run: appcenter apps list to check list app
 + install: react-native-code-push,  "appcenter": "4.4.5", "appcenter-analytics": "4.4.5", "appcenter-crashes": "4.4.5",
++ add in app/build.gradle [defaultConfig]
+  
+    ```
+      resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
+      resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
+    ```
++ [Android settup guildline](https://github.com/microsoft/react-native-code-push/blob/master/docs/setup-android.md)
++ [IOS settup guildline](https://github.com/microsoft/react-native-code-push/blob/master/docs/setup-ios.md)
 + edit name app trong script (package.json) trung vơi Xcode name
 + run: createAppCenterAndroid
 + run: createAppCenterIOS
