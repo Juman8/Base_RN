@@ -53,6 +53,7 @@ or using LogApp() || reactoron to log.
 + code-push login 
 + run: appcenter profile list to check login app
 + run: appcenter apps list to check list app
++ install: react-native-code-push,  "appcenter": "4.4.5", "appcenter-analytics": "4.4.5", "appcenter-crashes": "4.4.5",
 + edit name app trong script (package.json) trung vơi Xcode name
 + run: createAppCenterAndroid
 + run: createAppCenterIOS
