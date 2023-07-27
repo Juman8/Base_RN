@@ -54,6 +54,28 @@ or using LogApp() || reactoron to log.
 + run: appcenter profile list to check login app
 + run: appcenter apps list to check list app
 + install: react-native-code-push,  "appcenter": "4.4.5", "appcenter-analytics": "4.4.5", "appcenter-crashes": "4.4.5",
+  | React Native version(s) | Supporting CodePush version(s)                        |
+  |-------------------------|-------------------------------------------------------|
+  | <0.14                   | **Unsupported**                                       |
+  | v0.14                   | v1.3 *(introduced Android support)*                   |
+  | v0.15-v0.18             | v1.4-v1.6 *(introduced iOS asset support)*            |
+  | v0.19-v0.28             | v1.7-v1.17 *(introduced Android asset support)*       |
+  | v0.29-v0.30             | v1.13-v1.17 *(RN refactored native hosting code)*     |
+  | v0.31-v0.33             | v1.14.6-v1.17 *(RN refactored native hosting code)*   |
+  | v0.34-v0.35             | v1.15-v1.17 *(RN refactored native hosting code)*     |
+  | v0.36-v0.39             | v1.16-v1.17 *(RN refactored resume handler)*          |
+  | v0.40-v0.42             | v1.17 *(RN refactored iOS header files)*              |
+  | v0.43-v0.44             | v2.0+ *(RN refactored uimanager dependencies)*        |
+  | v0.45                   | v3.0+ *(RN refactored instance manager code)*         |
+  | v0.46                   | v4.0+ *(RN refactored js bundle loader code)*         |
+  | v0.46-v0.53             | v5.1+ *(RN removed unused registration of JS modules)*|
+  | v0.54-v0.55             | v5.3+ *(Android Gradle Plugin 3.x integration)*       |
+  | v0.56-v0.58             | v5.4+ *(RN upgraded versions for Android tools)*      |
+  | v0.59                   | v5.6+ *(RN refactored js bundle loader code)*         |
+  | v0.60-v0.61             | v6.0+ *(RN migrated to Autolinking)*                  |
+  | v0.62-v0.64             | v6.2+ *(RN removed LiveReload)*                       |
+  | v0.65-v0.70             | v7.0+ *(RN updated iPhone-target-version)*            |
+  | v0.71                   | v7.2+ *(RN moved to react-native-gradle-plugin)*      |
 + NOTE: ANDROID You have to add file: `appcenter-config.json || android>app>src>main>assets>appcenter-config.json: {"app_secret": "bbf6a755-bd82-4db8-b9d7-27360a575001"}`
 + add in app/build.gradle [defaultConfig]
   
