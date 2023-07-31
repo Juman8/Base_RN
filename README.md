@@ -83,6 +83,11 @@ or using LogApp() || reactoron to log.
       resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
       resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
     ```
++ Add more string[android] ->
+  ```
+    <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
+    <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>   
+  ```
 + [Android settup guildline](https://github.com/microsoft/react-native-code-push/blob/master/docs/setup-android.md)
 + [IOS settup guildline](https://github.com/microsoft/react-native-code-push/blob/master/docs/setup-ios.md)
 + Add to Infolist: `<key>CodePushDeploymentKey</key><string>KEY_VALUE</string>`
