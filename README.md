@@ -47,7 +47,7 @@ using tranform remove console to remove console.log before build
 or using LogApp() || reactoron to log.
 
 [Code push](https://github.com/microsoft/appcenter-cli)
-
+[Commandlines with codepush](https://learn.microsoft.com/en-us/appcenter/distribution/codepush/cli)
 + npm install -g appcenter-cli
 + npm install -g code-push-cli
 + code-push login 
