@@ -1,7 +1,7 @@
 [Template ts]()
 
 Mình cần các thông tin:
-1. App name
+1. App name (max 30 character)
 2. App Bundle ID: (com.theassemblyplace.TAPmarketplace)
 3. Subtitle (eg: Meet new people, do fun stuff!) (IOS: max 30 character, ANDROID: Max 80 character)
 4. Picture preview (*)
