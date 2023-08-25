@@ -6,7 +6,7 @@ import {
   TextInput,
   TextInputProps,
   TextStyle,
-  ViewProps
+  ViewProps,
 } from 'react-native';
 import {styles} from './styles';
 import {AppText} from '../AppText';
@@ -30,8 +30,12 @@ export interface appInputProps extends TextInputProps, MaskInputProps {
   isMasked?: boolean;
 }
 
-export function AppInput(props: appInputProps & SpacingProps<Theme> &
-  TypographyProps<Theme> & ViewProps) {
+export function AppInput(
+  props: appInputProps &
+    SpacingProps<Theme> &
+    TypographyProps<Theme> &
+    ViewProps,
+) {
   const {
     label,
     value,
@@ -55,23 +59,37 @@ export function AppInput(props: appInputProps & SpacingProps<Theme> &
           {...props}
           value={value}
           onChangeText={(masked, unmasked) => onChangeText(masked)}
-          style={[styles.inputStyle, {color: themeColor.textColor}, isFocus && styles.btnActive, secureTextEntry && {paddingRight: 50}]}
+          style={[
+            styles.inputStyle,
+            {color: themeColor.textColor},
+            isFocus && styles.btnActive,
+            secureTextEntry && {paddingRight: 50},
+          ]}
           placeholderTextColor={themeColor.primary}
         />
-      </Box >
+      </Box>
     );
   }
 
   return (
     <Box style={{width: '100%'}} {...props}>
-      {!!label && <AppText marginBottom={"m"} style={labelStyle}>{label}</AppText>}
-      <Box justifyContent={"center"}>
+      {!!label && (
+        <AppText marginBottom={'m'} style={labelStyle}>
+          {label}
+        </AppText>
+      )}
+      <Box justifyContent={'center'}>
         <TextInput
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={isPrivateText}
           placeholder={placeholder}
-          style={[styles.inputStyle, {color: themeColor.textColor}, isFocus && styles.btnActive, secureTextEntry && {paddingRight: 50}]}
+          style={[
+            styles.inputStyle,
+            {color: themeColor.textColor},
+            isFocus && styles.btnActive,
+            secureTextEntry && {paddingRight: 50},
+          ]}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
           maxLength={maxLength}
@@ -80,15 +98,28 @@ export function AppInput(props: appInputProps & SpacingProps<Theme> &
           placeholderTextColor={themeColor.placeHolderColor}
           clearButtonMode="while-editing"
         />
-        {!!error && touched && <AppText variant={"title3"} fontSize={11} style={{color: Colors.lightRed}} marginTop="sm">{error}</AppText>}
-        {secureTextEntry && <Box position={"absolute"} right={10}>
-          <Pressable onPress={() => {
-            setSecureTextEntry(prv => !prv);
-          }} >
-            {isPrivateText ? <Eye /> : <EyeActive />}
-          </Pressable>
-        </Box>}
+        {!!error && !!touched && (
+          <AppText
+            variant={'title3'}
+            fontSize={11}
+            style={{color: Colors.lightRed}}
+            marginTop="sm"
+          >
+            {error}
+          </AppText>
+        )}
+        {!!secureTextEntry && (
+          <Box position={'absolute'} right={10}>
+            <Pressable
+              onPress={() => {
+                setSecureTextEntry(prv => !prv);
+              }}
+            >
+              {isPrivateText ? <Eye /> : <EyeActive />}
+            </Pressable>
+          </Box>
+        )}
       </Box>
-    </Box >
+    </Box>
   );
 }
