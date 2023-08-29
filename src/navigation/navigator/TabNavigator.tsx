@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React, {memo} from 'react';
 
@@ -17,13 +18,9 @@ const TabNavigator = memo(function () {
         headerShown: false,
       }}
     >
-      {ROUTER_BOTTOM_TAB.map((it, index) => {
-        return (
-          <Tab.Screen name={it.key} component={it.route} key={it.key} />
-        );
+      {ROUTER_BOTTOM_TAB.map((it: any) => {
+        return <Tab.Screen name={it.key} component={it.route} key={it.key} />;
       })}
     </Tab.Navigator>
   );
 });
-
-

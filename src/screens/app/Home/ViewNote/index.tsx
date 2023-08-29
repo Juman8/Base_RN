@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {BackIcon} from '@assets';
 import {AppText} from '@components';
 import {Box, useTheme} from '@theme';
@@ -9,9 +8,15 @@ import {ENUM_COLORS_CHART} from '../ChartHome';
 
 const NewBoxAnimated = Animated.createAnimatedComponent(Box);
 
-const ViewItem = ({label, color}: {label: string; color: ENUM_COLORS_CHART;}) => {
+const ViewItem = ({
+  label,
+  color,
+}: {
+  label: string;
+  color: ENUM_COLORS_CHART;
+}) => {
   return (
-    <Box flexDirection={"row"} alignItems="center">
+    <Box flexDirection={'row'} alignItems="center">
       <Box width={6} height={6} style={{backgroundColor: color}} mr="s" />
       <AppText style={{color: color}}>{label}</AppText>
     </Box>
@@ -20,20 +25,23 @@ const ViewItem = ({label, color}: {label: string; color: ENUM_COLORS_CHART;}) =>
 export const ViewNote = () => {
   const {themeColor} = useTheme();
   const refTranslate = useRef(new Animated.Value(0)).current;
-  const refWidthViewContent: any = useRef(90);
-  const isHIde: any = useRef(false);
-  const arrAnimated: any = useRef();
+  const refWidthViewContent = useRef(90);
+  const isHIde = useRef(false);
+  const arrAnimated = useRef<Animated.CompositeAnimation>();
   const [hide, setHIde] = useState(false);
-  const isHIdeState: any = useRef(false);
+  const isHIdeState = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     setTimeout(() => {
       onPressIcon();
     }, 3000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onPressIcon = () => {
-    if (isHIdeState.current) clearTimeout(isHIdeState.current);
+    if (isHIdeState.current) {
+      clearTimeout(isHIdeState.current);
+    }
     isHIdeState.current = setTimeout(() => setHIde(prv => !prv), 300);
 
     if (arrAnimated.current) {
@@ -43,55 +51,65 @@ export const ViewNote = () => {
       arrAnimated.current = Animated.timing(refTranslate, {
         toValue: refWidthViewContent.current,
         duration: 300,
-        useNativeDriver: true
+        useNativeDriver: true,
       });
     } else {
       arrAnimated.current = Animated.timing(refTranslate, {
         toValue: 0,
         duration: 300,
-        useNativeDriver: true
+        useNativeDriver: true,
       });
     }
     arrAnimated.current.start();
     isHIde.current = !isHIde.current;
-
   };
 
   const refRotate = refTranslate.interpolate({
     inputRange: [0, refWidthViewContent.current],
     outputRange: [1, 0],
-    extrapolate: "clamp"
+    extrapolate: 'clamp',
   });
 
   return (
-    <NewBoxAnimated position={"absolute"} right={0} top={getStatusBarHeight() + 90} paddingVertical={"s"} borderTopLeftRadius="s" borderBottomLeftRadius={"s"} paddingRight="s"
+    <NewBoxAnimated
+      position={'absolute'}
+      right={0}
+      top={getStatusBarHeight() + 90}
+      paddingVertical={'s'}
+      borderTopLeftRadius="s"
+      borderBottomLeftRadius={'s'}
+      paddingRight="s"
       style={{
         backgroundColor: `${themeColor.backgroundColorTab}99`,
-        transform: [{
-          translateX: refTranslate
-        }]
+        transform: [
+          {
+            translateX: refTranslate,
+          },
+        ],
       }}
       flexDirection="row"
-      alignItems={"center"}
-      onLayout={(e) => {
+      alignItems={'center'}
+      onLayout={e => {
         refWidthViewContent.current = e.nativeEvent.layout.width - 28;
       }}
     >
       <Pressable onPress={onPressIcon}>
         <Box
           style={{
-            transform: [{
-              rotate: hide ? '180deg' : '0deg'
-            }]
+            transform: [
+              {
+                rotate: hide ? '180deg' : '0deg',
+              },
+            ],
           }}
         >
-          <BackIcon fill={"#ffffff99"} />
+          <BackIcon fill={'#ffffff99'} />
         </Box>
       </Pressable>
       <NewBoxAnimated style={{opacity: refRotate}}>
-        <ViewItem label={"Before"} color={ENUM_COLORS_CHART.BEFORE} />
-        <ViewItem label={"After 1h"} color={ENUM_COLORS_CHART.AFTER_1h} />
-        <ViewItem label={"After 2h"} color={ENUM_COLORS_CHART.AFTER_2h} />
+        <ViewItem label={'Before'} color={ENUM_COLORS_CHART.BEFORE} />
+        <ViewItem label={'After 1h'} color={ENUM_COLORS_CHART.AFTER_1h} />
+        <ViewItem label={'After 2h'} color={ENUM_COLORS_CHART.AFTER_2h} />
       </NewBoxAnimated>
     </NewBoxAnimated>
   );

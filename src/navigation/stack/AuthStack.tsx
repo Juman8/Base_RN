@@ -1,8 +1,7 @@
 import React, {memo} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {SCREEN_ROUTE} from '../route';
+import {RootStackParamList, SCREEN_ROUTE} from '../route';
 import {LoginScreen} from '@screens';
-import {RootStackParamList} from '../RootStackParamList';
 
 const AuthStack = createStackNavigator<RootStackParamList>();
 

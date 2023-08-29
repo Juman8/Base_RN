@@ -1,13 +1,13 @@
-import {GlobalService} from "@components";
-import {AppChangeLanguage} from "@instances";
-import {authApi} from "@redux";
-import {useTheme} from "@theme";
+import {GlobalService} from '@components';
+import {AppChangeLanguage} from '@instances';
+// import {authApi} from '@redux';
+import {useTheme} from '@theme';
 import {dataHealthContent, firebaseSvc, LogApp} from '@utils';
-import dayjs from "dayjs";
-import React, {useEffect, useState} from "react";
-import {useTranslation} from "react-i18next";
-import {AppButtonHome} from "./AppButtonHome";
-import {ViewNote} from "./ViewNote";
+import dayjs from 'dayjs';
+import React, {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
+import {AppButtonHome} from './AppButtonHome';
+import {ViewNote} from './ViewNote';
 
 export const useHookHome = () => {
   const {updateTheme} = useTheme();
@@ -15,12 +15,14 @@ export const useHookHome = () => {
   const [isDark, setDark] = useState(true);
   const [value, setValue] = useState('');
 
+  // RTK QUERY
+  // const {data, isLoading} = authApi.useGetListDataQuery();
 
-  const {data, isLoading} = authApi.useGetListDataQuery();
-  
   const [dataContent, setDataContent] = useState<dataHealthContent[]>([]);
   const [dataToday, setDataToDay] = useState<dataHealthContent>();
-  const [monthFilter, setMonFilter] = useState<string>(dayjs().format('MM/YYYY'));
+  const [monthFilter, setMonFilter] = useState<string>(
+    dayjs().format('MM/YYYY'),
+  );
 
   useEffect(() => {
     GlobalService.hideLoading();
@@ -29,34 +31,38 @@ export const useHookHome = () => {
   // const insets = useSafeAreaInsets();
 
   useEffect(() => {
-    firebaseSvc.getListDataOfHealth((data) => {
-      LogApp({data});
-      setDataContent(data);
+    firebaseSvc.getListDataOfHealth(outPutHealth => {
+      LogApp({outPutHealth});
+      setDataContent(outPutHealth);
     }, monthFilter);
   }, [monthFilter]);
 
   useEffect(() => {
-    const subscription = firebaseSvc.onHandleDataChange((valueChange: dataHealthContent) => {
-      setDataContent((prv: any) => {
-        const isExit = prv.findIndex((el: dataHealthContent) => el.id === valueChange.id) !== -1;
-        if (!isExit) {
-          return prv.concat([valueChange]);
-        } else {
-          return prv.map((el: dataHealthContent) => {
-            if (el.id === valueChange.id) {
-              return {
-                ...valueChange,
-              };
-            }
-            return el;
-          });
-        }
-
-      });
-    }, monthFilter);
+    const subscription = firebaseSvc.onHandleDataChange(
+      (valueChange: dataHealthContent) => {
+        setDataContent((prv: any) => {
+          const isExit =
+            prv.findIndex(
+              (el: dataHealthContent) => el.id === valueChange.id,
+            ) !== -1;
+          if (!isExit) {
+            return prv.concat([valueChange]);
+          } else {
+            return prv.map((el: dataHealthContent) => {
+              if (el.id === valueChange.id) {
+                return {
+                  ...valueChange,
+                };
+              }
+              return el;
+            });
+          }
+        });
+      },
+      monthFilter,
+    );
     return () => subscription();
   }, [monthFilter]);
-
 
   const ListFooterComponent = React.useMemo((): JSX.Element => {
     return (
@@ -68,17 +74,26 @@ export const useHookHome = () => {
   }, []);
 
   useEffect(() => {
-    const subscription = firebaseSvc.onGetDataToday((valueChange: dataHealthContent) => {
-      setDataToDay(valueChange);
-    });
+    const subscription = firebaseSvc.onGetDataToday(
+      (valueChange: dataHealthContent) => {
+        setDataToDay(valueChange);
+      },
+    );
     return () => subscription();
   }, []);
 
   return {
-    ListFooterComponent, setDark, isDark, updateTheme, onSwitchLang, value, setValue, t,
+    ListFooterComponent,
+    setDark,
+    isDark,
+    updateTheme,
+    onSwitchLang,
+    value,
+    setValue,
+    t,
     dataContent,
     dataToday,
     monthFilter,
-    setMonFilter
+    setMonFilter,
   };
 };

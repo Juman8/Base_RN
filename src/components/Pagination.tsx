@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, Animated} from 'react-native';
@@ -46,18 +45,24 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
 });
+interface PaginationProps {
+  size: number;
+  scrollX: any;
+  windowWidth: number;
+  paginationStyle?: any;
+  renderPagination?: any;
+  dotStyle?: any;
+}
 
-export const Pagination = ({
-  size,
-  paginationStyle,
-  scrollX,
-  windowWidth,
-  renderPagination,
-  dotStyle,
-}: any) => {
-  // const containerWidth = size == 0 ?
-  //     ((Spacing.width8 + 3 * 3) * 4) :
-  //     ((Spacing.width8 + (size - 1) * 4) * size)
+export const Pagination = (props: PaginationProps) => {
+  const {
+    size,
+    paginationStyle,
+    scrollX,
+    windowWidth,
+    renderPagination,
+    dotStyle,
+  } = props;
   if (renderPagination) {
     return renderPagination(scrollX);
   }
@@ -94,7 +99,6 @@ export const Pagination = ({
   );
 };
 Pagination.propTypes = {
-  scrollToIndex: PropTypes.func.isRequired,
   size: PropTypes.number.isRequired,
   paginationIndex: PropTypes.number,
   paginationActiveColor: PropTypes.string,

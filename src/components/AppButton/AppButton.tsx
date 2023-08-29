@@ -24,8 +24,7 @@ export interface ButtonProps extends TouchableOpacityProps {
   isWrap?: boolean;
   hideDelay?: boolean;
   backgroundColor?: string;
-  marginTop?: number,
-
+  marginTop?: number;
 }
 
 interface WrapContentProps {

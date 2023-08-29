@@ -1,7 +1,7 @@
 import rootReducer from './rootReducer';
 import {persistStore, persistReducer} from 'redux-persist';
 import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/query';
+import {setupListeners} from '@reduxjs/toolkit/query';
 import {AsyncStorage} from '@utils';
 import {rootMiddle} from './rootApi';
 
@@ -9,19 +9,22 @@ const newAsyncStorage = {
   getItem: async (key: string) => {
     return await AsyncStorage.getString(key);
   },
-  setItem: async (key: string, value: string | number | boolean | Uint8Array) => {
+  setItem: async (
+    key: string,
+    value: string | number | boolean | Uint8Array,
+  ) => {
     return AsyncStorage.set(key, value);
   },
   removeItem: async (key: string) => {
     return AsyncStorage.delete(key);
-  }
+  },
 };
 
 const persistConfig = {
   key: 'root',
   storage: newAsyncStorage,
   whitelist: ['accountSlice'],
-  blackList: ["bottomTabSlice"]
+  blackList: ['bottomTabSlice'],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

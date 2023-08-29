@@ -1,6 +1,6 @@
 export const ENUM_APP_CHART = {
-  PULSE_AM: "PULSE_AM",
-  PULSE_PM: "PULSE_PM",
-  SP02_AM: "SP02_AM",
-  SP02_PM: "SP02_PM",
+  PULSE_AM: 'PULSE_AM',
+  PULSE_PM: 'PULSE_PM',
+  SP02_AM: 'SP02_AM',
+  SP02_PM: 'SP02_PM',
 };

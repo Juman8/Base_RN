@@ -14,7 +14,7 @@ interface FlatListHorizontalProps {
 
 const FlatlistHorizontal = (props: FlatListHorizontalProps) => {
   const {data, renderItem, isViewMore, label, onPressViewMore} = props;
-  const {t} = useTranslation();
+  const {t} = useTranslation(['common']);
   return (
     <>
       {!!label && (

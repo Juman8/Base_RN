@@ -1,17 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {Animated, TouchableOpacity, View, FlatList, NativeSyntheticEvent, NativeScrollEvent} from 'react-native';
+import {
+  Animated,
+  TouchableOpacity,
+  View,
+  FlatList,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+} from 'react-native';
 import React, {useCallback, useMemo, useRef} from 'react';
 import {AppText} from '@components';
 import {styles} from './styles';
-import {t} from 'i18next';
 import {Pagination} from '../Pagination';
 import {Box, Spacing} from '@theme';
 import {AppImage} from '../AppImage/AppImage';
 import {IconLiked} from '@assets';
+import {useTranslation} from 'react-i18next';
 interface HeaderPropsType {
   onDoubleTap: (item: any) => void;
   onPress: () => void;
-  file: {name: string;}[];
+  file: {name: string}[];
 }
 
 export const AppGallery = (props: HeaderPropsType) => {
@@ -20,7 +27,8 @@ export const AppGallery = (props: HeaderPropsType) => {
   const [page, setPage] = React.useState(1);
   const scrollX = new Animated.Value(0);
   const refNumTap = useRef(0);
-  const timer: any = useRef(null);
+  const timer = useRef<NodeJS.Timeout>();
+  const {t} = useTranslation();
 
   const startScaleView = useCallback(() => {
     Animated.sequence([
@@ -104,37 +112,33 @@ export const AppGallery = (props: HeaderPropsType) => {
             <View style={styles.button}>
               <TouchableOpacity
                 onPress={() => onPressItem(item)}
-                activeOpacity={1}>
-                <View
-                  style={{
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
+                activeOpacity={1}
+              >
+                <Box alignItems={'center'} justifyContent="center">
                   <AppImage
                     style={styles.blurImage}
                     uri={item?.name}
                     resizeMode={'cover'}
                   />
                   <Animated.View
-                    style={{
-                      transform: [
-                        {
-                          scale: scaleAnimation,
-                        },
-                      ],
-                      width: Spacing.width50,
-                      aspectRatio: 1,
-                      position: 'absolute',
-                    }}
+                    style={[
+                      {
+                        transform: [
+                          {
+                            scale: scaleAnimation,
+                          },
+                        ],
+                      },
+                      styles.viewIconLike,
+                    ]}
                   >
                     <IconLiked />
                   </Animated.View>
-                </View>
+                </Box>
               </TouchableOpacity>
             </View>
           );
         }}
-        // ListEmptyComponent={<></>}
         keyExtractor={(_, index) => index.toString()}
       />
       {file?.length > 1 && (

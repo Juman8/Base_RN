@@ -3,21 +3,21 @@ import {goBack} from '@navigation';
 import firestore from '@react-native-firebase/firestore';
 import {LogApp, showAlertMessage} from '@utils';
 import dayjs from 'dayjs';
-const COLLECTION_FOR_MINT = "Mint";
+const COLLECTION_FOR_MINT = 'Mint';
 import firebase from '@react-native-firebase/app';
 const firebaseConfig = {
-  apiKey: "AIzaSyAwrHtrfBeKxnZm4HOa7P9qeuSRyosgsO4",
-  authDomain: "appmanager-173b8.firebaseapp.com",
-  projectId: "appmanager-173b8",
-  storageBucket: "appmanager-173b8.appspot.com",
-  messagingSenderId: "557308220413",
-  appId: "1:557308220413:web:f4aba512ba4cdb5960ff94",
-  measurementId: "G-B0XRN2C8SX",
-  databaseURL: 'https://console.cloud.google.com/firestore/data/panel/Mint?project=appmanager-173b8'
+  apiKey: 'AIzaSyAwrHtrfBeKxnZm4HOa7P9qeuSRyosgsO4',
+  authDomain: 'appmanager-173b8.firebaseapp.com',
+  projectId: 'appmanager-173b8',
+  storageBucket: 'appmanager-173b8.appspot.com',
+  messagingSenderId: '557308220413',
+  appId: '1:557308220413:web:f4aba512ba4cdb5960ff94',
+  measurementId: 'G-B0XRN2C8SX',
+  databaseURL:
+    'https://console.cloud.google.com/firestore/data/panel/Mint?project=appmanager-173b8',
 };
 if (firebase.apps.length <= 0) {
-  firebase.initializeApp(firebaseConfig).finally(() => {
-  });
+  firebase.initializeApp(firebaseConfig).finally(() => {});
 }
 
 export type dataHealthContent = {
@@ -48,19 +48,29 @@ export type dataHealthContent = {
   created: string;
 };
 
-
 class FirebaseSvc {
   public referentCollectionMint: any = null;
   constructor() {
     this.referentCollectionMint = firestore().collection(COLLECTION_FOR_MINT);
   }
 
-  public getListDataOfHealth(callback: (value: dataHealthContent[]) => void, dateFilter: string) {
+  public getListDataOfHealth(
+    callback: (value: dataHealthContent[]) => void,
+    dateFilter: string,
+  ) {
     const month = dateFilter.split('/')[0];
     const year = dateFilter.split('/')[1];
-    const time_1 = dayjs(`01/${month}/${year} 00:00`, 'DD/MM/YYYY HH:mm').valueOf();
-    const EndOfDay = dayjs(`01/${month}/${year}`, 'DD/MM/YYYY').endOf("month").format('DD');
-    const time_2 = dayjs(`${EndOfDay}/${month}/${year} 23:59`, 'DD/MM/YYYY HH:mm').valueOf();
+    const time_1 = dayjs(
+      `01/${month}/${year} 00:00`,
+      'DD/MM/YYYY HH:mm',
+    ).valueOf();
+    const EndOfDay = dayjs(`01/${month}/${year}`, 'DD/MM/YYYY')
+      .endOf('month')
+      .format('DD');
+    const time_2 = dayjs(
+      `${EndOfDay}/${month}/${year} 23:59`,
+      'DD/MM/YYYY HH:mm',
+    ).valueOf();
 
     return this.referentCollectionMint
       .orderBy('created', 'asc')
@@ -72,7 +82,7 @@ class FirebaseSvc {
           if (doc.data()) {
             dataHeath.push({
               ...doc.data(),
-              id: doc.id
+              id: doc.id,
             });
           }
         });
@@ -81,13 +91,22 @@ class FirebaseSvc {
   }
 
   public onHandleDataChange = (
-    callback: (value: dataHealthContent) => void, dateFilter: string
+    callback: (value: dataHealthContent) => void,
+    dateFilter: string,
   ) => {
     const month = dateFilter.split('/')[0];
     const year = dateFilter.split('/')[1];
-    const time_1 = dayjs(`01/${month}/${year} 00:00`, 'DD/MM/YYYY HH:mm').valueOf();
-    const EndOfDay = dayjs(`01/${month}/${year}`, 'DD/MM/YYYY').endOf("month").format('DD');
-    const time_2 = dayjs(`${EndOfDay}/${month}/${year} 23:59`, 'DD/MM/YYYY HH:mm').valueOf();
+    const time_1 = dayjs(
+      `01/${month}/${year} 00:00`,
+      'DD/MM/YYYY HH:mm',
+    ).valueOf();
+    const EndOfDay = dayjs(`01/${month}/${year}`, 'DD/MM/YYYY')
+      .endOf('month')
+      .format('DD');
+    const time_2 = dayjs(
+      `${EndOfDay}/${month}/${year} 23:59`,
+      'DD/MM/YYYY HH:mm',
+    ).valueOf();
 
     return this.referentCollectionMint
       .orderBy('created', 'desc')
@@ -101,7 +120,7 @@ class FirebaseSvc {
             if (change.type === 'added') {
               callback({
                 ...data,
-                id: change.doc.id
+                id: change.doc.id,
               });
             } else if (change.type === 'modified') {
               callback(data);
@@ -120,20 +139,26 @@ class FirebaseSvc {
     });
   }
 
-  public onAddDataHeath(data: dataHealthContent, callBack: (id: string) => void) {
+  public onAddDataHeath(
+    data: dataHealthContent,
+    callBack: (id: string) => void,
+  ) {
     const newRes = {
       ...data,
       created: dayjs(data.created).valueOf(),
     };
-    return this.referentCollectionMint.add(newRes).then((dataP: {id: string;}) => {
-      GlobalService.hideLoading();
-      callBack(dataP.id);
-      goBack();
-    }).catch(function () {
-      GlobalService.hideLoading();
-      showAlertMessage('Lỗi khi thêm dữ liệu, vui lòng thử lại', 'warning');
-      goBack();
-    });
+    return this.referentCollectionMint
+      .add(newRes)
+      .then((dataP: {id: string}) => {
+        GlobalService.hideLoading();
+        callBack(dataP.id);
+        goBack();
+      })
+      .catch(function () {
+        GlobalService.hideLoading();
+        showAlertMessage('Lỗi khi thêm dữ liệu, vui lòng thử lại', 'warning');
+        goBack();
+      });
   }
 
   public onGetDataToday(callBack: (data: any) => void) {
@@ -141,8 +166,14 @@ class FirebaseSvc {
     const MonthToDay = dayjs().format('MM');
     const YearToDay = dayjs().format('YYYY');
 
-    const time_1 = dayjs(`${dayToDay}/${MonthToDay}/${YearToDay} 00:00`, 'DD/MM/YYYY HH:mm').valueOf();
-    const time_2 = dayjs(`${dayToDay}/${MonthToDay}/${YearToDay} 23:59`, 'DD/MM/YYYY HH:mm').valueOf();
+    const time_1 = dayjs(
+      `${dayToDay}/${MonthToDay}/${YearToDay} 00:00`,
+      'DD/MM/YYYY HH:mm',
+    ).valueOf();
+    const time_2 = dayjs(
+      `${dayToDay}/${MonthToDay}/${YearToDay} 23:59`,
+      'DD/MM/YYYY HH:mm',
+    ).valueOf();
 
     return this.referentCollectionMint
       .where('created', '>=', time_1)
@@ -153,7 +184,7 @@ class FirebaseSvc {
             const data = change.doc.data();
             callBack({
               ...data,
-              id: change.doc.id
+              id: change.doc.id,
             });
           });
         },
@@ -169,30 +200,36 @@ class FirebaseSvc {
     const MonthToDay = dayjs().format('MM');
     const YearToDay = dayjs().format('YYYY');
 
-    const time_1 = dayjs(`${dayToDay}/${MonthToDay}/${YearToDay} 00:01`, 'DD/MM/YYYY HH:mm').valueOf();
-    const time_2 = dayjs(`${dayToDay}/${MonthToDay}/${YearToDay} 23:59`, 'DD/MM/YYYY HH:mm').valueOf();
-
+    const time_1 = dayjs(
+      `${dayToDay}/${MonthToDay}/${YearToDay} 00:01`,
+      'DD/MM/YYYY HH:mm',
+    ).valueOf();
+    const time_2 = dayjs(
+      `${dayToDay}/${MonthToDay}/${YearToDay} 23:59`,
+      'DD/MM/YYYY HH:mm',
+    ).valueOf();
 
     return this.referentCollectionMint
       .where('created', '>=', time_1)
       .where('created', '<=', time_2)
-      .onSnapshot((querySnapShot: any) => {
-        const dataHeath: any = [];
-        querySnapShot.docs.map((doc: any) => {
-          if (doc.data()) {
-            dataHeath.push({
-              ...doc.data(),
-              id: doc.id
-            });
-          }
-        });
-        GlobalService.hideLoading();
-        callBack(dataHeath[0]);
-      },
+      .onSnapshot(
+        (querySnapShot: any) => {
+          const dataHeath: any = [];
+          querySnapShot.docs.map((doc: any) => {
+            if (doc.data()) {
+              dataHeath.push({
+                ...doc.data(),
+                id: doc.id,
+              });
+            }
+          });
+          GlobalService.hideLoading();
+          callBack(dataHeath[0]);
+        },
         (err: any) => {
           GlobalService.hideLoading();
           LogApp({err});
-        }
+        },
       );
   }
 }

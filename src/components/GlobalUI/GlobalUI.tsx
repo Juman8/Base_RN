@@ -5,20 +5,33 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import {AppText} from '../AppText';
 import {Box, Colors, deviceWidth, Spacing} from '@theme';
 import {AppButton} from '../AppButton';
-import {t} from 'i18next';
+import {useTranslation} from 'react-i18next';
 
 type optionsType = {
   isAlert?: boolean;
   title?: string;
   message?: string;
   onPress?: () => void;
+};
 
-}
+type optionsAlert = {
+  title?: string;
+  message: string;
+  onPress?: () => void;
+};
+
+export type TYPE_REF_LOADING_GLOBAL = {
+  showLoading: () => void;
+  hideLoading: () => void;
+  showAlert: (options: optionsAlert) => void;
+  hideAlert: () => void;
+};
 
 export const GlobalUI = React.forwardRef((props, ref) => {
   const [isLoading, setLoading] = useState(false);
   const [options, setOptions] = useState<optionsType>({isAlert: false});
   const {isAlert, title, message, onPress} = options;
+  const {t} = useTranslation(['common']);
 
   useImperativeHandle(
     ref,
@@ -39,11 +52,7 @@ export const GlobalUI = React.forwardRef((props, ref) => {
     setLoading(false);
   };
 
-  const showAlert = (values: {
-    title?: string;
-    message: string;
-    onPress?: () => void;
-  }) => {
+  const showAlert = (values: optionsAlert) => {
     setOptions({
       isAlert: true,
       ...values,
@@ -60,7 +69,9 @@ export const GlobalUI = React.forwardRef((props, ref) => {
       <Modal isVisible={true} style={styles.styleMargin}>
         <TouchableOpacity style={styles.btn} activeOpacity={1}>
           <TouchableOpacity style={styles.container} activeOpacity={1}>
-            <AppText style={styles.title}>{title || t('common.btnNotification')}</AppText>
+            <AppText style={styles.title}>
+              {title ? title : t('common.btnNotification')}
+            </AppText>
             <AppText style={styles.message}>{message}</AppText>
             <Box flexDirection="row" justifyContent="space-between">
               <AppButton

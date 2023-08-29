@@ -1,3 +1,4 @@
-import {baseApi} from "./api";
+import {baseApi} from './api';
 
-export const rootMiddle = (getDefaultMiddleware: any) => getDefaultMiddleware().concat(baseApi.middleware)
+export const rootMiddle = (getDefaultMiddleware: any) =>
+  getDefaultMiddleware().concat(baseApi.middleware);

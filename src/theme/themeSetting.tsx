@@ -77,7 +77,7 @@ export const Box = createBox<Theme>();
 export const Text = createText<Theme>();
 export const ThemeAppContext = React.createContext({
   updateTheme: (isLight: boolean) => {
-    LogApp("CHANGE_THEME", isLight + "");
+    LogApp('CHANGE_THEME', isLight + '');
   },
 });
 

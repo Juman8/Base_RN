@@ -1,11 +1,18 @@
-import React, {useEffect} from 'react';
 import {BackIcon} from '@assets';
 import {AppText} from '@components';
 import {goBack} from '@navigation';
 import {FontSize, Spacing, useTheme} from '@theme';
-import {Keyboard, StyleProp, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle} from 'react-native';
+import React from 'react';
+import {
+  Keyboard,
+  StyleProp,
+  StyleSheet,
+  TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {Alert} from 'react-native';
 
 export interface IAppHeader {
   title?: string;
@@ -55,10 +62,12 @@ export const AppHeader = (props: IAppHeader) => {
       <View style={styles.left}>
         <TouchableOpacity
           onPress={(isBack || IconLeft) && onPressLeft}
-          hitSlop={styles.hitbtn}
+          hitSlop={styles.hint}
           style={styles.btnLeft}
         >
-          {isBack && <BackIcon stroke={colorBackIcon || themeColor.textColor} />}
+          {isBack && (
+            <BackIcon stroke={colorBackIcon || themeColor.textColor} />
+          )}
           {IconLeft && (
             <IconLeft style={styleIconLeft} iconFillColor={iconLeftFillColor} />
           )}
@@ -75,7 +84,7 @@ export const AppHeader = (props: IAppHeader) => {
             <TouchableOpacity
               style={[styles.btnRight, styleBtnRight]}
               onPress={onPressRight}
-              hitSlop={styles.hitbtn}
+              hitSlop={styles.hint}
             >
               <AppText style={styleTextRight}>{titleRight}</AppText>
             </TouchableOpacity>
@@ -86,14 +95,25 @@ export const AppHeader = (props: IAppHeader) => {
   };
   return (
     <TouchableOpacity
-      style={[styles.container, {
-        backgroundColor: themeColor.background, borderBottomColor: themeColor.divider, borderBottomWidth: 1,
-      }, styleContainer]}
+      style={[
+        styles.container,
+        {
+          backgroundColor: themeColor.background,
+          borderBottomColor: themeColor.divider,
+        },
+        styleContainer,
+      ]}
       onPressIn={() => Keyboard.dismiss()}
       activeOpacity={1}
     >
       {renderLeft()}
-      {title && <AppText style={[styles.title, {color: themeColor.textColor}, styleTitle]}>{title}</AppText>}
+      {title && (
+        <AppText
+          style={[styles.title, {color: themeColor.textColor}, styleTitle]}
+        >
+          {title}
+        </AppText>
+      )}
       {renderRight()}
     </TouchableOpacity>
   );
@@ -109,6 +129,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.width16,
     paddingVertical: Spacing.height15,
     paddingTop: 10 + getStatusBarHeight(),
+    borderBottomWidth: 1,
   },
   title: {
     fontSize: FontSize.Font18,
@@ -128,9 +149,8 @@ const styles = StyleSheet.create({
   btnRight: {
     paddingLeft: Spacing.height10,
   },
-
   btnLeft: {
     paddingRight: Spacing.height10,
   },
-  hitbtn: {top: 25, bottom: 25, left: 25, right: 25}
+  hint: {top: 25, bottom: 25, left: 25, right: 25},
 });

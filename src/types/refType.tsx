@@ -1,3 +1,5 @@
-import {NavigationContainerRef} from "@react-navigation/native";
+import {NavigationContainerRef} from '@react-navigation/native';
 
-export type typeRefNavigation = React.Ref<NavigationContainerRef<ReactNavigation.RootParamList>>;
+export type typeRefNavigation = React.Ref<
+  NavigationContainerRef<ReactNavigation.RootParamList>
+>;

@@ -25,18 +25,23 @@ const languageDetector: languageDetectorType = {
   cacheUserLanguage: () => {},
 };
 
+export const defaultNS = 'common';
+export const resources = {
+  en,
+  vi,
+} as const;
+
 const initI18n = () => {
   i18next
     .use(languageDetector)
     .use(initReactI18next)
     .init({
-      compatibilityJSON: 'v3',
+      // lng: 'en',
+      // compatibilityJSON: 'v3',
       fallbackLng: 'en',
       debug: true,
-      resources: {
-        en: {translation: en},
-        vi: {translation: vi},
-      },
+      resources,
+      ns: ['common'],
     });
 };
 

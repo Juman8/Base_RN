@@ -3,8 +3,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {getTokenUserFromStore} from '@redux';
 import {useTheme} from '@theme';
-import React, {useEffect} from 'react';
-import RNBootSplash from "react-native-bootsplash";
+import React from 'react';
+import RNBootSplash from 'react-native-bootsplash';
 import {useSelector} from 'react-redux';
 import {SCREEN_ROUTE} from '../route';
 import {AuthStackComponent} from '../stack/AuthStack';
@@ -35,7 +35,9 @@ const NavigationApp = React.forwardRef((props, ref: any) => {
     );
   };
   return (
-    <NavigationContainer theme={dataTheme.theme} ref={ref}
+    <NavigationContainer
+      theme={dataTheme.theme}
+      ref={ref}
       onReady={() => {
         setTimeout(() => {
           RNBootSplash.hide();
@@ -46,6 +48,5 @@ const NavigationApp = React.forwardRef((props, ref: any) => {
     </NavigationContainer>
   );
 });
-
 
 export {NavigationApp};

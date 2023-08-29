@@ -9,10 +9,15 @@ interface AppTextProps {
   color?: ENUM_COLORS;
   style?: StyleProp<TextStyle>;
   children: JSX.Element | string | undefined;
-  variant?: ResponsiveValue<"body" | "button" | "header" | "text" | "title1" | "title2" | "title3", {
-    phone: number;
-    tablet: number;
-  }> | undefined;
+  variant?:
+    | ResponsiveValue<
+        'body' | 'button' | 'header' | 'text' | 'title1' | 'title2' | 'title3',
+        {
+          phone: number;
+          tablet: number;
+        }
+      >
+    | undefined;
   spacing?: {
     sm: number;
     s: number;
