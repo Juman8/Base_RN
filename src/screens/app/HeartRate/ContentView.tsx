@@ -1,6 +1,6 @@
-import {AppInput} from "@components";
-import {Box} from "@theme";
-import React from "react";
+import {AppInput} from '@components';
+import {Box} from '@theme';
+import React from 'react';
 
 interface ContentViewProps {
   setDataDetail1: (data: string) => void;
@@ -12,7 +12,7 @@ interface ContentViewProps {
 export const ContentView = (props: ContentViewProps) => {
   const {setDataDetail1, setDataDetail2, value1, value2} = props;
   return (
-    <Box flexDirection={"row"} mb="l" mt={"s"}>
+    <Box flexDirection={'row'} mb="l" mt={'s'}>
       <AppInput
         label="SPO2"
         value={value1 || ''}
@@ -21,7 +21,7 @@ export const ContentView = (props: ContentViewProps) => {
         keyboardType="numeric"
         style={{flex: 1, marginRight: 20}}
         maxLength={5}
-        labelStyle={{textAlign:'center'}}
+        labelStyle={{textAlign: 'center'}}
       />
       <AppInput
         label="Pulse"
@@ -34,5 +34,5 @@ export const ContentView = (props: ContentViewProps) => {
         labelStyle={{textAlign: 'center'}}
       />
     </Box>
-  )
-}
+  );
+};

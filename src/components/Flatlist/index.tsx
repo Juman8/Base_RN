@@ -1,17 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {Spacing, Text, useTheme} from '@theme';
+import {Spacing, useTheme} from '@theme';
 import React, {forwardRef, useEffect} from 'react';
 import {
-  View,
-  RefreshControl,
-  ListRenderItem,
   ActivityIndicator,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-  StyleProp,
-  ViewStyle,
   FlatList,
+  ListRenderItem,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  RefreshControl,
+  StyleProp,
   StyleSheet,
+  View,
+  ViewStyle,
 } from 'react-native';
 import {FlatList as ListForDrag} from 'react-native-gesture-handler';
 import {AppText} from '../AppText';
@@ -31,14 +32,20 @@ interface VirtualListProps {
   isShort?: boolean;
   onPress?: () => void;
   title?: string;
-  ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+  ListHeaderComponent?:
+    | React.ComponentType<any>
+    | React.ReactElement
+    | null
+    | undefined;
   rootStyle?: StyleProp<ViewStyle>;
   type?: 'GESTURE' | 'RN';
-  onScrollToIndexFailed?: ((info: {
-    index: number;
-    highestMeasuredFrameIndex: number;
-    averageItemLength: number;
-  }) => void) | undefined;
+  onScrollToIndexFailed?:
+    | ((info: {
+        index: number;
+        highestMeasuredFrameIndex: number;
+        averageItemLength: number;
+      }) => void)
+    | undefined;
   customViewMore?: StyleProp<ViewStyle>;
   columnWrapperStyle?: StyleProp<ViewStyle> | undefined;
   perPage?: number;
@@ -46,8 +53,16 @@ interface VirtualListProps {
   initialScrollIndex?: number;
   onEndReachedThreshold?: number;
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-  ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
-  ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+  ListEmptyComponent?:
+    | React.ComponentType<any>
+    | React.ReactElement
+    | null
+    | undefined;
+  ListFooterComponent?:
+    | React.ComponentType<any>
+    | React.ReactElement
+    | null
+    | undefined;
   listKey?: string | undefined;
   isOnlyList?: boolean;
   nestedScrollEnabled?: boolean;
@@ -104,7 +119,9 @@ const VirtualList = React.memo(
     const {themeColor} = useTheme();
 
     useEffect(() => {
-      if (isFirst && !isLoading) setFirst(false);
+      if (isFirst && !isLoading) {
+        setFirst(false);
+      }
     }, [isFirst, isLoading]);
 
     const NEW_LIST = type === 'RN' ? FlatList : ListForDrag;
@@ -124,8 +141,10 @@ const VirtualList = React.memo(
 
     const onViewRef = React.useRef((values: any) => {
       const {viewableItems} = values;
-      const indexs: number[] = viewableItems.map((it: {index: number}) => it.index);
-      props.onChangeActiveIndexItem?.(indexs);
+      const indexes: number[] = viewableItems.map(
+        (it: {index: number}) => it.index,
+      );
+      props.onChangeActiveIndexItem?.(indexes);
     });
     const viewConfigRef = React.useRef({viewAreaCoveragePercentThreshold: 10});
 
@@ -165,7 +184,7 @@ const VirtualList = React.memo(
           onEndReachedThreshold={onEndReachedThreshold}
           onEndReached={onLoadMore}
           keyExtractor={(item: any) => {
-            if (typeof (item) === 'string') {
+            if (typeof item === 'string') {
               return item;
             }
             return item.id;

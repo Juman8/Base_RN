@@ -34,7 +34,7 @@ index 337e1ef..914e38e 100644
  }
  export default AbstractChart;
 diff --git a/node_modules/react-native-chart-kit/dist/line-chart/LineChart.d.ts b/node_modules/react-native-chart-kit/dist/line-chart/LineChart.d.ts
-index e09cf18..3f871b7 100644
+index e09cf18..3e86726 100644
 --- a/node_modules/react-native-chart-kit/dist/line-chart/LineChart.d.ts
 +++ b/node_modules/react-native-chart-kit/dist/line-chart/LineChart.d.ts
 @@ -1,7 +1,7 @@
@@ -48,7 +48,7 @@ index e09cf18..3f871b7 100644
  export interface LineChartData extends ChartData {
      legend?: string[];
  }
-@@ -186,6 +186,10 @@ export interface LineChartProps extends AbstractChartProps {
+@@ -186,6 +186,11 @@ export interface LineChartProps extends AbstractChartProps {
       * The number of horizontal lines
       */
      segments?: number;
@@ -56,10 +56,11 @@ index e09cf18..3f871b7 100644
 +    onScroll?: (e: NativeSyntheticEvent<NativeScrollEvent>) => void;
 +    onTouchStart?: () => void;
 +    onTouchEnd?: () => void;
++    yBgr?: string;
  }
  declare type LineChartState = {
      scrollableDotHorizontalOffset: Animated.Value;
-@@ -195,25 +199,27 @@ declare class LineChart extends AbstractChart<LineChartProps, LineChartState> {
+@@ -195,25 +200,27 @@ declare class LineChart extends AbstractChart<LineChartProps, LineChartState> {
      state: {
          scrollableDotHorizontalOffset: Animated.Value;
      };

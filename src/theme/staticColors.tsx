@@ -44,11 +44,11 @@ export const Shadow = {
   textShadowWhite: {
     textShadowColor: 'rgba(255, 255, 255, 0.8)',
     textShadowOffset: {width: 0, height: 0},
-    textShadowRadius: 1
+    textShadowRadius: 1,
   },
   textShadowBlack: {
     textShadowColor: 'rgba(0, 0, 0, 0.8)',
     textShadowOffset: {width: 0, height: 0},
-    textShadowRadius: 1
-  }
+    textShadowRadius: 1,
+  },
 };

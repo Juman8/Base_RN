@@ -28,7 +28,6 @@ class AxiosClass {
   }
 
   interceptorRequests = (config: any): Promise<any> => {
-
     const token = AsyncStorage.getString('APP_TOKEN');
     if (token) {
       config.headers.Authorization = token;
@@ -39,7 +38,7 @@ class AxiosClass {
 
   interceptorResponses = (response: AxiosResponse): AxiosResponse => {
     LogApp(response);
-    return response
+    return response;
   };
 
   setToken = async (token: string) => {
@@ -63,7 +62,7 @@ class AxiosClass {
 
   getApi = () => {
     return this.api;
-  }
+  };
 }
 
 export const axiosApi = AxiosClass.default();

@@ -1,30 +1,32 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import {LogApp} from '@utils';
 import dayjs from 'dayjs';
 import React, {useCallback, useImperativeHandle, useState} from 'react';
-import MonthPicker from 'react-native-month-year-picker';
+import MonthPicker, {EventTypes} from 'react-native-month-year-picker';
 
 interface propsAppPicker {
   onChangeDate: (data: Date) => void;
 }
 
 export const AppMonthPicker = React.forwardRef((props: propsAppPicker, ref) => {
-
   const {onChangeDate} = props;
 
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
 
-  const showPicker = useCallback((value) => setShow(value), []);
+  const showPicker = useCallback((value: boolean) => setShow(value), []);
 
   useImperativeHandle(
     ref,
     () => ({
-      showPicker
+      showPicker,
     }),
     [showPicker],
   );
 
   const onValueChange = useCallback(
-    (event, newDate) => {
+    (event: EventTypes, newDate: Date) => {
+      LogApp(event);
       const selectedDate = newDate || date;
       showPicker(false);
       setDate(selectedDate);

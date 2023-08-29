@@ -1,6 +1,6 @@
-import React from "react";
-import {ContentView} from "./ContentView";
-import {LabelView} from "./LabelView";
+import React from 'react';
+import {ContentView} from './ContentView';
+import {LabelView} from './LabelView';
 
 export const HearAM = ({onChangeData, dataDetail}: any) => {
   return (

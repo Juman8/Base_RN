@@ -31,8 +31,6 @@ export interface RootStackParamList {
   [SCREEN_ROUTE.DISCOVER_PAGE]: undefined;
 }
 
-const Account = () => <></>;
-
 export const ROUTER_BOTTOM_TAB = [
   {
     key: SCREEN_ROUTE.HOME_PAGE,
@@ -40,6 +38,6 @@ export const ROUTER_BOTTOM_TAB = [
   },
   {
     key: SCREEN_ROUTE.ACCOUNT_PAGE,
-    route: () => Account,
+    route: () => Home,
   },
 ];

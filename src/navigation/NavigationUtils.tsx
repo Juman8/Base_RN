@@ -1,6 +1,13 @@
-import {CommonActions, StackActions, StackActionType} from '@react-navigation/native';
+import {
+  CommonActions,
+  StackActions,
+  StackActionType,
+} from '@react-navigation/native';
 
-type typeNavigation = {dispatch: (arg0: CommonActions.Action | StackActionType) => void; canGoBack: () => boolean;} | null;
+type typeNavigation = {
+  dispatch: (arg0: CommonActions.Action | StackActionType) => void;
+  canGoBack: () => boolean;
+} | null;
 
 let _navigator: typeNavigation;
 

@@ -2,13 +2,18 @@ import {MainIcon, MainIconActive, UserIcon, UserIconActive} from '@assets';
 import {ROUTER_BOTTOM_TAB} from '@navigation';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs/lib/typescript/src/types';
 import {getStatusOfBottomTab} from '@redux';
-import {Spacing, useTheme} from '@theme';
+import {Box, Spacing, useTheme} from '@theme';
 import React, {memo, useEffect, useRef} from 'react';
-import {Animated, InteractionManager, TouchableWithoutFeedback, View} from 'react-native';
-import {useSelector} from "react-redux";
+import {
+  Animated,
+  InteractionManager,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
+import {useSelector} from 'react-redux';
 import {styles} from './styles';
 
-const SourceImage = (props: {label?: string; isFocused: boolean;}) => {
+const SourceImage = (props: {label?: string; isFocused: boolean}) => {
   const {label, isFocused} = props;
   const {themeColor} = useTheme();
 
@@ -16,10 +21,7 @@ const SourceImage = (props: {label?: string; isFocused: boolean;}) => {
     case ROUTER_BOTTOM_TAB[0].key:
       if (isFocused) {
         return (
-          <MainIconActive
-            width={Spacing.width25}
-            height={Spacing.width25}
-          />
+          <MainIconActive width={Spacing.width25} height={Spacing.width25} />
         );
       }
       return (
@@ -36,10 +38,7 @@ const SourceImage = (props: {label?: string; isFocused: boolean;}) => {
     case ROUTER_BOTTOM_TAB[1].key:
       if (isFocused) {
         return (
-          <UserIconActive
-            width={Spacing.width25}
-            height={Spacing.width25}
-          />
+          <UserIconActive width={Spacing.width25} height={Spacing.width25} />
         );
       }
       return (
@@ -58,7 +57,10 @@ const SourceImage = (props: {label?: string; isFocused: boolean;}) => {
   }
 };
 
-export const CustomTabBar = memo(function CustomTabBar({state, navigation}: BottomTabBarProps) {
+export const CustomTabBar = memo(function CustomTabBar({
+  state,
+  navigation,
+}: BottomTabBarProps) {
   const {themeColor} = useTheme();
   const statusOfBottomTab = useSelector(getStatusOfBottomTab);
   const refHeight = useRef(50);
@@ -90,13 +92,15 @@ export const CustomTabBar = memo(function CustomTabBar({state, navigation}: Bott
         styles.containerAbsolute,
         {backgroundColor: themeColor.backgroundColorTab},
         {
-          transform: [{
-            translateY,
-          }],
-          opacity
-        }
+          transform: [
+            {
+              translateY,
+            },
+          ],
+          opacity,
+        },
       ]}
-      onLayout={(e) => {
+      onLayout={e => {
         refHeight.current = e.nativeEvent.layout.height;
       }}
     >
@@ -130,7 +134,7 @@ export const CustomTabBar = memo(function CustomTabBar({state, navigation}: Bott
           };
 
           return (
-            <View style={{flex: 1, alignItems: 'center'}} key={'tab-' + index.toString()}>
+            <Box flex={1} alignItems="center" key={'tab-' + index.toString()}>
               <TouchableWithoutFeedback
                 accessibilityRole="button"
                 accessibilityLabel={route.key}
@@ -142,7 +146,7 @@ export const CustomTabBar = memo(function CustomTabBar({state, navigation}: Bott
                   <SourceImage label={route.name} isFocused={isFocused} />
                 </View>
               </TouchableWithoutFeedback>
-            </View>
+            </Box>
           );
         })}
       </View>

@@ -12,10 +12,10 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import {FlashList as FlatList, ListRenderItem} from "@shopify/flash-list";
+import {FlashList as FlatList, ListRenderItem} from '@shopify/flash-list';
 
 interface VirtualListProps {
-  renderItem: ListRenderItem<any> | null | undefined
+  renderItem: ListRenderItem<any> | null | undefined;
   onRefresh?: () => void;
   style?: StyleProp<ViewStyle>;
   data: Array<any>;
@@ -29,7 +29,11 @@ interface VirtualListProps {
   isShort?: boolean;
   onPress?: () => void;
   title?: string;
-  ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+  ListHeaderComponent?:
+    | React.ComponentType<any>
+    | React.ReactElement
+    | null
+    | undefined;
   rootStyle?: StyleProp<ViewStyle>;
   customViewMore?: StyleProp<ViewStyle>;
   perPage?: number;
@@ -37,8 +41,16 @@ interface VirtualListProps {
   initialScrollIndex?: number;
   onEndReachedThreshold?: number;
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-  ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
-  ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+  ListEmptyComponent?:
+    | React.ComponentType<any>
+    | React.ReactElement
+    | null
+    | undefined;
+  ListFooterComponent?:
+    | React.ComponentType<any>
+    | React.ReactElement
+    | null
+    | undefined;
   isOnlyList?: boolean;
   nestedScrollEnabled?: boolean;
 }
@@ -90,16 +102,16 @@ const LargeList = React.memo(
     const {themeColor} = useTheme();
 
     useEffect(() => {
-      if (isFirst && !isLoading) setFirst(false);
+      if (isFirst && !isLoading) {
+        setFirst(false);
+      }
     }, [isFirst, isLoading]);
 
     const ListHeaderComponent = React.useCallback(() => {
       if (!isLoading && data?.length < 1) {
         return (
           <View style={styles.viewHeader}>
-            <Text textAlign="center">
-              {emptyText}
-            </Text>
+            <Text textAlign="center">{emptyText}</Text>
           </View>
         );
       }
@@ -136,7 +148,7 @@ const LargeList = React.memo(
           onEndReachedThreshold={onEndReachedThreshold}
           onEndReached={onLoadMore}
           keyExtractor={(item: any) => {
-            if (typeof (item) === 'string') {
+            if (typeof item === 'string') {
               return item;
             }
             return item.id;
@@ -164,7 +176,6 @@ const LargeList = React.memo(
           ListEmptyComponent={props.ListEmptyComponent}
           nestedScrollEnabled={nestedScrollEnabled}
           estimatedItemSize={180}
-
         />
       </RenderContent>
     );

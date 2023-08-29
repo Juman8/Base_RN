@@ -1,5 +1,5 @@
-import {DEVICE} from "@utils";
-import {RFPercentage} from "react-native-responsive-fontsize";
+import {DEVICE} from '@utils';
+import {RFPercentage} from 'react-native-responsive-fontsize';
 function calculateFontsize(current: number, max: number) {
   return current <= max ? current : max;
 }
@@ -13,73 +13,73 @@ function ReduceTextFor18_9(number: number) {
 export const FontSize = {
   Font9: DEVICE.isAndroid
     ? calculateFontsize(
-      RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(-0.25)),
-      9,
-    )
+        RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(-0.25)),
+        9,
+      )
     : calculateFontsize(
-      RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(-0.25)),
-      10,
-    ),
+        RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(-0.25)),
+        10,
+      ),
   Font10: DEVICE.isAndroid
     ? calculateFontsize(
-      RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(-0.25)),
-      10,
-    )
+        RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(-0.25)),
+        10,
+      )
     : calculateFontsize(
-      RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0)),
-      11,
-    ),
+        RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0)),
+        11,
+      ),
   Font11: DEVICE.isAndroid
     ? calculateFontsize(RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0)), 11)
     : calculateFontsize(
-      RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.25)),
-      12,
-    ),
+        RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.25)),
+        12,
+      ),
   Font12: DEVICE.isAndroid
     ? calculateFontsize(
-      RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.25)),
-      12,
-    )
+        RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.25)),
+        12,
+      )
     : calculateFontsize(
-      RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.25)),
-      13,
-    ),
+        RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.25)),
+        13,
+      ),
   Font13: DEVICE.isAndroid
     ? calculateFontsize(
-      RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.25)),
-      13,
-    )
+        RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.25)),
+        13,
+      )
     : calculateFontsize(
-      RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.5)),
-      14,
-    ),
+        RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.5)),
+        14,
+      ),
   Font14: DEVICE.isAndroid
     ? calculateFontsize(
-      RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.5)),
-      14,
-    )
+        RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.5)),
+        14,
+      )
     : calculateFontsize(
-      RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.5)),
-      15,
-    ),
+        RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.5)),
+        15,
+      ),
   Font15: DEVICE.isAndroid
     ? calculateFontsize(
-      RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.5)),
-      15,
-    )
+        RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.5)),
+        15,
+      )
     : calculateFontsize(
-      RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.6)),
-      16,
-    ),
+        RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.6)),
+        16,
+      ),
   Font16: DEVICE.isAndroid
     ? calculateFontsize(
-      RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.6)),
-      16,
-    )
+        RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.6)),
+        16,
+      )
     : calculateFontsize(
-      RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.75)),
-      17,
-    ),
+        RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.75)),
+        17,
+      ),
   Font17: calculateFontsize(
     RFPercentage(BASE_FONT_SIZE + ReduceTextFor18_9(0.75)),
     17,

@@ -1,8 +1,9 @@
 import React from 'react';
+import {TYPE_REF_LOADING_GLOBAL} from './GlobalUI';
 
-const globalUIRef = React.createRef<any>();
+const globalUIRef = React.createRef<TYPE_REF_LOADING_GLOBAL>();
 let numOfTime = 0;
-let refTimer: any = null;
+let refTimer: NodeJS.Timeout;
 const MINIUM_OF_HIDE = 800;
 
 function showLoading() {

@@ -2,7 +2,11 @@ import {NoImage} from '@assets';
 import {Box, useTheme} from '@theme';
 import React, {useEffect, useState} from 'react';
 import {StyleProp, ActivityIndicator} from 'react-native';
-import FastImage, {ImageStyle, ResizeMode, Source} from 'react-native-fast-image';
+import FastImage, {
+  ImageStyle,
+  ResizeMode,
+  Source,
+} from 'react-native-fast-image';
 
 interface propsImage {
   uri: string;
@@ -14,7 +18,8 @@ interface propsImage {
 }
 
 const AppImage = React.memo((props: propsImage) => {
-  const {uri, style, resizeMode, defaultSource, checkNetworking, imgSource} = props;
+  const {uri, style, resizeMode, defaultSource, checkNetworking, imgSource} =
+    props;
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
 
@@ -32,7 +37,13 @@ const AppImage = React.memo((props: propsImage) => {
       });
     }
   }, [uri, checkNetworking]);
-  const source = isError ? NoImage : imgSource ? imgSource : uri ? {uri} : defaultSource || NoImage
+  const source = isError
+    ? NoImage
+    : imgSource
+    ? imgSource
+    : uri
+    ? {uri}
+    : defaultSource || NoImage;
 
   return (
     <Box justifyContent={'center'} alignItems="center">

@@ -11,7 +11,6 @@ import {
 import {styles} from './styles';
 import {AppText} from '../AppText';
 import {SpacingProps, TypographyProps} from '@shopify/restyle';
-
 import {Eye, EyeActive} from '@assets';
 import MaskInput, {MaskInputProps} from 'react-native-mask-input';
 import {StyleProp} from 'react-native';
@@ -54,11 +53,11 @@ export function AppInput(
   const {themeColor} = useTheme();
   if (isMasked) {
     return (
-      <Box style={{width: '100%'}} {...props}>
+      <Box style={styles.viewWidth} {...props}>
         <MaskInput
           {...props}
           value={value}
-          onChangeText={(masked, unmasked) => onChangeText(masked)}
+          onChangeText={masked => onChangeText(masked)}
           style={[
             styles.inputStyle,
             {color: themeColor.textColor},
@@ -72,7 +71,7 @@ export function AppInput(
   }
 
   return (
-    <Box style={{width: '100%'}} {...props}>
+    <Box style={styles.viewWidth} {...props}>
       {!!label && (
         <AppText marginBottom={'m'} style={labelStyle}>
           {label}

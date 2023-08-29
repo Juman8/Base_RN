@@ -6,7 +6,6 @@ export type CommonResponse = Partial<{
   show_alert: boolean;
 }>;
 
-
 export interface SignUpVerifyCodeResponse extends CommonResponse {
   data: {
     message: string;
