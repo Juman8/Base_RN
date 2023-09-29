@@ -31,18 +31,18 @@ export const resources = {
   vi,
 } as const;
 
+const ns = [...Object.keys(en)];
+
 const initI18n = () => {
-  i18next
-    .use(languageDetector)
-    .use(initReactI18next)
-    .init({
-      // lng: 'en',
-      // compatibilityJSON: 'v3',
-      fallbackLng: 'en',
-      debug: true,
-      resources,
-      ns: ['common'],
-    });
+  i18next.use(languageDetector).use(initReactI18next).init({
+    // lng: 'en',
+    // compatibilityJSON: 'v3',
+    fallbackLng: 'en',
+    debug: true,
+    resources,
+    ns,
+    defaultNS,
+  });
 };
 
 export {initI18n};

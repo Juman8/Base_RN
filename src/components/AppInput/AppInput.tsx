@@ -65,6 +65,7 @@ export function AppInput(
             secureTextEntry && {paddingRight: 50},
           ]}
           placeholderTextColor={themeColor.primary}
+          textContentType="newPassword"
         />
       </Box>
     );
@@ -96,6 +97,7 @@ export function AppInput(
           autoCapitalize="none"
           placeholderTextColor={themeColor.placeHolderColor}
           clearButtonMode="while-editing"
+          textContentType="newPassword"
         />
         {!!error && !!touched && (
           <AppText
