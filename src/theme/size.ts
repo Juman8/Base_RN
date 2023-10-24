@@ -8,3 +8,4 @@ export const BORDER_RADIUS_20 = Spacing.width20;
 export const PADDING_20 = Spacing.width20;
 export const MARGIN_TOP = Spacing.width50;
 export const MIN_WIDTH = 80;
+export const MIN_HEIGHT_400 = 400;

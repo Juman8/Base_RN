@@ -12,11 +12,8 @@ import renderer from 'react-test-renderer';
 import {it} from '@jest/globals';
 
 const App = () => {
-  return (
-    <>
-    </>
-  );
-}
+  return <></>;
+};
 
 it('renders correctly', () => {
   renderer.create(<App />);

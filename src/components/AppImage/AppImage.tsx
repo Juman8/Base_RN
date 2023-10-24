@@ -1,7 +1,7 @@
 import {NoImage} from '@assets';
 import {Box, useTheme} from '@theme';
 import React, {useEffect, useState} from 'react';
-import {StyleProp, ActivityIndicator} from 'react-native';
+import {ActivityIndicator, StyleProp} from 'react-native';
 import FastImage, {
   ImageStyle,
   ResizeMode,
@@ -57,6 +57,7 @@ const AppImage = React.memo((props: propsImage) => {
       {isLoading && (
         <ActivityIndicator
           color={themeColor.primary}
+          // eslint-disable-next-line react-native/no-inline-styles
           style={{position: 'absolute'}}
         />
       )}

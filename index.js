@@ -1,19 +1,18 @@
-/* eslint-disable no-undef */
 /**
  * @format
  */
 
+import '@theme';
 import {
   AppRegistry,
   Text,
+  TextInput,
   TouchableHighlight,
   TouchableOpacity,
-  TextInput,
 } from 'react-native';
-import App from './App';
-import { name as appName } from './app.json';
 import 'react-native-gesture-handler';
-import '@theme';
+import App from './App';
+import {name as appName} from './app.json';
 if (__DEV__) {
   import('./ReactotronConfig');
 }

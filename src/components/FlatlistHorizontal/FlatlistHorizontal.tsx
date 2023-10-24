@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {Spacing} from '@theme';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
@@ -12,7 +13,7 @@ interface FlatListHorizontalProps {
   onPressViewMore?: () => void;
 }
 
-const FlatlistHorizontal = (props: FlatListHorizontalProps) => {
+const FlatListHorizontal = (props: FlatListHorizontalProps) => {
   const {data, renderItem, isViewMore, label, onPressViewMore} = props;
   const {t} = useTranslation(['common']);
   return (
@@ -38,4 +39,4 @@ const FlatlistHorizontal = (props: FlatListHorizontalProps) => {
   );
 };
 
-export {FlatlistHorizontal};
+export {FlatListHorizontal};

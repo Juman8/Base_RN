@@ -1,2 +1,3 @@
 export * from './listData';
-export * from './sigup';
+export * from './signUp';
+export * from './auth';

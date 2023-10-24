@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Svg, { Path } from 'react-native-svg';
+import Svg, {Path} from 'react-native-svg';
 
-import { iconProps } from '@assets';
+import {iconProps} from '@assets';
 
 const SearchIcon = (props: iconProps) => (
   <Svg width={20} height={20} viewBox="0 0 20 20" fill="none" {...props}>
@@ -18,4 +18,4 @@ const SearchIcon = (props: iconProps) => (
   </Svg>
 );
 
-export { SearchIcon };
+export {SearchIcon};

@@ -15,7 +15,7 @@ function useDebounceValue(value: number | string, delay = 500) {
 }
 
 function useDebounceFunction(callBack: () => void, delay = 500) {
-  const timer = useRef<any>();
+  const timer = useRef<NodeJS.Timeout>();
 
   const onPlay = () => {
     if (timer.current) {

@@ -1,3 +1,4 @@
+import {LogApp} from '@utils';
 import i18next from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import {en, vi} from './locales';
@@ -21,8 +22,12 @@ const languageDetector: languageDetectorType = {
   type: 'languageDetector',
   async: true,
   detect: (cb: (value: string) => void) => cb('en'),
-  init: () => {},
-  cacheUserLanguage: () => {},
+  init: () => {
+    LogApp('INIT_LANG');
+  },
+  cacheUserLanguage: () => {
+    LogApp('INIT_CACHE_LANGUAGE');
+  },
 };
 
 export const defaultNS = 'common';
@@ -31,18 +36,18 @@ export const resources = {
   vi,
 } as const;
 
+const ns = [...Object.keys(en)];
+
 const initI18n = () => {
-  i18next
-    .use(languageDetector)
-    .use(initReactI18next)
-    .init({
-      // lng: 'en',
-      // compatibilityJSON: 'v3',
-      fallbackLng: 'en',
-      debug: true,
-      resources,
-      ns: ['common'],
-    });
+  i18next.use(languageDetector).use(initReactI18next).init({
+    // lng: 'en',
+    // compatibilityJSON: 'v3',
+    fallbackLng: 'en',
+    debug: true,
+    resources,
+    ns,
+    defaultNS,
+  });
 };
 
 export {initI18n};

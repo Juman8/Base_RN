@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, Animated} from 'react-native';
+import {StyleSheet, Animated, StyleProp, ViewStyle} from 'react-native';
 
 import {Dimensions} from 'react-native';
 import {Spacing} from '@theme';
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,
-    // width: (Spacing.width8 + 3 * 3) * 4
   },
   pagination: {
     width: horizontal.small,
@@ -47,11 +46,11 @@ const styles = StyleSheet.create({
 });
 interface PaginationProps {
   size: number;
-  scrollX: any;
+  scrollX: Animated.Value;
   windowWidth: number;
-  paginationStyle?: any;
-  renderPagination?: any;
-  dotStyle?: any;
+  paginationStyle?: StyleProp<ViewStyle>;
+  renderPagination?: (val: Animated.Value) => JSX.Element;
+  dotStyle?: StyleProp<ViewStyle>;
 }
 
 export const Pagination = (props: PaginationProps) => {
@@ -69,7 +68,7 @@ export const Pagination = (props: PaginationProps) => {
   return (
     <Animated.View style={[styles.container, paginationStyle]}>
       {Array.from({length: size}).map((_, index) => {
-        const width = scrollX.interpolate({
+        const widthScroll = scrollX.interpolate({
           inputRange: [
             windowWidth * (index - 1),
             windowWidth * index,
@@ -90,11 +89,10 @@ export const Pagination = (props: PaginationProps) => {
         return (
           <Animated.View
             key={index}
-            style={[styles.normalDot, {width, opacity}, dotStyle]}
+            style={[styles.normalDot, {width: widthScroll, opacity}, dotStyle]}
           />
         );
       })}
-      {/* </ScrollView> */}
     </Animated.View>
   );
 };

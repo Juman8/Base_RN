@@ -1,12 +1,11 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {getStatusOfBottomTab, setStatus} from '@redux';
 import {Box, rootStyle} from '@theme';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
 import {Animated, FlatList, StyleProp, ViewStyle} from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {useDispatch, useSelector} from 'react-redux';
 interface AppScrollWrapBottomTabProps {
-  children: JSX.Element;
+  children?: JSX.Element;
   style?: StyleProp<ViewStyle>;
   isHeightStatus?: boolean;
   ListHeaderComponent?: JSX.Element;
@@ -18,13 +17,13 @@ const NewFlatList = Animated.createAnimatedComponent(FlatList);
 export const AppScrollWrapBottomTab = React.memo(
   (props: AppScrollWrapBottomTabProps) => {
     const scrollYOld = useRef(0);
-    const refDebounce: any = useRef(null);
+    const refDebounce = useRef<NodeJS.Timeout>();
     const dispatch = useDispatch();
     const statusOfBottomTab = useSelector(getStatusOfBottomTab);
 
     useEffect(() => {
       dispatch(setStatus(true));
-    }, []);
+    }, [dispatch]);
 
     const onScroll = (y: number) => {
       if (y < scrollYOld.current && !statusOfBottomTab) {
@@ -35,12 +34,16 @@ export const AppScrollWrapBottomTab = React.memo(
       scrollYOld.current = y;
     };
 
+    const marginTop = useMemo(() => {
+      return props.isHeightStatus ? getStatusBarHeight() : 0;
+    }, [props.isHeightStatus]);
+
     return (
       <Box width={'100%'} height="100%">
         {props.ListHeaderComponent}
         <NewFlatList
           bounces={false}
-          style={{marginTop: props.isHeightStatus ? getStatusBarHeight() : 0}}
+          style={{marginTop}}
           overScrollMode={'never'}
           contentContainerStyle={[{paddingBottom: getStatusBarHeight()}]}
           scrollEventThrottle={32}

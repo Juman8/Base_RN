@@ -1,15 +1,19 @@
-import Reactotron, { devTools, overlay, trackGlobalErrors } from 'reactotron-react-native';
+import Reactotron, {
+  devTools,
+  overlay,
+  trackGlobalErrors,
+} from 'reactotron-react-native';
 
-import { reactotronRedux } from 'reactotron-redux';
-import { NativeModules } from 'react-native';
+import {reactotronRedux} from 'reactotron-redux';
+import {NativeModules} from 'react-native';
 
 let scriptHostname = 'localhost';
 if (__DEV__) {
-  const { scriptURL } = NativeModules.SourceCode;
+  const {scriptURL} = NativeModules.SourceCode;
   scriptHostname = scriptURL.split('://')[1].split(':')[0];
 }
 
-const reactotron = Reactotron.configure({ host: scriptHostname })
+const reactotron = Reactotron.configure({host: scriptHostname})
   // .configure("RN Base")
   .use(overlay())
   .use(devTools())
@@ -17,19 +21,19 @@ const reactotron = Reactotron.configure({ host: scriptHostname })
   .use(
     trackGlobalErrors({
       // leave off any frames sourced from React Native itself
-      veto: frame => frame.fileName.indexOf('../node_modules/react-native/') >= 0
-    })
+      veto: frame =>
+        frame.fileName.indexOf('../node_modules/react-native/') >= 0,
+    }),
   )
   .useReactNative({
     networking: {
-      ignoreUrls: /symbolicate/
+      ignoreUrls: /symbolicate/,
     },
     asyncStorage: true,
     editor: true,
     overlay: true,
-    devTools: true
+    devTools: true,
   })
   .connect();
 
-console.tron = Reactotron;
 export default reactotron;

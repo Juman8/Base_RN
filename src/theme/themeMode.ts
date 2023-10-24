@@ -34,6 +34,22 @@ export enum ENUM_COLORS {
   black_half_part = 'black_half_part',
 }
 
+export enum ENUM_SPACING_ALIAS {
+  PIXEL_4 = 'sm',
+  PIXEL_8 = 's',
+  PIXEL_10 = 'xs',
+  PIXEL_16 = 'm',
+  PIXEL_24 = 'l',
+  PIXEL_40 = 'xl',
+}
+export enum ENUM_BORDER_RADIUS_ALIAS {
+  RADIUS_4 = 's',
+  RADIUS_8 = 'xs',
+  RADIUS_10 = 'l',
+  RADIUS_25 = '25',
+  RADIUS_75 = 'sx',
+}
+
 type themeType = {
   dark: boolean;
   colors: typeOfColors;

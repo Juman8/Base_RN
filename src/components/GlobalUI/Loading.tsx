@@ -20,12 +20,7 @@ export const Loading: React.FC<Loading> = props => {
   if (isLoading) {
     return (
       <Box style={[styles.container, {borderRadius: borderRadius}, style]}>
-        <View
-          style={[
-            styles.background,
-            mini ? {backgroundColor: 'transparent'} : {},
-          ]}
-        >
+        <View style={[styles.background, mini && styles.transparentBgr]}>
           <ActivityIndicator color={mini ? '#fff' : color} />
         </View>
       </Box>
@@ -58,4 +53,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 99,
   },
+  transparentBgr: {backgroundColor: 'transparent'},
 });

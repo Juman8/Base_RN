@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {t} from 'i18next';
 import {showMessage} from 'react-native-flash-message';
 import {MMKV} from 'react-native-mmkv';
@@ -24,9 +25,14 @@ export const LogApp = (
 ) => {
   if (__DEV__) {
     value ? console.log(key, value, ...optionalParams) : console.log(key);
-    value ? Reactotron.log(key, value, ...optionalParams) : Reactotron.log(key);
+    if (Reactotron.log) {
+      value
+        ? Reactotron.log(key, value, ...optionalParams)
+        : Reactotron.log(key);
+    }
   }
 };
+
 export type DecimalFormat = '1k' | '1.2k' | '1.23k' | '1.234k' | '1,234';
 
 export const getDecimalsByFormat = (
@@ -95,8 +101,8 @@ export const getPrettyNumberString = (
       absVal /= Math.pow(10, 18);
     }
 
-    const decimals = getDecimalsByFormat(numberFormat);
-    const dropTrailingZero: number = parseFloat(absVal.toFixed(decimals));
+    const newDecimals = getDecimalsByFormat(numberFormat);
+    const dropTrailingZero: number = parseFloat(absVal.toFixed(newDecimals));
     numberString = dropTrailingZero + scale;
   }
 

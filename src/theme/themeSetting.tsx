@@ -28,6 +28,7 @@ const theme = createTheme({
   },
   borderRadii: {
     s: Spacing.width4,
+    xs: Spacing.width82,
     m: Spacing.width10,
     l: Spacing.width25,
     xl: Spacing.width75,
@@ -81,7 +82,7 @@ export const ThemeAppContext = React.createContext({
   },
 });
 
-export const ThemeProvider = ({children}: any) => {
+export const ThemeProvider = ({children}: {children: JSX.Element}) => {
   const Dark = useMemo(() => {
     return {
       ...theme,

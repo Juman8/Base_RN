@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import {Colors, Box} from '@theme';
 import {
@@ -11,6 +12,7 @@ import {debounce} from 'lodash';
 import {useTheme} from '@theme';
 import {AppText} from '../AppText';
 import {styles} from './styles';
+import {LogApp} from '@utils';
 
 export interface ButtonProps extends TouchableOpacityProps {
   label: string;
@@ -46,7 +48,9 @@ const WrapContent = ({isWrap, children}: WrapContentProps) => {
 export function AppButton(props: ButtonProps) {
   const {
     label,
-    onPress = () => {},
+    onPress = () => {
+      LogApp('CLICK_BUTTON');
+    },
     style,
     Icon,
     labelStyle,

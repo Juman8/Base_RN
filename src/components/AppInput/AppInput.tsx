@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Colors, Theme, useTheme} from '@theme';
+import {Box, Colors, Spacing, Theme, useTheme} from '@theme';
 import {
   KeyboardTypeOptions,
   Pressable,
@@ -62,9 +62,10 @@ export function AppInput(
             styles.inputStyle,
             {color: themeColor.textColor},
             isFocus && styles.btnActive,
-            secureTextEntry && {paddingRight: 50},
+            secureTextEntry && {paddingRight: Spacing.width50},
           ]}
           placeholderTextColor={themeColor.primary}
+          textContentType="newPassword"
         />
       </Box>
     );
@@ -87,7 +88,7 @@ export function AppInput(
             styles.inputStyle,
             {color: themeColor.textColor},
             isFocus && styles.btnActive,
-            secureTextEntry && {paddingRight: 50},
+            secureTextEntry && {paddingRight: Spacing.width50},
           ]}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
@@ -96,6 +97,7 @@ export function AppInput(
           autoCapitalize="none"
           placeholderTextColor={themeColor.placeHolderColor}
           clearButtonMode="while-editing"
+          textContentType="newPassword"
         />
         {!!error && !!touched && (
           <AppText

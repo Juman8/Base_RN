@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {BackIcon} from '@assets';
 import {AppText} from '@components';
 import {goBack} from '@navigation';

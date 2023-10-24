@@ -2,8 +2,6 @@ import {GlobalService} from '@components';
 import {AppChangeLanguage} from '@instances';
 // import {authApi} from '@redux';
 import {useTheme} from '@theme';
-import {dataHealthContent, firebaseSvc, LogApp} from '@utils';
-import dayjs from 'dayjs';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {AppButtonHome} from './AppButtonHome';
@@ -18,51 +16,11 @@ export const useHookHome = () => {
   // RTK QUERY
   // const {data, isLoading} = authApi.useGetListDataQuery();
 
-  const [dataContent, setDataContent] = useState<dataHealthContent[]>([]);
-  const [dataToday, setDataToDay] = useState<dataHealthContent>();
-  const [monthFilter, setMonFilter] = useState<string>(
-    dayjs().format('MM/YYYY'),
-  );
-
   useEffect(() => {
     GlobalService.hideLoading();
   }, []);
   const onSwitchLang = AppChangeLanguage();
   // const insets = useSafeAreaInsets();
-
-  useEffect(() => {
-    firebaseSvc.getListDataOfHealth(outPutHealth => {
-      LogApp({outPutHealth});
-      setDataContent(outPutHealth);
-    }, monthFilter);
-  }, [monthFilter]);
-
-  useEffect(() => {
-    const subscription = firebaseSvc.onHandleDataChange(
-      (valueChange: dataHealthContent) => {
-        setDataContent((prv: any) => {
-          const isExit =
-            prv.findIndex(
-              (el: dataHealthContent) => el.id === valueChange.id,
-            ) !== -1;
-          if (!isExit) {
-            return prv.concat([valueChange]);
-          } else {
-            return prv.map((el: dataHealthContent) => {
-              if (el.id === valueChange.id) {
-                return {
-                  ...valueChange,
-                };
-              }
-              return el;
-            });
-          }
-        });
-      },
-      monthFilter,
-    );
-    return () => subscription();
-  }, [monthFilter]);
 
   const ListFooterComponent = React.useMemo((): JSX.Element => {
     return (
@@ -71,15 +29,6 @@ export const useHookHome = () => {
         <ViewNote />
       </>
     );
-  }, []);
-
-  useEffect(() => {
-    const subscription = firebaseSvc.onGetDataToday(
-      (valueChange: dataHealthContent) => {
-        setDataToDay(valueChange);
-      },
-    );
-    return () => subscription();
   }, []);
 
   return {
@@ -91,9 +40,5 @@ export const useHookHome = () => {
     value,
     setValue,
     t,
-    dataContent,
-    dataToday,
-    monthFilter,
-    setMonFilter,
   };
 };

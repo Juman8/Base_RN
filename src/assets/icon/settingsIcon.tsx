@@ -1,10 +1,10 @@
 import * as React from 'react';
-import Svg, { Path } from 'react-native-svg';
+import Svg, {Path} from 'react-native-svg';
 
-import { iconProps } from '@assets';
+import {iconProps} from '@assets';
 
 const SettingsIcon = (props: iconProps) => {
-  const { strokeColor } = props;
+  const {strokeColor} = props;
   return (
     <Svg width={21} height={21} viewBox="0 0 21 21" fill="none" {...props}>
       <Path
@@ -21,4 +21,4 @@ const SettingsIcon = (props: iconProps) => {
   );
 };
 
-export { SettingsIcon };
+export {SettingsIcon};

@@ -1,12 +1,15 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {AppText, GlobalService, GlobalUI} from '@components';
 import {NavigationApp, NavigationUtils} from '@navigation';
 import {persistor, store} from '@redux';
-import {Box, Colors, ThemeProvider} from '@theme';
-import React, {useEffect, useState} from 'react';
+import {
+  Box,
+  Colors,
+  ENUM_COLORS,
+  ENUM_SPACING_ALIAS,
+  ThemeProvider,
+} from '@theme';
+import React, {useCallback, useEffect, useState} from 'react';
 import {ActivityIndicator, Platform, StyleSheet} from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import codePush, {DownloadProgress} from 'react-native-code-push';
@@ -27,7 +30,6 @@ import {initI18n} from './src/translations';
 initI18n();
 
 const options = {
-  // updateDialog: true,
   installMode: codePush.InstallMode.IMMEDIATE,
   checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
 };
@@ -38,7 +40,7 @@ function App() {
   const [syncMessage, setSyncMessage] = useState('');
   const rotation = useSharedValue(0);
 
-  const codePushFunction = () => {
+  const codePushFunction = useCallback(() => {
     codePush
       .sync(
         options,
@@ -49,7 +51,6 @@ function App() {
               break;
             }
             case codePush.SyncStatus.INSTALLING_UPDATE: {
-              // RNBootSplash.hide();
               setDownloading(true);
               break;
             }
@@ -68,9 +69,6 @@ function App() {
             case codePush.SyncStatus.UNKNOWN_ERROR:
               setUpdating(false);
               break;
-            // default:
-            //   setUpdating(false);
-            //   break;
           }
         },
         (progress: DownloadProgress) => {
@@ -79,17 +77,16 @@ function App() {
           currentProgress = currentProgress > 100 ? 100 : currentProgress;
           rotation.value = currentProgress;
         },
-        () => {},
       )
       .finally(() => {
         setUpdating(false);
       });
-  };
+  }, [rotation]);
 
   useEffect(() => {
     RNBootSplash.hide({fade: true, duration: 5000});
     codePushFunction();
-  }, []);
+  }, [codePushFunction]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -97,28 +94,21 @@ function App() {
     };
   });
 
-  const AppContent = () => {
+  const renderAppContent = (): JSX.Element => {
     if (isUpdating) {
       return (
         <Box style={styleApp.viewUpdate}>
           {!downloading ? (
             <ActivityIndicator size={'small'} color={Colors.blue} />
           ) : (
-            <Box style={{width: '100%', paddingHorizontal: 50}}>
-              <Animated.View
-                style={[
-                  {
-                    height: 5,
-                    backgroundColor: Colors.blue,
-                    borderRadius: 5 / 2,
-                    opacity: 0.6,
-                  },
-                  animatedStyle,
-                ]}
-              />
+            <Box width="100%" paddingHorizontal={ENUM_SPACING_ALIAS.PIXEL_24}>
+              <Animated.View style={[styleApp.txtDownload, animatedStyle]} />
             </Box>
           )}
-          <AppText style={{color: '#000', marginTop: 15}}>
+          <AppText
+            marginTop={ENUM_SPACING_ALIAS.PIXEL_4}
+            color={ENUM_COLORS.textColor}
+          >
             {syncMessage || 'Checking for update...'}
           </AppText>
         </Box>
@@ -140,7 +130,7 @@ function App() {
         <SafeAreaView style={styleApp.container} edges={['right', 'left']}>
           <ThemeProvider>
             <PersistGate loading={null} persistor={persistor}>
-              <AppContent />
+              {renderAppContent()}
               <GlobalUI ref={GlobalService.globalUIRef} />
               <FlashMessage
                 style={styleApp.messageNotify}
@@ -169,6 +159,12 @@ const styleApp = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 80,
     backgroundColor: 'white',
+  },
+  txtDownload: {
+    height: 5,
+    backgroundColor: Colors.blue,
+    borderRadius: 5 / 2,
+    opacity: 0.6,
   },
 });
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {Spacing, Text, useTheme} from '@theme';
+import {MIN_HEIGHT_400, Spacing, Text, useTheme} from '@theme';
 import React, {forwardRef, useEffect} from 'react';
 import {
   View,
@@ -67,7 +67,7 @@ const RenderContent = ({
 
   if (!isOnlyList) {
     return (
-      <View style={[styles.contain, rootStyle, {height: 400}]}>
+      <View style={[styles.contain, rootStyle, {height: MIN_HEIGHT_400}]}>
         {isFirst && isLoading && data.length < 1 && (
           <View style={styles.loading}>
             <ActivityIndicator size="small" color={themeColor.primary} />

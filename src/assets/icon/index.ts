@@ -15,5 +15,16 @@ import Eye from './eye.svg';
 import EyeActive from './eyeActive.svg';
 import LoveIcon from './loveIcon.svg';
 
-export {LoveIcon, UserIconActive, MainIcon, MainIconActive, UserIcon, IconLiked, Eye, EyeActive, BackIcon, CloseIcon};
+export {
+  LoveIcon,
+  UserIconActive,
+  MainIcon,
+  MainIconActive,
+  UserIcon,
+  IconLiked,
+  Eye,
+  EyeActive,
+  BackIcon,
+  CloseIcon,
+};
 export * from '../icon/image';

@@ -17,6 +17,7 @@ export enum SCREEN_ROUTE {
 }
 
 export interface RootStackParamList {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
   [SCREEN_ROUTE.MAIN_STACK]: undefined;
   [SCREEN_ROUTE.HOME_PAGE]: undefined;
