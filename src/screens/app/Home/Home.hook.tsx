@@ -1,12 +1,13 @@
 import {GlobalService} from '@components';
 import {AppChangeLanguage} from '@instances';
+import {Axios} from '@redux';
 // import {authApi} from '@redux';
 import {useTheme} from '@theme';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {AppButtonHome} from './AppButtonHome';
 import {ViewNote} from './ViewNote';
-
+let api = null;
 export const useHookHome = () => {
   const {updateTheme} = useTheme();
   const {t} = useTranslation();
@@ -15,6 +16,24 @@ export const useHookHome = () => {
 
   // RTK QUERY
   // const {data, isLoading} = authApi.useGetListDataQuery();
+
+  const apiCall = () => {
+    api = Axios.get('https://jsonplaceholder.typicode.com/users').subscribe(
+      da => {
+        console.log(da);
+      },
+    );
+  };
+
+  useEffect(() => {
+    apiCall();
+    apiCall();
+    apiCall();
+    apiCall();
+    apiCall();
+    apiCall();
+    apiCall();
+  }, []);
 
   useEffect(() => {
     GlobalService.hideLoading();
