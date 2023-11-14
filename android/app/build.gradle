@@ -70,6 +70,8 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 
 // apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+apply plugin: 'kotlin-android'
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -115,7 +117,10 @@ dependencies {
     implementation "androidx.core:core-splashscreen:1.0.0"
     implementation platform('com.google.firebase:firebase-bom:31.2.2')
     implementation 'com.google.firebase:firebase-analytics'
-    
+
+    implementation 'androidx.core:core-ktx:$'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.squareup.okhttp3', module:'okhttp'

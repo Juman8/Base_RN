@@ -21,6 +21,7 @@ module.exports = {
           '@api': './src/api',
           '@interfaces': './src/interfaces',
           '@models': './src/models',
+          '@lib': './lib',
         },
       },
     ],

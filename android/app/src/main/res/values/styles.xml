@@ -8,9 +8,17 @@
     </style>
 
     <style name="BootTheme" parent="Theme.SplashScreen">
-    <item name="windowSplashScreenBackground">@color/bootsplash_background</item>
-    <item name="windowSplashScreenAnimatedIcon">@drawable/launch_screen</item>
-    <item name="postSplashScreenTheme">@style/AppTheme</item>
-  </style>
+        <!-- <item name="windowSplashScreenBackground">@color/bootsplash_background</item> -->
+        <!-- <item name="windowSplashScreenAnimatedIcon">@drawable/launch_screen</item> --> -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+
+        <!-- <item name="postSplashScreenTheme">@style/AppTheme</item> -->
+    </style>
+
+    <style name="PauseDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/fadein</item>
+        <item name="android:windowExitAnimation">@anim/fadeout</item>
+    </style>
 
 </resources>

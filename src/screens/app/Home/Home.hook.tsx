@@ -1,6 +1,6 @@
 import {GlobalService} from '@components';
 import {AppChangeLanguage} from '@instances';
-import {Axios} from '@redux';
+import {apiCustomize, Axios} from '@redux';
 // import {authApi} from '@redux';
 import {useTheme} from '@theme';
 import React, {useEffect, useState} from 'react';
@@ -25,14 +25,23 @@ export const useHookHome = () => {
     );
   };
 
+  const apiCustomev2 = () => {
+    apiCustomize
+      .callApi('get', 'https://jsonplaceholder.typicode.com/users')
+      .subscribe(v => {
+        console.log(v);
+      });
+  };
+
   useEffect(() => {
-    apiCall();
-    apiCall();
-    apiCall();
-    apiCall();
-    apiCall();
-    apiCall();
-    apiCall();
+    apiCustomev2();
+    // apiCall();
+    // apiCall();
+    // apiCall();
+    // apiCall();
+    // apiCall();
+    // apiCall();
+    // apiCall();
   }, []);
 
   useEffect(() => {

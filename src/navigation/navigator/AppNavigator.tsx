@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import {SplashScreen} from '@lib';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {getTokenUserFromStore} from '@redux';
@@ -41,6 +42,7 @@ const NavigationApp = React.forwardRef((props, ref: any) => {
       onReady={() => {
         setTimeout(() => {
           RNBootSplash.hide();
+          SplashScreen.hide();
         }, 800);
       }}
     >
