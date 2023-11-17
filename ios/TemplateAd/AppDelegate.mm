@@ -4,6 +4,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import "RNBootSplash.h"
 #import <Firebase.h>
+#import "LaunchScreenManager.h"
 
 @implementation AppDelegate
 
@@ -14,11 +15,25 @@
       [FIRApp configure];
   }
   
-  [RNBootSplash initWithStoryboard:@"LaunchScreen" rootView:self.window.rootViewController.view];
   self.moduleName = @"TemplateAd";
   self.initialProps = @{};
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
+
+- (UIView *)createRootViewWithBridge:(RCTBridge *)bridge
+                          moduleName:(NSString *)moduleName
+                           initProps:(NSDictionary *)initProps {
+  UIView *rootView = [super createRootViewWithBridge:bridge
+                                          moduleName:moduleName
+                                           initProps:initProps];
+  
+//  [[LaunchScreenManager instance] animateAfterLaunch:rootView];
+  [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView]; // ⬅️ initialize the splash screen
+
+
+  return rootView;
+}
+
 
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

@@ -34,9 +34,10 @@
 		7699B88040F8A987B510C191 /* libPods-TemplateAd-TemplateAdTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-TemplateAd-TemplateAdTests.a */; };
 		77A38B38E16540D290850CFD /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F84D93E0820E49D4A38D32A4 /* Poppins-Regular.ttf */; };
 		7835189FD23A4EE180B5BFA6 /* Barlow-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36F334057D794A26A76142B8 /* Barlow-Light.ttf */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8E9593BB245440369A7CB825 /* PingFang-SC-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB865F1713794942923A8FC5 /* PingFang-SC-Medium.ttf */; };
 		A20B97C720944C4B92E7CCCB /* Barlow-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F30EF50720B48CBB320DA9A /* Barlow-ExtraLightItalic.ttf */; };
+		A40E12782B07179B007E98BF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A40E12772B07179B007E98BF /* BootSplash.storyboard */; };
+		A426F1D52B0748E60074E3A3 /* LaunchScreenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A426F1D42B0748E60074E3A3 /* LaunchScreenManager.m */; };
 		A462E0B5299CD05A00EFED89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A462E0B4299CD05900EFED89 /* GoogleService-Info.plist */; };
 		A49979BE28E6CD8D00FF9C88 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A49979BD28E6CD8D00FF9C88 /* Config.xcconfig */; };
 		A8241B61A18B468391318E5B /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14931F5B46BF43D1B6CC428D /* Poppins-Bold.ttf */; };
@@ -82,12 +83,15 @@
 		6557DC9F7C27406BA47505AD /* Poppins-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Black.ttf"; path = "../src/assets/fonts/Poppins-Black.ttf"; sourceTree = "<group>"; };
 		659332AE261540B1991375CB /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../src/assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
 		7F64D57BC0D041F29590B622 /* Barlow-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-ExtraLight.ttf"; path = "../src/assets/fonts/Barlow-ExtraLight.ttf"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = TemplateAd/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8289D602A8D54A65BB973EA6 /* PingFang-SC-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PingFang-SC-Bold.ttf"; path = "../src/assets/fonts/PingFang-SC-Bold.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-TemplateAd-TemplateAdTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TemplateAd-TemplateAdTests.release.xcconfig"; path = "Target Support Files/Pods-TemplateAd-TemplateAdTests/Pods-TemplateAd-TemplateAdTests.release.xcconfig"; sourceTree = "<group>"; };
 		8DB103E450A74EE3A1A78B61 /* Barlow-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-BlackItalic.ttf"; path = "../src/assets/fonts/Barlow-BlackItalic.ttf"; sourceTree = "<group>"; };
 		9F30EF50720B48CBB320DA9A /* Barlow-ExtraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-ExtraLightItalic.ttf"; path = "../src/assets/fonts/Barlow-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		9F91AE06637349C48CA8693E /* Barlow-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-Bold.ttf"; path = "../src/assets/fonts/Barlow-Bold.ttf"; sourceTree = "<group>"; };
+		A40E12772B07179B007E98BF /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = TemplateAd/BootSplash.storyboard; sourceTree = "<group>"; };
+		A426F1D02B0742A00074E3A3 /* TemplateAd-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TemplateAd-Bridging-Header.h"; sourceTree = "<group>"; };
+		A426F1D42B0748E60074E3A3 /* LaunchScreenManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchScreenManager.m; sourceTree = "<group>"; };
+		A426F1D62B07490C0074E3A3 /* LaunchScreenManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchScreenManager.h; sourceTree = "<group>"; };
 		A462E0B4299CD05900EFED89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A49979BD28E6CD8D00FF9C88 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		AA0DDB920BA44CC59C242398 /* Barlow-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-ThinItalic.ttf"; path = "../src/assets/fonts/Barlow-ThinItalic.ttf"; sourceTree = "<group>"; };
@@ -146,13 +150,16 @@
 		13B07FAE1A68108700A75B9A /* TemplateAd */ = {
 			isa = PBXGroup;
 			children = (
+				A40E12772B07179B007E98BF /* BootSplash.storyboard */,
 				A462E0B4299CD05900EFED89 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				A426F1D02B0742A00074E3A3 /* TemplateAd-Bridging-Header.h */,
+				A426F1D42B0748E60074E3A3 /* LaunchScreenManager.m */,
+				A426F1D62B07490C0074E3A3 /* LaunchScreenManager.h */,
 			);
 			name = TemplateAd;
 			sourceTree = "<group>";
@@ -306,7 +313,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1500;
 					};
 				};
 			};
@@ -341,7 +348,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				F3573AE2A42444F3A9C02428 /* Barlow-Black.ttf in Resources */,
 				A49979BE28E6CD8D00FF9C88 /* Config.xcconfig in Resources */,
@@ -353,6 +359,7 @@
 				6762260A9FEE46DFB3C00BB3 /* Barlow-ExtraLight.ttf in Resources */,
 				A20B97C720944C4B92E7CCCB /* Barlow-ExtraLightItalic.ttf in Resources */,
 				70F4C95CCCE241719F65A177 /* Barlow-Italic.ttf in Resources */,
+				A40E12782B07179B007E98BF /* BootSplash.storyboard in Resources */,
 				7835189FD23A4EE180B5BFA6 /* Barlow-Light.ttf in Resources */,
 				1143BE5DF1E54AB88BDC8F68 /* Barlow-LightItalic.ttf in Resources */,
 				2CA0A6BCD4794681B838BF1A /* Barlow-Medium.ttf in Resources */,
@@ -554,6 +561,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A426F1D52B0748E60074E3A3 /* LaunchScreenManager.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -649,6 +657,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.join.managerment;
 				PRODUCT_NAME = TemplateAd;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "TemplateAd-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -680,6 +689,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.join.managerment;
 				PRODUCT_NAME = TemplateAd;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "TemplateAd-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

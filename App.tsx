@@ -11,7 +11,6 @@ import {
 } from '@theme';
 import React, {useCallback, useEffect, useState} from 'react';
 import {ActivityIndicator, Platform, StyleSheet} from 'react-native';
-import RNBootSplash from 'react-native-bootsplash';
 import codePush, {DownloadProgress} from 'react-native-code-push';
 import FlashMessage from 'react-native-flash-message';
 import Animated, {
@@ -84,7 +83,6 @@ function App() {
   }, [rotation]);
 
   useEffect(() => {
-    RNBootSplash.hide({fade: true, duration: 5000});
     codePushFunction();
   }, [codePushFunction]);
 
