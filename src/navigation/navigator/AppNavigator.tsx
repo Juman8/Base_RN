@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {SplashScreen} from '@lib';
+import {SplashScreen} from '../../../lib';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {getTokenUserFromStore} from '@redux';
 import {useTheme} from '@theme';
 import React from 'react';
-import RNBootSplash from 'react-native-bootsplash';
 import {useSelector} from 'react-redux';
 import {SCREEN_ROUTE} from '../route';
 import {AuthStackComponent} from '../stack/AuthStack';
@@ -41,9 +40,8 @@ const NavigationApp = React.forwardRef((props, ref: any) => {
       ref={ref}
       onReady={() => {
         setTimeout(() => {
-          RNBootSplash.hide();
           SplashScreen.hide();
-        }, 800);
+        }, 500);
       }}
     >
       {renderStackApp()}

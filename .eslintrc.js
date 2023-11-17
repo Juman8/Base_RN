@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 module.exports = {
   root: true,
   extends: [
@@ -10,8 +9,8 @@ module.exports = {
   rules: {
     // 'no-unused-vars': 1,
     '@typescript-eslint/no-unused-vars': 1,
-    '@typescript-eslint/no-explicit-any': 1,
+    '@typescript-eslint/no-explicit-any': 2,
     '@typescript-eslint/no-empty-function': 1,
-    "@typescript-eslint/no-non-null-assertion": 0,
+    '@typescript-eslint/no-non-null-assertion': 0,
   },
 };

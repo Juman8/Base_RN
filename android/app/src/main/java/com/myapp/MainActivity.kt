@@ -9,7 +9,6 @@ import com.myapp.splash_screen.SplashScreen.Companion.show
 
 class MainActivity : ReactActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        // RNBootSplash.init(this);
         show(this, true)
         super.onCreate(null)
     }
