@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
 /**
@@ -75,7 +76,8 @@ apply plugin: 'kotlin-android'
 android {
     ndkVersion rootProject.ext.ndkVersion
 
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdk rootProject.ext.compileSdkVersion
 
     namespace "com.myapp"
     defaultConfig {
@@ -121,12 +123,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:$'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.squareup.okhttp3', module:'okhttp'
-    }
-
-    debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}")
+    implementation("com.facebook.react:flipper-integration")
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {

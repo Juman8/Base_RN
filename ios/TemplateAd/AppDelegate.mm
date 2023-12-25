@@ -10,11 +10,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  
+
   if ([FIRApp defaultApp] == nil) {
       [FIRApp configure];
   }
-  
+
   self.moduleName = @"TemplateAd";
   self.initialProps = @{};
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
@@ -26,7 +26,7 @@
   UIView *rootView = [super createRootViewWithBridge:bridge
                                           moduleName:moduleName
                                            initProps:initProps];
-  
+
 //  [[LaunchScreenManager instance] animateAfterLaunch:rootView];
   [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView]; // ⬅️ initialize the splash screen
 
@@ -38,6 +38,7 @@
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
+  // return [self getBundleURL];
 #if DEBUG
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
 #else
