@@ -26,6 +26,7 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {initI18n} from './src/translations';
+
 initI18n();
 
 const options = {

@@ -16,26 +16,25 @@ import com.microsoft.codepush.react.CodePush
 import com.myapp.splash_screen.SplashScreenReactPackage
 
 class MainApplication : Application(), ReactApplication {
-    private val mReactNativeHost: ReactNativeHost = object : DefaultReactNativeHost(this) {
-
+    override val reactNativeHost: ReactNativeHost =
+      object : DefaultReactNativeHost(this) {
         override fun getPackages(): List<ReactPackage> {
-            val packages: MutableList<ReactPackage> = PackageList(this).packages
-            // Packages that cannot be autolinked yet can be added manually here, for example:
-            packages.add(SplashScreenReactPackage())
-            CodePush("qhkiv9WbY9MFYOd3Lu4zvFn5m4tSmSTk743ws", applicationContext, false)
-            return packages
-        }
+          val packages: MutableList<ReactPackage> = PackageList(this).packages
 
+          // Packages that cannot be autolinked yet can be added manually here, for example:
+          // packages.add(new MyReactNativePackage());
+          packages.add(SplashScreenReactPackage())
+          CodePush("qhkiv9WbY9MFYOd3Lu4zvFn5m4tSmSTk743ws", applicationContext, false)
+          return packages
+        }
         override fun getJSMainModuleName(): String = "index"
-
-        override fun getJSBundleFile(): String? {
-            return CodePush.getJSBundleFile()
-        }
         override fun getUseDeveloperSupport(): Boolean = BuildConfig.DEBUG
         override val isNewArchEnabled: Boolean = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED
         override val isHermesEnabled: Boolean = BuildConfig.IS_HERMES_ENABLED
-    }
-
+        override fun getJSBundleFile(): String? {
+            return CodePush.getJSBundleFile()
+        }
+      }
     override val reactHost: ReactHost
         get() = getDefaultReactHost(this.applicationContext, reactNativeHost)
     // override fun getReactNativeHost(): ReactNativeHost {

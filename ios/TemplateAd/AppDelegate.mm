@@ -4,7 +4,6 @@
 #import <React/RCTBundleURLProvider.h>
 #import "RNBootSplash.h"
 #import <Firebase.h>
-#import "LaunchScreenManager.h"
 
 @implementation AppDelegate
 
@@ -27,9 +26,8 @@
                                           moduleName:moduleName
                                            initProps:initProps];
 
-//  [[LaunchScreenManager instance] animateAfterLaunch:rootView];
   [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView]; // ⬅️ initialize the splash screen
-
+//  [LaunchScreenManager animateSplashScreen];
 
   return rootView;
 }

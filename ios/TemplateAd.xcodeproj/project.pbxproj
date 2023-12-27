@@ -37,7 +37,6 @@
 		8E9593BB245440369A7CB825 /* PingFang-SC-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB865F1713794942923A8FC5 /* PingFang-SC-Medium.ttf */; };
 		A20B97C720944C4B92E7CCCB /* Barlow-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F30EF50720B48CBB320DA9A /* Barlow-ExtraLightItalic.ttf */; };
 		A40E12782B07179B007E98BF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A40E12772B07179B007E98BF /* BootSplash.storyboard */; };
-		A426F1D52B0748E60074E3A3 /* LaunchScreenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A426F1D42B0748E60074E3A3 /* LaunchScreenManager.m */; };
 		A462E0B5299CD05A00EFED89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A462E0B4299CD05900EFED89 /* GoogleService-Info.plist */; };
 		A49979BE28E6CD8D00FF9C88 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A49979BD28E6CD8D00FF9C88 /* Config.xcconfig */; };
 		A8241B61A18B468391318E5B /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14931F5B46BF43D1B6CC428D /* Poppins-Bold.ttf */; };
@@ -90,8 +89,6 @@
 		9F91AE06637349C48CA8693E /* Barlow-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-Bold.ttf"; path = "../src/assets/fonts/Barlow-Bold.ttf"; sourceTree = "<group>"; };
 		A40E12772B07179B007E98BF /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = TemplateAd/BootSplash.storyboard; sourceTree = "<group>"; };
 		A426F1D02B0742A00074E3A3 /* TemplateAd-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TemplateAd-Bridging-Header.h"; sourceTree = "<group>"; };
-		A426F1D42B0748E60074E3A3 /* LaunchScreenManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchScreenManager.m; sourceTree = "<group>"; };
-		A426F1D62B07490C0074E3A3 /* LaunchScreenManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchScreenManager.h; sourceTree = "<group>"; };
 		A462E0B4299CD05900EFED89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A49979BD28E6CD8D00FF9C88 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		AA0DDB920BA44CC59C242398 /* Barlow-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-ThinItalic.ttf"; path = "../src/assets/fonts/Barlow-ThinItalic.ttf"; sourceTree = "<group>"; };
@@ -158,8 +155,6 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				A426F1D02B0742A00074E3A3 /* TemplateAd-Bridging-Header.h */,
-				A426F1D42B0748E60074E3A3 /* LaunchScreenManager.m */,
-				A426F1D62B07490C0074E3A3 /* LaunchScreenManager.h */,
 			);
 			name = TemplateAd;
 			sourceTree = "<group>";
@@ -541,7 +536,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A426F1D52B0748E60074E3A3 /* LaunchScreenManager.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -628,7 +622,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.11.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -660,7 +654,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.11.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

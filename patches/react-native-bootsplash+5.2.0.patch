@@ -1,0 +1,24 @@
+diff --git a/node_modules/react-native-bootsplash/ios/RNBootSplash.mm b/node_modules/react-native-bootsplash/ios/RNBootSplash.mm
+index f8969e4..91293e6 100755
+--- a/node_modules/react-native-bootsplash/ios/RNBootSplash.mm
++++ b/node_modules/react-native-bootsplash/ios/RNBootSplash.mm
+@@ -104,6 +104,19 @@ + (void)initWithStoryboard:(NSString * _Nonnull)storyboardName
+       _loadingView.center = (CGPoint){CGRectGetMidX(_rootView.bounds), CGRectGetMidY(_rootView.bounds)};
+       _loadingView.hidden = NO;
+     
++        UIImageView *imageView = (UIImageView *)[_loadingView viewWithTag:113];
++
++        // Kiểm tra xem imageView có tồn tại không
++        if (imageView) {
++            [UIView animateWithDuration:1.0 animations:^{
++                // Chỉnh sửa chỉ transform của ảnh để thực hiện animation scale
++                imageView.transform = CGAffineTransformMakeScale(1.2, 1.2);
++            } completion:^(BOOL finished) {
++                // Khi animation hoàn thành, có thể thực hiện các công việc cần thiết
++            }];
++        }
++        
++
+       [_rootView addSubview:_loadingView];
+ 
+       [[NSNotificationCenter defaultCenter] addObserver:self

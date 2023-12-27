@@ -2,7 +2,7 @@
 import {t} from 'i18next';
 import {showMessage} from 'react-native-flash-message';
 import {MMKV} from 'react-native-mmkv';
-import Reactotron from 'reactotron-react-native';
+// import Reactotron from 'reactotron-react-native';
 
 export const AsyncStorage = new MMKV();
 
@@ -25,11 +25,11 @@ export const LogApp = (
 ) => {
   if (__DEV__) {
     value ? console.log(key, value, ...optionalParams) : console.log(key);
-    if (Reactotron.log) {
-      value
-        ? Reactotron.log(key, value, ...optionalParams)
-        : Reactotron.log(key);
-    }
+    // if (Reactotron.log) {
+    //   value
+    //     ? Reactotron.log(key, value, ...optionalParams)
+    //     : Reactotron.log(key);
+    // }
   }
 };
 

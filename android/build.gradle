@@ -12,6 +12,7 @@ buildscript {
         appName = "Mint"
         kotlinVersion = "1.8.0"
         kotlin_version = "1.8.0"
+        enableHermes = true
     }
     repositories {
         google()

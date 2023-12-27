@@ -26,7 +26,7 @@ public class SplashScreen {
                     mSplashDialog?.setContentView(R.layout.launch_screen)
                     val imgAppIcon = mSplashDialog?.findViewById<ImageView>(R.id.img_app_icon)
                     val animator = ObjectAnimator.ofFloat(imgAppIcon, "rotation", 0f, 360f)
-                    animator.duration = 2000
+                    animator.duration = 3000
                     animator.start()
                     mSplashDialog?.setCancelable(false)
                     setActivityAndroidP(mSplashDialog)
