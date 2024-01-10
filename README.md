@@ -1,3 +1,9 @@
+Change Theme:
+Thay đỏi các theme tương ứng
+Xóa liên kết theme trong các thư mục android và trên ios (Xcode)
+chạy lại lệnh: npx react-native-asset
+
+
 [Template ts]()
 
 Mình cần các thông tin:
