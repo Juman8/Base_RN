@@ -34,7 +34,7 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>CodePushDeploymentKey</key>
-	<string>8VJXnhDHQhawk4aspIwJHlNagS4vk0oGrvcWA</string>
+	<string>8Be0mVhtGGwXQiSCDGC9fha4_giJNVpvguSFX</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>

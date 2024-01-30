@@ -2,7 +2,7 @@
     <string name="app_name">TemplateAd</string>
     <string name="facebook_app_id">375801829211818</string>
     <string name="facebook_client_token">ad2714c8fe2a07596bbf548c811615dd</string>
-    <string moduleConfig="true" name="CodePushDeploymentKey">qhkiv9WbY9MFYOd3Lu4zvFn5m4tSmSTk743ws</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">kalkhw8AJdsDX3sBr4IC7ktwkt4Ar9n0GHpXJ</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
 </resources>
