@@ -14,6 +14,7 @@ interface AppScrollWrapBottomTabProps {
 
 const NewFlatList = Animated.createAnimatedComponent(FlatList);
 
+// ANIMATED SCROLL FOR HIDE BOTOTM BAR
 export const AppScrollWrapBottomTab = React.memo(
   (props: AppScrollWrapBottomTabProps) => {
     const scrollYOld = useRef(0);

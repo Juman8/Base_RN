@@ -27,6 +27,7 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {FirebaseNotification} from './src/notification/firebaseNotification';
 import {initI18n} from './src/translations';
+import {withTranslation} from 'react-i18next';
 
 initI18n();
 
@@ -169,4 +170,4 @@ const styleApp = StyleSheet.create({
   },
 });
 
-export default codePush(options)(App);
+export default withTranslation()(codePush(options)(App));

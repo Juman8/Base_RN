@@ -5,5 +5,8 @@
   "btnNotification": "Notification",
   "messagesNotify": "Notice",
   "switchTheme": "Switch Theme",
-  "switchLang": "Switch Lang"
+  "switchLang": "Switch Lang",
+
+  "or":"or",
+  "of":"of"
 }

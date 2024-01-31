@@ -8,10 +8,10 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Spacing.width15,
     borderWidth: 1,
     borderRadius: BORDER_RADIUS_20,
-    borderColor: `${Colors.blue}80`,
+    borderColor: `${Colors.blue}40`,
   },
   btnActive: {
     borderColor: `${Colors.blue}`,
   },
-  viewWidth: {width: '100%'},
+  viewWidth: {width: '100%', paddingVertical: 4},
 });

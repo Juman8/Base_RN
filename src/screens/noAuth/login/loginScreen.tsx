@@ -1,30 +1,36 @@
-import {AppButton, AppInput, AppText} from '@components';
+import {AppButton, AppInputFormik, AppText} from '@components';
+import {yupResolver} from '@hookform/resolvers/yup'; // install @hookform/resolvers (not @hookform/resolvers/yup)
+import {navigate, SCREEN_ROUTE} from '@navigation';
 import {setAccountToken} from '@redux';
-import {Box, MARGIN_TOP, rootStyle} from '@theme';
-import {showAlertMessage} from '@utils';
-import {useFormik} from 'formik';
+import {loginTypeForm, schemaLogin} from '@schema';
+import {Box, ENUM_COLORS, MARGIN_TOP, rootStyle} from '@theme';
 import React from 'react';
+import {useForm} from 'react-hook-form';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch} from 'react-redux';
 
+const defaultValues = {
+  email: '',
+  password: '',
+};
+
 export const LoginScreen = () => {
   const dispatch = useDispatch();
+  const {
+    handleSubmit,
+    control,
+    formState: {errors},
+  } = useForm({
+    resolver: yupResolver(schemaLogin),
+  });
 
-  const handleOnSubmit = (values: {email: string; password: string}) => {
-    if (values.email !== 'Mint' || values.password !== 'Mint') {
-      showAlertMessage('Lỗi đăng nhập', 'warning');
-    } else {
-      dispatch(setAccountToken('MINT'));
-    }
+  const handleOnSubmit = (values: loginTypeForm) => {
+    dispatch(setAccountToken(values.toString()));
   };
 
-  const {values, errors, touched, setFieldValue, handleSubmit} = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    onSubmit: handleOnSubmit,
-  });
+  const onRegister = () => {
+    navigate(SCREEN_ROUTE.REGISTER_PAGE);
+  };
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={rootStyle.container}>
@@ -37,28 +43,42 @@ export const LoginScreen = () => {
         <AppText variant={'title3'} fontWeight="600" marginBottom={'l'}>
           LOGIN
         </AppText>
-        <AppInput
-          value={values.email}
-          onChangeText={value => setFieldValue('email', value)}
+        <AppInputFormik
+          control={control}
           placeholder="User name"
           label="User name"
           keyboardType="email-address"
-          error={errors.email}
-          touched={touched.email}
+          error={errors.email?.message}
+          rules={{required: true}}
+          name="email"
+          defaultValue={defaultValues.email}
         />
-        <AppInput
-          value={values.password}
-          onChangeText={value => setFieldValue('password', value)}
+        <AppInputFormik
+          control={control}
           placeholder="PASSWORD"
           label="PASSWORD"
           marginTop={'xs'}
           secureTextEntry
-          error={errors.password}
-          touched={touched.password}
+          error={errors.password?.message}
+          rules={{required: true}}
+          name="password"
+          defaultValue={defaultValues.password}
         />
+
+        <AppText width={'100%'} marginTop="l" fontSize={11} textAlign="right">
+          Don't have an account? Please{' '}
+          <AppText
+            fontSize={12}
+            color={ENUM_COLORS.color_Icon_Selected}
+            textDecorationLine="underline"
+            onPress={onRegister}
+          >
+            register now!
+          </AppText>
+        </AppText>
         <AppButton
           label="Login"
-          onPress={handleSubmit}
+          onPress={handleSubmit(handleOnSubmit)}
           style={{marginTop: MARGIN_TOP}}
         />
       </Box>

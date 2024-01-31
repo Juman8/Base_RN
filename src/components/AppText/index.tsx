@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {ResponsiveValue, SpacingProps, TypographyProps} from '@shopify/restyle';
 import {ENUM_COLORS, FontWithBold_Barlow, Text, Theme, useTheme} from '@theme';
 import React from 'react';
@@ -8,7 +9,7 @@ interface AppTextProps {
   height?: number | string;
   color?: ENUM_COLORS;
   style?: StyleProp<TextStyle>;
-  children: JSX.Element | string | undefined;
+  children: any;
   variant?:
     | ResponsiveValue<
         'body' | 'button' | 'header' | 'text' | 'title1' | 'title2' | 'title3',
@@ -47,41 +48,48 @@ interface AppTextProps {
   };
 }
 
-export const AppText = (
-  props: AppTextProps &
-    SpacingProps<Theme> &
-    TextProps &
-    TypographyProps<Theme>,
-) => {
-  const {style, children, variant = 'text', numberOfLines, color} = props;
-  const {themeColor} = useTheme();
+export const AppText = React.forwardRef(
+  (
+    props: AppTextProps &
+      SpacingProps<Theme> &
+      TextProps &
+      TypographyProps<Theme>,
+    ref,
+  ) => {
+    const {style, children, variant = 'text', numberOfLines, color} = props;
+    const {themeColor} = useTheme();
 
-  if (numberOfLines === 1) {
+    if (numberOfLines === 1) {
+      return (
+        <TextTicker
+          style={[
+            styles.label,
+            !!color && {color: themeColor.textColor},
+            style,
+          ]}
+          duration={3000}
+          loop
+          bounce
+          repeatSpacer={50}
+          marqueeDelay={1000}
+        >
+          {children}
+        </TextTicker>
+      );
+    }
     return (
-      <TextTicker
-        style={[styles.label, !!color && {color: themeColor.textColor}, style]}
-        duration={3000}
-        loop
-        bounce
-        repeatSpacer={50}
-        marqueeDelay={1000}
+      <Text
+        {...props}
+        style={[styles.label, !color && {color: themeColor.textColor}, style]}
+        numberOfLines={numberOfLines}
+        variant={variant}
+        color={color}
       >
         {children}
-      </TextTicker>
+      </Text>
     );
-  }
-  return (
-    <Text
-      {...props}
-      style={[styles.label, !color && {color: themeColor.textColor}, style]}
-      numberOfLines={numberOfLines}
-      variant={variant}
-      color={color}
-    >
-      {children}
-    </Text>
-  );
-};
+  },
+);
 
 const styles = StyleSheet.create({
   label: {

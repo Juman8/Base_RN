@@ -1,0 +1,9 @@
+{
+  "min6Character": "Password minimum 6 characters",
+  "max12Character": "Password maximum 12 characters",
+  "max20Character": "UserName maximum 20 characters",
+  "NotNull":"Cannot be empty",
+  "invalidEmail":"Invalid email",
+  "mathPassword":"Password must match"
+
+}

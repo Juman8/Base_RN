@@ -28,3 +28,4 @@ export {
   CloseIcon,
 };
 export * from '../icon/image';
+export * from './svg';

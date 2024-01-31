@@ -28,10 +28,10 @@ const theme = createTheme({
   },
   borderRadii: {
     s: Spacing.width4,
-    xs: Spacing.width82,
     m: Spacing.width10,
     l: Spacing.width25,
     xl: Spacing.width75,
+    xs: Spacing.width82,
   },
   breakpoints: {
     phone: 0,
