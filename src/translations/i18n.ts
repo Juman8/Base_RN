@@ -39,9 +39,9 @@ export const resources = {
 const ns = [...Object.keys(en)];
 
 const initI18n = () => {
-  i18next.use(languageDetector).use(initReactI18next).init({
+  (i18next as any).use(languageDetector).use(initReactI18next).init({
     // lng: 'en',
-    // compatibilityJSON: 'v3',
+    compatibilityJSON: 'v3',
     fallbackLng: 'en',
     debug: true,
     resources,

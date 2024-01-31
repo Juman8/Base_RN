@@ -25,6 +25,7 @@ import {
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
+import {FirebaseNotification} from './src/notification/firebaseNotification';
 import {initI18n} from './src/translations';
 
 initI18n();
@@ -137,6 +138,7 @@ function App() {
                 floating={true}
                 hideStatusBar={false}
               />
+              <FirebaseNotification />
             </PersistGate>
           </ThemeProvider>
         </SafeAreaView>

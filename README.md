@@ -6,7 +6,7 @@ chạy lại lệnh: npx react-native-asset
 
 [Template ts]()
 
-Mình cần các thông tin:
+Mình cần các thông tin để submit app:
 1. Tên app
 2. Subtitle (ví dụ: Meet new people, do fun stuff!) (IOS: max 30 character, ANDROID: Max 80 character)
 2. Ảnh preview (Khá Bảnh cung cấp)
