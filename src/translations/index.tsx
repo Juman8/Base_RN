@@ -1,3 +1,5 @@
+import {resources} from './i18n';
+
 export * from './i18n';
 export * from './locales';
 type Space = ' ' | '\t' | '\n';
@@ -10,3 +12,5 @@ type Trim<S extends string> = S extends
 
 const removeSpaces = <S extends string>(input: S): Trim<S> => input as Trim<S>;
 removeSpaces(' sd ');
+
+export type TranslationKeys = (typeof resources)['en'];

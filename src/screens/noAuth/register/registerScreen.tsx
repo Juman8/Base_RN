@@ -3,7 +3,7 @@ import {
   AppCheckBox,
   AppInputFormik,
   AppLoginSocial,
-  AppText,
+  AppText
 } from '@components';
 import {TYPE_BTN_SOCIAL} from '@constants';
 import {yupResolver} from '@hookform/resolvers/yup'; // install @hookform/resolvers (not @hookform/resolvers/yup)
@@ -11,9 +11,9 @@ import {navigate, SCREEN_ROUTE} from '@navigation';
 import {registerTypeForm, schemaRegister} from '@schema';
 import {Box, Spacing} from '@theme';
 import {LogApp} from '@utils';
-import {t} from 'i18next';
 import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
+import {useTranslation} from 'react-i18next';
 import {Platform, TouchableOpacity, View} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -28,6 +28,8 @@ const defaultValue = {
 
 export const RegisterScreen = () => {
   const {bottom, top} = useSafeAreaInsets();
+
+  const {t} = useTranslation()
 
   const {
     handleSubmit,
