@@ -4,3 +4,9 @@ export const ENUM_APP_CHART = {
   SP02_AM: 'SP02_AM',
   SP02_PM: 'SP02_PM',
 };
+
+export enum TYPE_BTN_SOCIAL {
+  GOOGLE = 'GOOGLE',
+  FACEBOOK = 'FACEBOOK',
+  APPLE = 'APPLE',
+}

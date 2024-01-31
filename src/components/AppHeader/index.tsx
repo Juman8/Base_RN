@@ -13,6 +13,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 export interface IAppHeader {
@@ -94,6 +95,8 @@ export const AppHeader = (props: IAppHeader) => {
       </View>
     );
   };
+  const insets = useSafeAreaInsets();
+
   return (
     <TouchableOpacity
       style={[
@@ -101,6 +104,7 @@ export const AppHeader = (props: IAppHeader) => {
         {
           backgroundColor: themeColor.background,
           borderBottomColor: themeColor.divider,
+          paddingTop: insets.top,
         },
         styleContainer,
       ]}

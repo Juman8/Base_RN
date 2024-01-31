@@ -16,7 +16,7 @@ import {AppImage} from '../AppImage/AppImage';
 import {IconLiked} from '@assets';
 import {useTranslation} from 'react-i18next';
 interface HeaderPropsType {
-  onDoubleTap: (item: any) => void;
+  onDoubleTap?: (item: any) => void;
   onPress: () => void;
   file: {name: string}[];
 }
@@ -63,7 +63,7 @@ export const AppGallery = (props: HeaderPropsType) => {
     }
 
     if (refNumTap.current >= 2) {
-      onDoubleTap(item);
+      onDoubleTap?.(item);
       startScaleView();
       refNumTap.current = 0;
     }
@@ -143,7 +143,7 @@ export const AppGallery = (props: HeaderPropsType) => {
       />
       {file?.length > 1 && (
         <View style={styles.indexImageContainer}>
-          {<AppText>{`${page} ${t('title.of')} ${file?.length}`}</AppText>}
+          {<AppText>{`${page} ${t('common:of')} ${file?.length}`}</AppText>}
         </View>
       )}
       {file?.length > 1 && (

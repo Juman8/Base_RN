@@ -80,6 +80,8 @@
       "@interfaces": ["./src/interfaces"],
       "@models": ["./src/models"],
       "@lib": ["./lib"],
+      "@schema": ["./src/schema"],
+      "@examples": ["src/screens/examples"],
     }
   },
   "exclude": [
