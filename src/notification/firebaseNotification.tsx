@@ -1,6 +1,8 @@
 import messaging from '@react-native-firebase/messaging';
 import {Alert, PermissionsAndroid, Platform} from 'react-native';
 import {useEffect} from 'react';
+import {LogApp} from '@utils';
+import notifee from '@notifee/react-native';
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Message handled in the background!', remoteMessage);
@@ -18,7 +20,6 @@ export const FirebaseNotification = () => {
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
     if (enabled) {
-      console.log('Authorization status:', authStatus);
       getFCMToken();
     }
   };
@@ -29,16 +30,33 @@ export const FirebaseNotification = () => {
 
   const getFCMToken = async () => {
     const a = await messaging().getToken();
-    console.log({a});
+    LogApp("FCM TOKEN->>>>", {a});
   };
 
   useEffect(() => {
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-      console.log({remoteMessage});
-    });
+    if(Platform.OS === 'android'){
+      const unsubscribe = messaging().onMessage(async remoteMessage => {
+        Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+        LogApp({remoteMessage});
+        const channelId = await notifee.createChannel({
+          id: 'default',
+          name: 'Default Channel',
+        });
 
-    return unsubscribe;
+        // Display a notification
+        await notifee.displayNotification({
+          title: remoteMessage.notification?.title,
+          body: remoteMessage.notification?.body,
+          android: {
+            channelId,
+            pressAction: {
+              id: 'default',
+            },
+          },
+        });
+      });
+      return unsubscribe;
+    }
   }, []);
 
   return null;
