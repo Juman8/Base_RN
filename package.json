@@ -125,6 +125,11 @@
       "node"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && pretty-quick --staged"
+    }
+  },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json}": [
       "prettier src --write",
