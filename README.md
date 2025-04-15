@@ -51,18 +51,12 @@ or using LogApp() || reactoron to log.
 + video preview:
 +
 
-[Code push](https://github.com/microsoft/appcenter-cli)
+[Code push hot-updater](https://github.com/gronxb/hot-updater)
 
-+ npm install -g appcenter-cli
-+ npm install -g code-push-cli
-+ code-push login
-+ run: appcenter profile list to check login app
-+ run: appcenter apps list to check list app
-+ edit name app trong script (package.json) trung vơi Xcode name
-+ run: createAppCenterAndroid
-+ run: createAppCenterIOS
-+ change CodePushDeploymentKey: android/values.xml
-+ edit CodePushDeploymentKey: ios/info.plit
+[Code push revopush](https://revopush.org/)
+
+
+
 
 ![Uploading image.png…]()
 
