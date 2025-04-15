@@ -40,13 +40,13 @@ or using LogApp() || reactoron to log.
   - 2796 × 1290 px: Cũng tương ứng với iPhone 14 Plus và iPhone 15 Plus (định hướng ngang).
 ```
 + Iphone 6.5"
-  ```
+```
   (1242 × 2688px, 2688 × 1242px, 1284 × 2778px or 2778 × 1284px)
   - 1242 × 2688 px: Tương ứng với iPhone XS Max và iPhone 11 Pro Max.
   - 2688 × 1242 px: Cũng tương ứng với iPhone XS Max và iPhone 11 Pro Max (định hướng ngang).
   - 1284 × 2778 px: Tương ứng với iPhone 12 Pro Max, iPhone 13 Pro Max và iPhone 14 Pro Max.
   - 2778 × 1284 px: Cũng tương ứng với iPhone 12 Pro Max, iPhone 13 Pro Max và iPhone 14 Pro Max (định hướng ngang).
-  ```
+```
 
 + video preview:
 +
