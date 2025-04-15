@@ -30,10 +30,23 @@ or using LogApp() || reactoron to log.
 + screenshot: 16:9 or 9:16
 + video preview: link youtube
 
-[IOS]()
-+ 1242x2688   ~ iiPhone 11 Pro Max
-+ 1242x2208 :  ~ ip 8plus
-+ 1290x2796 or 2796x1290: ~iphone 14
+[IOS](3 app previews and 10 screenshots)
++ iPhone 6.7" or 6.9" Displays.
+```
+  (1320 × 2868px, 2868 × 1320px, 1290 × 2796px or 2796 × 1290px)
+  - 1320 × 2868 px: Tương ứng với iPhone 14 Pro Max và iPhone 15 Pro Max.
+  - 2868 × 1320 px: Cũng tương ứng với iPhone 14 Pro Max và iPhone 15 Pro Max (định hướng ngang).
+  - 1290 × 2796 px: Tương ứng với iPhone 14 Plus và iPhone 15 Plus.
+  - 2796 × 1290 px: Cũng tương ứng với iPhone 14 Plus và iPhone 15 Plus (định hướng ngang).
+```
++ Iphone 6.5"
+  ```
+  (1242 × 2688px, 2688 × 1242px, 1284 × 2778px or 2778 × 1284px)
+  - 1242 × 2688 px: Tương ứng với iPhone XS Max và iPhone 11 Pro Max.
+  - 2688 × 1242 px: Cũng tương ứng với iPhone XS Max và iPhone 11 Pro Max (định hướng ngang).
+  - 1284 × 2778 px: Tương ứng với iPhone 12 Pro Max, iPhone 13 Pro Max và iPhone 14 Pro Max.
+  - 2778 × 1284 px: Cũng tương ứng với iPhone 12 Pro Max, iPhone 13 Pro Max và iPhone 14 Pro Max (định hướng ngang).
+  ```
 
 + video preview:
 +
